@@ -1,0 +1,31 @@
+{% extends base_temp %}
+{% block title %}compose message{% endblock %}
+{%block content%}
+<a href = "{% url 'Sentbox' %}"><button  class="btn btn-light">Sentbox</button></a>
+<a href = "{% url 'Inbox' %}"><button  class="btn btn-light">Inbox</button></a>
+{%if user.appuser.lockdown%}
+<a href = "{% url 'NewMessageDepartment' %}"><button  class="btn btn-light">New Messge</button></a>
+{%else%}
+<a href = "{% url 'NewMessage' %}"><button  class="btn btn-light">New Messge</button></a>
+{%endif%}
+<br/><br/>
+<h1> Messages </h1>
+		<h4> Prepare Message</h4>
+        <form enctype="multipart/form-data" method="POST">
+		{% csrf_token %}
+        {% for field in form%}
+        <p>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+      {% endfor %}
+      {% load static %}
+              <input type="submit" value = 'Send' class="btn-primary"/>
+        </form>
+{%endblock%}

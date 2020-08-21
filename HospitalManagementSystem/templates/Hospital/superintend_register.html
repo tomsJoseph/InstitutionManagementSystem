@@ -1,0 +1,55 @@
+{% extends base_temp%}
+{% block title %}superintend registration{% endblock %}
+{%block content%}
+<div  class="form-group">
+    <h2> registration form for superintend </h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+	{{familymembers}}
+
+    {% for field in user_form%}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+
+    {% for field in form%}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+
+
+    {% for field in address_form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+	<div id='a'></div>
+</br>
+    <button type="submit" class="btn-primary"> proceed</button>
+  </form>
+</div>
+
+  {%endblock%}

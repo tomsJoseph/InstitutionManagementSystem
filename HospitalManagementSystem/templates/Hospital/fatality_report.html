@@ -1,0 +1,180 @@
+{% extends base_temp %}
+{% block title %}surgery report{% endblock %}
+{%block content%}
+<h1>Death report {%if control == 1%}<small><a href="{% url 'WriteFatalityReport' death_report.id%}">edit</a></small>{%endif%}</h1>
+<br /><br />
+<div style="border-style: solid;border-width: 1px;border-radius: 5px;">
+	<h3>Personal information </h3>
+	<hr />
+	<ul style="list-style-type: none;">
+		{%if unknown%}
+		<li>
+			id : U{{patient.id}}
+			<br /><br />
+		</li>
+		<li>
+			age : {{patient.estimated_age}}
+			<br /><br />
+		</li>
+		<li>
+			identity marks: {{patient.patient_identity_marks}}
+			<br /><br />
+		</li>
+		<li>
+			gender : {{patient.patient_gentder}}
+			<br /><br />
+		</li>
+		<li>
+			other information : {{patient.other_known_informations}}
+			<br /><br />
+		</li>
+		{%else%}
+		<li>
+			Full Name : {{patient.p_Fname}} {{patient.p_Lname}}
+			<br /><br />
+		</li>
+		<li>
+			<Address>{{patient.p_address}}</Address>
+		</li>
+		<li>
+			Phone : {{patient.phone}}
+			<br /><br />
+		</li>
+		<li>
+			Gender : {{patient.p_gender}}
+			<br /><br />
+		</li>
+		<li>
+			Age : {{patient.p_age}}
+			<br /><br />
+		</li>
+		{%endif%}
+		<li>
+			companion name : {{hr.companion_name}}
+			<br /><br />
+		</li>
+		<li>
+			companion phone : {{hr.companion_phone}}
+			<br /><br />
+		</li>
+	</ul>
+</div>
+</br>
+<dl style="background-color: rgba(255, 255, 255, .6);" class="container">
+	<dt>
+		date of death
+	</dt>
+	<dd>
+		{{death_report.date_of}}
+	</dd>
+	<dt>
+		time of death
+	</dt>
+	<dd>
+		{{death_report.time_of}}
+	</dd>
+	<dt>
+		last updated by
+	</dt>
+	<dd>
+		{{death_report.updated_by}} {%if not autopsy%} <br> *only doctors of {{death_report.updated_by.department}} department can edit this report{%endif%}
+	</dd>
+	{%if death_report.hr.accident%}
+	<dt>
+		accident involved
+	</dt>
+	<dd>
+		{{death_report.hr.accident}}
+	</dd>
+	{%endif%}
+	<dt>
+		cause of death
+		</dt>
+	<dd> {{death_report.cause.disease_name}}
+	</dd>
+	<dd style="word-wrap: break-word;padding: 1%;"> {{death_report.cause_description}}
+	</dd>
+	<dt>
+		death report
+	</dt>
+	<dd style="word-wrap: break-word;padding: 1%;">
+		{{death_report.death_report}}
+	</dd>
+</dl>
+{% if autopsy%}
+<div style="background-color: rgba(255, 255, 255, .6);" class="container">
+	<h3 class="centered_head">autopsy Information</h3>{%if control == 1%}<a href="{%url 'SurgeryForm' autopsy.id%}">edit autopsy details</a>{%endif%}
+	<hr />
+	<dl>
+		<dt>
+			Team
+			</dt>
+		<dd> 
+			{% for person in autopsy.team.all%}
+			{{person}}
+			{%endfor%}
+			</dd>
+			<dt>
+			Start time</dt>
+			<dd> {{autopsy.start_time}}
+				</dd>
+			<dt>End time
+				</dt>
+				<dd>{{autopsy.end_time}}
+					</dd>
+					<dt>
+			Team report time</dt>
+			<dd>
+			{{autopsy.team_report_time}}
+			</dd>
+			<dt>
+			Theatre</dt>
+			<dd>{{autopsy.theatre}}
+				</dd>
+			<dt>
+			Total amount</dt>
+			<dd>{{autopsy.total_amnt}}
+				</dd>
+				<dt>
+				autopsy inititated by</dt>
+				<dd>{{autopsy.initiated_by}}
+					</dd>
+	
+		</dl>
+
+		</br>
+		</div>
+		<br/>
+		<div style="background-color: rgba(255, 255, 255, .8);">
+			<h3>Report{%if control == 1%}<small><a href="{% url 'WriteFatalityReport' death_report.id%}">edit</a></small>{%endif%}</h3>
+				<div style="word-wrap: break-word;padding: 2%;">{{autopsy.surgery_report}}</div>
+				
+	
+		</div>
+		{%endif%}
+		<div style="background-color: rgba(255, 255, 255, .6);">
+			<hr />
+			{%if autopsy%}
+		<h3>Documents </h3> {%if control <= 2%}<a href="{%url 'UploadSurgeryDocs' autopsy.id%}">upload/edit files</a>{%endif%}
+			{%endif%}
+		<hr />
+		{% load static %}
+		<div style="margin-left:5px;float:left">
+			</br>
+			<br />
+			{%for f in uploaded_files%}
+			{% if f.photo%}
+			<div style="margin-left:5px;float:left">
+				<b>{{f.title}}</b>
+				</br>
+				<a href="{{ f.photo.url }}" target="new"><img src="{{ f.photo.url }}" style="width:250px;height:250px;" /></a>
+				<br />
+			</div>
+			{% endif %}
+			{%endfor%}
+			<br />
+			<br />
+			<br />
+		</div>
+	</div>
+		{%endblock%}

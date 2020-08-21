@@ -1,0 +1,44 @@
+{% extends "Hospital/EBase.html" %}
+{% block title %}disciplinary action{% endblock %}
+{%block content%}
+  <h2> disciplinary actions </h2>
+<br>
+<a href="{%url 'M_NewDisciplinaryAction'%}">take action</a>
+<br>
+  <form method="GET">
+    {% csrf_token %}
+  <select name="department" class="custom-select" onchange="this.form.submit()">
+      {%if selected_dep%}
+      <option value={{selected_dep.0}}>
+        department : {{selected_dep.1}}
+  </option>
+  {%endif%}
+
+      <option value="0">
+            all departments
+      </option>
+      {%for dep in departments%}
+      <option value={{dep.id}}>
+        {{dep}}
+      </option>
+      {%endfor%}
+  </select>
+  </form>
+  <br>
+  {%if not object_list%}<div class="card" style="height: 50px;text-align: center;"> <h5>nothing to show!</h5></div>{%endif%}
+  {% for object in object_list %}
+  <a href="{%url 'ActionDetails' object.id %}" style="text-decoration: none;color: black;">
+    <div class="card bord {% if object.is_dismissal and not object.is_complete %} alert-danger{%elif object.is_complete%} alert-success {%else%} alert-warning {%endif%}">
+    <h5 class="card-title"> disciplinary action against {{object.person.app_user}} </h5>
+    <h7 class="card-subtitle"> </h7>
+    <hr>
+    <div class="card-body">
+            {%if object.is_dissmissal%} dismissed {%else%}{{object.start_date}} to {{object.end_date}}{%endif%}
+            <br><br>
+            completed : {{object.is_complete}}
+    </div>
+    </div>
+</a>                
+<br>
+  {% endfor %}
+{%endblock%}

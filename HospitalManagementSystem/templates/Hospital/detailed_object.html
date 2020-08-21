@@ -1,0 +1,24 @@
+{% extends base_temp %}
+{% block title %}{{object.title}}{% endblock %}
+{%block content%}
+<h1>{{object.title}}</h1>
+
+<dl>
+  <div style="background-color: rgba(255, 255, 255, .8);">
+    <dt>
+      From : </dt><dd>{% if object.from_u == None%} Administration {% else%} {{object.from_u}}{%endif%}
+      </dd>
+  </div>
+      <div style="background-color: rgba(255, 255, 255, .8);">
+        <dt>
+      Title : </dt><dd>{{ object.title }}
+      </dd>
+    <dt>
+      Content : </dt><dd>{{ object.text }}
+      </dd>
+   <dt>
+     Annonuced @ {{ object.time_of_announcement }}
+   </dt>
+  </div> 
+  </dl>
+ {%endblock%}

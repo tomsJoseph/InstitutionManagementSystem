@@ -1,0 +1,79 @@
+{% extends 'Hospital/base.html' %}
+{%load static%}
+{% block sidebar %}
+<div style="position: fixed;">
+{% if user.is_authenticated%}
+<div style="background-color: rgba(0, 0, 0, .5);height: 100%;">
+    <div class="side"><a class="nav-link" href = "{% url 'logout' %}" title = "You will have to login" style="color:white;">see staff profile</a>    <hr>
+    </div>
+    <div class="side"><a class="nav-link" href="{% url 'RegisterAttendance' %}" style="color:white;">attendance register</a>
+    <hr>
+    </div>
+    <div class="side"><a class="nav-link" href="{% url 'Inbox'%}" style="color:white;">messaging</a>
+    <hr>
+    </div>
+    <div class="side"><a class="nav-link" href="{% url 'InventoryList' %}" id="h1" style="color:white;">inventory list</a>
+    <hr>
+    </div>
+    <div class="side"><a class="nav-link" href="{% url 'PurchaseList' %}" style="color:white;">purchases</a>
+    <hr>
+    </div>
+    <div class="side"><a class="nav-link" href="{% url 'FileUserComplaintFeedback' %}" style="color:white;">File User Complaint/Feedback</a>
+        <hr>
+        </div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+{% block topbar%}
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:rgb(40, 40, 40);">
+    <a class="navbar-brand" href="{% url 'DHome'%}" title="home" style="background-color: white;padding-right: 1%;">
+        <img src="{% static 'images/hosp_icon.png'%}" alt ='home' style="width: 50px;padding: 5px;background-color: white;border: solid 1px blue;"/> {{user.appuser.department}} </a>
+    <div>
+      <ul class="navbar-nav mr-auto">
+        {% for link in links %}
+        <li class="nav-item active top">
+          <a class="nav-link" href="{% url link.0 %}" style="border-right: 1px solid gray;color:white;">{{link.1}}</a>
+        </li>
+        {%endfor%}
+      </ul>
+    </div>
+  </nav>
+{% endblock %}
+{%block notificationbar%}
+<ul style="list-style-type: none;">
+    {%for item in notifications.unread_messages.0%}
+    <a href="{% url notifications.unread_messages.1 item.pk%}">
+    <li class="card tom_list_item" style="color: black;padding: 1%;">
+    sub :{{item.subject}} <br>
+    from {{item.sender.department}} 
+    <hr>
+    sent at {{item.sent_time}}
+    </li>
+  </a>
+    {%endfor%}
+    </ul>
+{%endblock%}
+{%block bottombar%}
+<div class="col-lg-2">
+</div>
+<div class="col-lg-7">
+    <br/>
+    <a href="{% url 'logout' %}" class="btn btn-primary btn-block">
+            logout
+    </a>
+        <p>
+    Our Father, Who art in Heaven, hallowed be Thy name; Thy Kingdom come, Thy will be done on earth as it is in Heaven.
+</p>
+<a href="http://www.freepik.com">Designed by mrsiraphol / Freepik</a>.
+</div>
+<div class="col-lg-3">
+  <br>
+  <p style="padding: 1%;border-left: 1px solid white;">
+    <a href="{%url 'Manual'%}" style="color: white;">get help</a>
+  </p>
+</div>
+{%endblock%}

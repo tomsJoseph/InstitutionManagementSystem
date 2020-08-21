@@ -1,0 +1,61 @@
+{% extends base_temp %}
+{% block title %}{{object}}{% endblock %}
+{%block content%}
+<h3>{{object}}</h3>
+
+ <dl>
+  <div style="background-color:rgba(255, 255, 255, .7);">
+   <dt>
+     from :</dt><dd> {{ object.sender }}
+   </dd>
+   <dt>
+     Dep. concerned : </dt><dd>{{ object.concerned_department }}
+   </dd>
+   <dt>
+     Staff concerned :</dt><dd>{{ object.concerned_staff }}
+   </dd>
+  </div>
+<br/>
+  <div style="background-color: white;">
+     <dt>
+    Sub :</dt><dd> {{ object.subject }}
+   </dt>
+   <hr>
+  <dt>
+    content : </dt><dd style="word-wrap: break-word;">{{ object.text }}
+  </dt>
+  <dt>
+    Filed @ {{ object.time_filed }}
+  </dt>
+</div>
+</dl>
+
+<br/>
+<form method="post" enctype="multipart/form-data" style="background-color: rgba(255, 255, 255, .7);">
+  {% csrf_token %}
+  manager's remark :
+  <br>
+  {%if user.appuser.pro_level.level_number > 3%}
+  <textarea cols="70" rows="10" name="auth_remark">
+    {{object.authority_remark}}
+  </textarea>
+  {%else%}
+  {{object.authority_remark}}
+  {%endif%}
+  <br> <br>
+  {% for field in form%}
+  <p>
+    {{ field.label_tag }}<br>
+    {{ field }}
+    {% if field.help_text %}
+    <small style="color: grey">{{ field.help_text }}</small>
+    {% endif %}
+    {% for error in field.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %}
+  </p>
+  {% endfor %}
+<input type="submit" value="save" class="btn-primary btn-block">
+ </form>
+
+{%endblock%}

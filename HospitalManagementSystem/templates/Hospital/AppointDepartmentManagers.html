@@ -1,0 +1,36 @@
+{% extends "Hospital/EBase.html" %}
+{% block title %}department managers{% endblock %}
+{%block content%}
+  <h2> department managers </h2>
+  <form method="GET" id="dep_man_form">
+    {% csrf_token %}
+    {%for dep_man in extisting_managers%}
+    <div class="card">
+<div style="padding:1%;">
+    <dl>
+        <dt>
+            name
+        </dt>
+        <dd>
+            {{dep_man.manager}}
+        </dd>
+        <dt>
+            phone
+        </dt>
+        <dd>
+            {{dep_man.manager.phone}}
+        </dd>
+        <dt>
+            age
+        </dt>
+        <dd>
+            {{dep_man.age}}
+        </dd>
+    </dl>
+    </div style="padding:5%;">
+    <a href="">change/edit</a>
+  </div>
+  {%endfor%}
+  </form>
+  <br>
+{%endblock%}

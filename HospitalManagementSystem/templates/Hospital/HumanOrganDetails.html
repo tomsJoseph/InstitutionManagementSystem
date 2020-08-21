@@ -1,0 +1,50 @@
+{% extends "Hospital/DBase.html" %}
+{% block title %}human organ{% endblock %}
+{%block content%}
+<div>
+    <div class="row">
+<div class="col-lg-6" style="background-color: rgba(255, 255, 255, .8);">
+    <h2> {{object.organ_name}} <small> <a href="{%url 'UpdateOrgan' object.id %}"> edit</a></small></h2> 
+    <dl>
+    <dt>
+        class
+    </dt>
+    <dd>
+        {{object.classification}}
+    </dd>
+
+    <dt>
+        description
+    </dt>
+    <dd>
+        {{object.organ_description}}
+    </dd>
+
+    <dt>
+        photo
+    </dt>
+    {%if object.photo%}
+    <dd>
+        <img src="{{object.photo.url}}" style="width:250px;height:250px;"/>
+    </dd>
+    {%endif%}
+
+</dl>
+</div>
+<div class="col-lg-6" style="background-color: rgba(255, 255, 255, .4);">
+    <h2>related organs</h2>
+    {%if related_images%}
+    {%for im in related_images%}
+     <div style="background-color: rgba(255, 255, 255, .7);float: left;padding-left:3%;padding-bottom: 4%;">
+         <a href="{%url 'DetailsOrgan' im.id%}">
+    <img src="{{ im.photo.url }}" style="width:100px;height:100px;"/>
+    </a>
+    <br>
+    <h6>{{im.organ_name}}</h6>
+    </div>
+    {%endfor%}
+    {%endif%}
+</div>
+</div>
+</div>
+{%endblock%}

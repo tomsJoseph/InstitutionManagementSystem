@@ -1,0 +1,422 @@
+{% extends 'Hospital/EBase.html' %}
+{%block title%}
+statistics
+{%endblock%}
+{%block content%}
+<h3 class="centered_head">statistics - diseases</h3>
+<br/>
+<form method="GET">
+    {%csrf_token%}
+    <select name="years" class="custom-select" onchange="this.form.submit()">
+        {%if key%}
+        <option value={{key.0}}>
+            showing past {{key.1}} years
+        </option>
+        {%else%}
+        <option value="0">
+            select the number of years
+        </option>
+        {%endif%}
+        <option value="9">
+            current year
+        </option>
+        <option value="1">
+            past 5 years
+        </option>
+        <option value="2">
+            past 10 years
+        </option>
+        <option value="3">
+            past 15 years
+        </option>
+        <option value="4">
+            past 20 years
+        </option>
+        <option value="0">
+            all years
+        </option>
+    </select>
+
+<br/><br/>
+<div class="row">
+    <div class="col-lg-6">
+        <button type="button" class="btn-primary btn-block" onclick="go_left()" id=bt_l>left</button>
+    </div>
+    <input type="hidden" id="left">
+    <input type="hidden" id="right">
+    <div class="col-lg-6">
+        <button type="button" class="btn-primary btn-block" onclick="go_right()" id="bt_r">right</button>        
+    </div>
+    <script>
+        function go_right()
+        {
+            let left = document.getElementById('left');
+            let right = document.getElementById('right');
+            left_value = parseInt(left.value);
+            right_value = parseInt(right.value);
+            let medications = {{medications | safe}};
+            if(right_value == medications[0].length)
+            {
+                alert('no more column to the right');
+                return;
+            }
+            console.warn(left_value);
+            console.warn(right_value);
+            let new_left = left_value + 1;
+            let new_right = right_value + 1;
+            console.warn(new_left);
+            console.warn(new_right);
+            let tble = document.getElementById('tble');
+            let years = {{years | safe}};
+            let heads = {{heads | safe}};
+            let y_count = 0;
+            let row = document.createElement("tr");
+            tble.innerHTML = '';
+            heads = heads.slice(new_left, new_right);
+            console.warn(heads);
+            let col = document.createElement('td');
+            row.appendChild(col);
+            let col2 = document.createElement('td');
+            row.appendChild(col2);
+            for(head of heads)
+            {
+                let tex = document.createTextNode(head);
+                let col = document.createElement('th');
+                col.appendChild(tex);
+                row.appendChild(col);
+                tble.appendChild(row);
+            }
+            for(items of medications)
+            {
+                items = items.slice(left_value + 1, right_value + 1);
+                let row = document.createElement("tr");
+                let c = 0;
+
+                let tex = document.createTextNode(years[y_count]);
+                y_count += 1;
+                let col = document.createElement('td');
+                col.appendChild(tex);
+                row.appendChild(col);
+                let col2 = document.createElement('td');
+                let senten = "cases <br/><hr> deaths <br/><hr> norm. death rate <br/><hr> hosp. death rate";
+                col2.innerHTML = senten;
+                row.appendChild(col2);
+                for(item of items)
+                {
+                    let senten = item[0] + "<br/><hr>" + item[1] + "<br/><hr>" + item[2] +"<br/><hr>" + item[3];
+                    let tex = document.createTextNode(senten);
+                    let col = document.createElement('td');
+                    col.setAttribute('class', 'tom_list_item');
+                    col.innerHTML = senten;
+                    row.appendChild(col);
+                    if(c==3) break;
+                    c += 1;
+                }
+                tble.appendChild(row);
+            }
+            left.value = left_value + 1;
+            right.value = right_value + 1;
+
+        }
+
+
+        function go_left()
+        {
+            let tble = document.getElementById('tble');
+            let left = document.getElementById('left');
+            let right = document.getElementById('right');
+            left_value = parseInt(left.value);
+            if(left_value == 0)
+            {
+                alert('no more column to the left');
+                return;
+            }
+            right_value = parseInt(right.value);
+            let new_left = left_value - 1;
+            let new_right = right_value - 1;
+            let medications = {{medications | safe}};
+            let years = {{years | safe}};
+            let heads = {{heads | safe}};
+            let y_count = 0;
+            let row = document.createElement("tr");
+            tble.innerHTML = '';
+            heads = heads.slice(new_left, new_right);
+            let col = document.createElement('td');
+            row.appendChild(col);
+            let col2 = document.createElement('td');
+            row.appendChild(col2);
+            for(head of heads)
+            {
+                let tex = document.createTextNode(head);
+                let col = document.createElement('th');
+                col.appendChild(tex);
+                row.appendChild(col);
+                tble.appendChild(row);
+            }
+            for(items of medications)
+            {
+                items = items.slice(left_value - 1, right_value - 1);
+                let row = document.createElement("tr");
+                let c = 0;
+
+                let tex = document.createTextNode(years[y_count]);
+                y_count += 1;
+                let col = document.createElement('td');
+                col.appendChild(tex);
+                row.appendChild(col);
+                let col2 = document.createElement('td');
+                let senten = "cases <br/><hr> deaths <br/><hr> norm. death rate <br/><hr> hosp. death rate";
+                col2.innerHTML = senten;
+                row.appendChild(col2);
+
+                for(item of items)
+                {
+                    let senten = item[0] + "<br/><hr>" + item[1] + "<br/><hr>" + item[2] +"<br/><hr>" + item[3];
+                    let col = document.createElement('td');
+                    col.setAttribute('class', 'tom_list_item');
+                    col.innerHTML = senten;
+                    row.appendChild(col);
+                    if(c==3) break;
+                    c += 1;
+                }
+                tble.appendChild(row);
+            }
+            left.value = left_value - 1;
+            right.value = right_value - 1;
+        }
+    </script>
+</div>
+<div class="row">
+    <div class="col-lg-12" style="overflow-x: auto;">
+        <table class="table table-hover" id='tble' style="width: 100%;">
+            <tr>
+                <th></th>
+                <th>
+                    <select name="med" class="custom-select" onchange="this.form.submit()">
+                        {%if cur_med%}
+                        <option value={{cur_med.id}}>
+                            {{cur_med.medicine_name}}
+                        </option>
+                        {%endif%}
+                        <option value=''>
+                            total medications - all
+                        </option>
+                        {%for med in select_meds%}
+                        <option value={{med.id}}>
+                            total medications - {{med.medicine_name}}
+                        </option>
+                        {%endfor%}
+                    </select>
+                </th>
+                <th>
+                    <select name="med" class="custom-select" onchange="this.form.submit()">
+                        {%if cur_med%}
+                        <option value={{cur_med.id}}>
+                            {{cur_med.medicine_name}}
+                        </option>
+                        {%endif%}
+                        <option value=''>
+                            total medications - all
+                        </option>
+                        {%for med in select_meds%}
+                        <option value={{med.id}}>
+                            total medications - {{med.medicine_name}}
+                        </option>
+                        {%endfor%}
+                    </select>
+                </th>
+                <th>
+                    <select name="med" class="custom-select" onchange="this.form.submit()">
+                        {%if cur_med%}
+                        <option value={{cur_med.id}}>
+                            {{cur_med.medicine_name}}
+                        </option>
+                        {%endif%}
+                        <option value=''>
+                            total medications - all
+                        </option>
+                        {%for med in select_meds%}
+                        <option value={{med.id}}>
+                            total medications - {{med.medicine_name}}
+                        </option>
+                        {%endfor%}
+                    </select>
+                </th>
+                <th>
+                    <select name="med" class="custom-select" onchange="this.form.submit()">
+                        {%if cur_med%}
+                        <option value={{cur_med.id}}>
+                            {{cur_med.medicine_name}}
+                        </option>
+                        {%endif%}
+                        <option value=''>
+                            total medications - all
+                        </option>
+                        {%for med in select_meds%}
+                        <option value={{med.id}}>
+                            total medications - {{med.medicine_name}}
+                        </option>
+                        {%endfor%}
+                    </select>
+                </th>
+                <th>
+                    <select name="med" class="custom-select" onchange="this.form.submit()">
+                        {%if cur_med%}
+                        <option value={{cur_med.id}}>
+                            {{cur_med.medicine_name}}
+                        </option>
+                        {%endif%}
+                        <option value=''>
+                            total medications - all
+                        </option>
+                        {%for med in select_meds%}
+                        <option value={{med.id}}>
+                            total medications - {{med.medicine_name}}
+                        </option>
+                        {%endfor%}
+                    </select>
+                </th>
+            </tr>
+            <script>
+                    let left = document.getElementById('left');
+                    let right = document.getElementById('right');
+                    let tble = document.getElementById('tble');
+                    let medications = {{medications | safe}};
+                    let yrs = {{years | safe}};
+                    let heads = {{heads | safe}};
+                    left.value = 0;
+                    right.value = 4;
+                    let y_count = 0;
+
+                    tble.innerHTML = '';
+                    let row = document.createElement("tr");
+                    heads = heads.slice(0,4);
+                    let col = document.createElement('td');
+                    row.appendChild(col);
+                    let col2 = document.createElement('td');
+                    row.appendChild(col2);
+                    for(head of heads)
+                    {
+                        let tex = document.createTextNode(head);
+                        let col = document.createElement('th');
+                        col.appendChild(tex);
+                        row.appendChild(col);
+                        tble.appendChild(row);
+                    }
+                    for(items of medications)
+                    {
+                        let row = document.createElement("tr");
+                        let c = 0;
+                        let tex = document.createTextNode(yrs[y_count]);
+                        y_count += 1;
+                        let col = document.createElement('td');
+                        col.appendChild(tex);
+                        row.appendChild(col);
+                        let col2 = document.createElement('td');
+                        let senten = "cases <br/><hr> deaths <br/><hr> hosp. death rate";
+                        col2.innerHTML = senten;
+                        row.appendChild(col2);
+                        for(item of items)
+                        {
+                            let senten = item[0] + "<br/><hr>" + item[1] + "<br/><hr>";
+                           if (item.length >3) senten += item[2] + "%";
+                           else senten += "NA";
+
+                            let tex = document.createTextNode(senten);
+                            let col = document.createElement('td');
+                            col.setAttribute('class', 'tom_list_item');
+                            col.setAttribute('title', 'patients not treated in this hospital for this disease in this year is ommitted from death rate (but shown in deaths)');
+                            col.innerHTML = senten;
+                            row.appendChild(col);
+                            if(c==3) break;
+                            c += 1;
+                        }
+                        tble.appendChild(row);
+                    }
+                    row = document.createElement("tr");
+                    counts = {{count_list | safe}};
+                    col = document.createElement('td');
+                    col.innerHTML = 'total';
+                    row.appendChild(col);
+                    col = document.createElement('td');
+                    col.innerHTML = "cases <br/><hr> deaths <br/><hr> hosp. death rate";
+                    row.appendChild(col);
+                    c = 0;
+                    for(item of counts)
+                        {
+                            senten = item[0] + "<br/><hr>" + item[1] + "<br/><hr>"
+                            if(item.length > 3)
+                             senten += parseInt(item[3])/parseInt(item[4]) * 100 + "%";
+                            else{ senten += item[2] + "%";
+                            console.warn(item[2]);}
+                            tex = document.createTextNode(senten);
+                            col = document.createElement('td');
+                            col.setAttribute('class', 'tom_list_item');
+                            col.innerHTML = senten;
+                            row.appendChild(col);
+                            if(c==3) break;
+                            c += 1;
+                        }
+                    tble.appendChild(row);
+            </script>
+        </table>
+    </div>
+</div>
+</form>
+<br/>
+<hr>
+<br/>
+<div class="row">
+    <div class="col-lg-6">
+        <br>
+    </div>
+    <div class="col-lg-6">
+        <table class="table table-hover">
+            <tr>
+                <th colspan="2">
+                    complaints
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    {%if monthly%}
+                    <script>document.write(new Date().getFullYear())</script>
+                    {%else%}
+                    year
+                    {%endif%}
+                </th>
+                <th>
+                    complaints
+                </th>
+                <th>
+                    feedbacks
+                </th>
+            </tr>
+            {%for complaint in complaints%}
+            <tr>
+                <td>
+                    {{complaint.0}}
+                </td>
+                <td>
+                    {{complaint.1}}
+                </td>
+                <td>
+                    {{complaint.2}}
+                </td>
+            </tr>
+            {%endfor%}
+            <tr>
+                <td>
+                    total
+                </td>
+                <td>
+                    {{total_complaints.0}}
+                </td>
+                <td>
+                    {{total_complaints.1}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+{%endblock%}

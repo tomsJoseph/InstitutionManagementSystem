@@ -1,0 +1,44 @@
+{% extends base_temp %}
+{% block title %}upload files{% endblock %}
+{%block content%}
+<div>
+<h3> update files of {{sur}} </h3>
+{%if fatality%}
+<a href="{% url 'FatalityReport' fatality.id %}">go to report</a>
+{%else%}
+<a href="{% url 'SurgeryReport' sur.id %}">go to report</a>
+{%endif%}
+        <form enctype="multipart/form-data" method="POST">
+		{% csrf_token %}
+		{% for field in form%}
+		<p>
+		  {{ field.label_tag }}<br>
+		  {{ field }}
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+	  {% endfor %}
+			  <input type = "submit" value = 'Update'/>
+		</div>
+
+	</br></br>
+	<h3>documents</h3>
+	{%for c in records%}
+	{%if c.photo%}
+	<div  style="margin-left:5px;float:left">
+	<b>{{c.title}}</b>
+	</br>
+	<a href="{{ c.photo.url }}" target="new">
+		<img src="{{ c.photo.url }}" style="width:250px;height:250px;"/>
+		</a>
+	<br/>
+	<input type="radio" name="delete_image" value={{c.id}} /> remove <input type="submit" value="proceed" class="btn-danger"/>	
+	</div>
+	{%endif%}
+	{%endfor%}
+</form>
+{%endblock%}

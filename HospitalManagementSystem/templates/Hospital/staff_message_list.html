@@ -1,0 +1,22 @@
+{% extends base_temp%}
+{% block title %}messages{% endblock %}
+{%block content%}
+<h1> {{head}} </h1>
+<a href = "{% url 'Sentbox' %}"><button>Sentbox</button></a>
+<a href = "{% url 'Inbox' %}"><button>Inbox</button></a>
+<a href = "{% url 'NewMessage' %}"><button>New Messge</button></a>
+<ul>
+  {% for msg in unread %}
+    <li>
+      <a href = "{% url 'Message' msg.pk %}">{{ msg }}</a> |unread|
+    </li>
+  {% endfor %}
+</ul>
+<ul>
+  {% for msg in read %}
+    <li>
+      <a href = "{% url 'Message' msg.pk %}">{{ msg }}</a> |read|
+    </li>
+  {% endfor %}
+</ul>
+{%endblock%}

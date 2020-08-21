@@ -1,0 +1,32 @@
+{% extends base_temp%}
+{% block title %}{{message}}{% endblock %}
+{%block content%}
+<h1>Messaging</h1>
+
+<dl>
+  <div style="background-color: rgba(255, 255, 255, .8);">
+   <dt>
+     from : </dt><dd> {% if object.personal%}{{ object.sender }} {%else%} {{object.sender_dept}} department{%endif%}
+     </dd>
+   <dt>
+     To : </dt><dd>{% if object.personal%}{{ object.reciever }} {%else%} {{object.reciever_dept}} department{%endif%}
+     <br/><br/>
+     </dd>
+    </div>
+    <div style="background-color: rgba(255, 255, 255, .8);">
+      <dt>
+        subject
+      </dt>
+      <dd>
+        {{object.subject}}
+      </dd>
+   <dt>
+     Content :</dt><dd style="word-wrap: break-word;">{{ object.text }}
+     <br/><br/>
+     </dd>
+   <dt>
+     sent at {{ object.sent_time }}
+   </dt>
+   </div>
+  </dl>
+{%endblock%}

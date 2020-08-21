@@ -1,0 +1,163 @@
+{% extends base_temp %}
+{% block title %}patient report{% endblock %}
+{%block content%}
+{% if object.status_code == 6%}
+<div class="alert-warning">
+    <h3 class="alert-head">this record is inactive</h3>
+    <hr>
+    <p class="alert-body">
+        this patient might be in a different department or he/she has either left the hospital or he/she is not registered with OP/casuality.
+        In the latter case, please make sure the patient is sent to op to register his ticket. you cannot add any medicines,tests or surgeries unless the patient is registered.
+        and in the first case consult with op.    </p>
+</div>
+{%endif%}
+<div class="container">
+<h1>Health record of {%if patient%}{{patient}}{%else%}{{object}}{%endif%}</h1>
+{% if doctor%}
+<a href="{% url 'PatientReview' object.pk%}"> Add more information</a>
+<br /><br />
+{%endif%}
+<div class="card">
+	<div class="row">
+		<div class="col-lg-6">
+patient status : {{object.status}}
+<br/><br/>
+date of visit : {{object.op_time_stamp.date}}
+<br/><br/>
+departments: {%for dep in object.departments.all%}{{dep}}, {%endfor%}
+<br/><br/>
+Next visit: {{patient.next_meeting_date.date}}
+</div>
+{%if patient.deceased%}
+<div class="col-lg-6 alert-warning">
+		<h4 class="alert-head">{{patient.p_Fname}} {{patient.p_Lname}} had passed away</h4>
+		<hr>
+		<h6 class="alert-body centered_head">
+			R . I . P
+		</h6>
+</div>
+{%endif%}
+</div>
+</div>
+<br /><br />
+{%if dischargable%}
+<a href="{% url 'Discharge' object.id %}">
+	Discharge
+</a>
+<br /><br />
+{%endif%}
+<div style="border-style: solid;border-width: 1px;border-radius: 5px;background-color: rgba(255, 255, 255, .5);">
+	<br />
+	<h3 style="border-left: 5px solid cyan; background-color:white;">Personal information </h3>
+	{%if unknown == 'unknown'%}
+	<p style="padding: 1%;">
+		age : {{patient.estimated_age}}
+		<br /><br />
+		identity marks : {{patient.patient_identity_marks}}
+		<br /><br />
+		other information : {{patient.other_known_informations}}
+		<br /><br />
+		gender : {{patient.patient_gentder}}
+		{%else%}
+		<p style="padding: 1%;">
+	Full Name : {{patient.p_Fname}} {{patient.p_Lname}}
+	<br />
+	<Address>{{patient.p_address}}</Address>
+	<br />
+	Phone : {{patient.phone}}
+	<br /><br />
+	Gender : {{patient.p_gender}}
+	<br /><br />
+	Age : {{patient.p_age}}
+{%endif%}
+<br /><br />
+companion name : {{object.companion_name}}
+<br/><br/>
+companion phone : {{object.companion_phone}}
+<br/><br/>
+accident : {{object.accident}}
+
+</p>
+
+</br>
+<h3 style="border-left: 5px solid cyan; background-color:white;">Health Remarks </h3>
+<ul>
+	{% for remark in remarks %}
+	<li style="word-wrap: break-word;">
+		{{remark.rem_text}} {% if remark.remark_by == user.appuser%}<a href="{% url 'ChangeHealthRemark' remark.pk%}">Edit</a> {%endif%}
+	</li>
+	{% endfor %}
+</ul>
+
+</br>
+<h3 style="border-left: 5px solid cyan; background-color:white;">Diseases </h3> {% if doctor%}<a href="{% url 'PatientReview' object.id%}">Edit</a>{%endif%}
+<ul>
+	{% for disease in object.diseases.all %}
+	<li>
+		{{disease}}
+	</li>
+	{% endfor %}
+</ul>
+
+</br>
+<h3 style="border-left: 5px solid cyan; background-color:white;">Prescriptions </h3>
+<ul>
+	{% for prescription in prescriptions_given %}
+	<li>
+		{{prescription}}
+	</li>
+	{% endfor %}
+
+	{% for prescription in prescriptions_to_give %}
+	<li>
+		{{prescription}} {% if not prescription.pres_by or prescription.pres_by.department == user.appuser.department and doctor%}<a href="{% url 'ChangePrescription' prescription.pk%}">Edit</a>{%endif%}
+	</li>
+	{% endfor %}
+</ul>
+
+</br>
+<h3 style="border-left: 5px solid cyan; background-color:white;">Tests </h3>
+<ul>
+	{% for test in tests_not_taken %}
+	<li>
+		{{test}} {% if not test.issued_by or test.issued_by.department == user.appuser.department and doctor%}<a href="{% url 'ChangeTest' test.pk%}">Edit</a>{%endif%} |
+			<a href="{% url 'TestReport' test.id %}">Go to report</a>
+	</li>
+	{% endfor %}
+	{% for test in tests_taken %}
+	<li>
+		{{test}}
+		<a href="{% url 'TestReport' test.id %}">go to report</a>
+	</li>
+	{% endfor %}
+</ul>
+
+</br>
+<h3 style="border-left: 5px solid cyan; background-color:white;">Surgeries </h3>
+<ul>
+	{% for surgery in surgeries %}
+	<li>
+		{{surgery}} {% if doctor and user.appuser in surgery.team.all or user.appuser == surgery.initiated_by%}<a href="{% url 'SurgeryForm' surgery.pk %}">Edit</a> | <a href="{% url 'WriteSurgeryReport' surgery.id %}">  Write Report</a>
+		{%endif%} |
+		<a href="{% url 'SurgeryReport' surgery.pk %}">go to report</a>
+	</li>
+	{% endfor %}
+</ul>
+
+</br>
+<br />
+{% if doctor%}
+<form enctype="multipart/form-data" method="GET" style="background-color: aqua;">
+	{% csrf_token %}
+	<h3>Surgery</h3>
+	<br />
+	<input type="checkbox" name="surgery_required" value=true required /> Mark for surgery
+	<br /><br />
+	<input type="submit" value='Click to Add to Surgeries'  class="btn-primary"/>
+	<br /><br />
+</form>
+{%endif%}
+</div>
+</div>
+<br /><br />
+{%endblock%}

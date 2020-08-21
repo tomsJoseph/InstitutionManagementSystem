@@ -1,0 +1,62 @@
+{% extends base_temp %}
+{% block title %}patients que - department of {{user.appuser.department}}{% endblock %}
+{%block content%}
+<div class="row" style="margin-left: .5%;margin-right: .5%;background-color: rgb(93, 93, 97)">
+  <div class="col-lg-12" style="background-color: rgba(255, 255, 255, .7);">
+    {%load static%}
+  <h2> patients que - department of {{user.appuser.department}} </h2>
+  </div>
+  <br><br><br>
+  <div class="col-lg-8" style="padding: 1%;">
+    <input id="term" type="text" placeholder="Patient's Number">
+  </div>
+  <div class="col-lg-4" style="padding: 1%;">
+    <input type="button" value='search' class="btn-primary" style="margin-top: 1%;" onclick="search_term()">
+    <script>
+      function search_term()
+      {
+        let term = document.getElementById("term");
+        let res = document.getElementById("result");
+        let item = document.getElementById(term.value);
+        res.innerHTML = "<h3> search results for " + term.value + "</h3>";
+        if(item)
+        res.appendChild(item.cloneNode(true));
+        else
+        res.innerHTML = "<br><h3> nothing found! :(</h3><br>";
+      }
+    </script>
+  </div>
+  </div>
+  <br>
+  <form enctype="multipart/form-data" method="GET">
+		{% csrf_token %}
+<div id="result" style="background-color: rgba(255, 255, 255, .7);">
+</div>
+<br>
+<h3>patients <a href=""> <img src="{%static 'images/refresh1.png'%}" width="35px" title="refresh"></a></h3>
+<hr>
+{%if not object_list and not old_object_list%}<div class="card" style="height: 50px;text-align: center;"> <h5>nothing to show!</h5></div>{%endif%}
+<br/>
+  {% for object in object_list %}
+  <div class="card bord" id="{{object.patient.id}}" style="padding: 1%;">
+    <h7 style="color:blue;font-size:large">order number - {{forloop.counter}} [time stamp : {{object.op_time_stamp}}]</h7>
+    <hr>
+    {{object}}   
+</div>
+<br>
+  {% endfor %}
+<br/>
+<div>
+<h2>visited patients<a href=""> <img src="{%static 'images/refresh1.png'%}" width="35px" title="refresh"></a></h2>
+<hr>
+  {% for object in old_object_list %}
+  <div class="card bord" id="{{object.id}}" style="padding: 1%;">
+    {{object}}
+    <hr>
+    visited departments : {%for dep in object.departments_visited.all %}{{dep}}, {%endfor%}
+</div>
+<br>
+ {% endfor %}
+ </div>
+</form>
+{%endblock%}

@@ -1,0 +1,51 @@
+{% extends "Hospital/EBase.html" %}
+{% block title %}department managers{% endblock %}
+{%block content%}
+  <h2> managers of {{department }} department </h2>
+  {%if extisting_managers%}
+    {%for dep_man in extisting_managers%}
+    <div class="row" style="background-color: rgba(255, 255, 255, .7);">
+      <div class="col-lg-12">
+      <div class="row" style="background-color: rgb(93, 93, 97);">
+        <div class="col-lg-4 side" style="padding: 1%;">
+          <a href="{%url 'M_AppointDepartmentManager' dep_man.id%}" style="color: white;"><div>change manager</div></a>
+        </div>
+        <div class="col-lg-4 side" style="border-left: solid white 1px;padding: 1%;">
+          <a href="{%url 'M_StaffReports' dep_man.manager.id%}" style="color: white;"><div>see report on {{dep_man}}</div></a>
+        </div>
+        <div class="col-lg-4 side" style="border-left: solid white 1px;padding: 1%;">
+          <a href="{%url 'ReportStaffSpecific' dep_man.manager.id%}" style="color: white;"><div>write report on {{dep_man}}</div></a>
+        </div>
+      </div>
+    <dl>
+        <dt>
+            name
+        </dt>
+        <dd>
+            {{dep_man.manager}}
+        </dd>
+        <dt>
+            phone
+        </dt>
+        <dd>
+            {{dep_man.manager.phone}}
+        </dd>
+        <dt>
+            age
+        </dt>
+        <dd>
+            {{dep_man.manager.age}}
+        </dd>
+    </dl>
+    </div>
+  </div>
+  <br>
+  {%endfor%}
+  {%endif%}
+  <div style="background-color: white;" class="tom_list_item">
+    <br>
+    <a href="{%url 'M_NewDepartmentManager' department.id %}" class="centered_head">add more managers</a>
+    <br>
+  </div>
+
+{%endblock%}

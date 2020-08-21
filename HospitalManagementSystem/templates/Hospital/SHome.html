@@ -1,0 +1,67 @@
+{% extends "Hospital/SBase.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<h2>Welcome {{ user }}</h2>
+{%if user.appuser.is_manager%}
+  <br>
+<a class="btn-primary btn-block" href="{% url 'NewStaffRegistration' %}" style="color:white;padding-left: 1%;"> new staff? register here..</a>
+<br>
+{%endif%}
+{%if disc_actions %}
+{% for action in disc_actions %}
+<div class="alert alert-warning" style="width: auto;">
+	<h5 class="alert-heading">
+		disciplinary action against {{action.person.app_user}} (ph : {{action.person.phone}})
+  </h5>
+  <hr>
+  <h7>{%if action.is_dismissal%}dismissed from {{action.start_date}}{%else%}suspension from {{action.start_date}} to {{action.end_date}}{%endif%}</h7>
+  <br><br>
+  <h7>reason : {{action.reason}}</h7>
+</div>
+{%endfor%}
+{%endif%}
+<div class="card">
+  <h7 class="card-subtitle">shift</h7>
+  <div class="card-body">
+    <h4 class="card-title">your shift</h4>
+    <small class="card-subtitle">shift changes every week</small>
+    <br />
+    <p class="card-text">
+      this week :
+      {{current_shift}}
+    </p>
+    <p class="card-subtitle">
+      next week : {{next_week_shift}}
+      <br />
+      date of change : {{change_date}}
+    </p>
+  </div>
+</div>
+<br />
+  {%for item in notifications.surgery_due.0%}
+  <div class="card">
+    <h7 class="card-subtitle">surgery</h7>
+    <div class="card-body">
+      <h4 class="card-title">
+        {{item.surgery_name}} for {{item.record}}
+      </h4>
+      <br />
+      report about {{item.team_report_time}} on {{item.date_of_surgery}}
+      <br />
+      @ operation theatre - {{item.theatre}}
+      <br/>      <br/>
+
+      <dl>
+        <dt>
+      Team:
+    </dt>
+      {%for member in item.team.all%}
+      <dd>
+        {{member.app_user}} of {{member.department}} dept.
+      </dd>
+      {%endfor%}
+    </dl>
+    </div>
+  </div>
+      {%endfor%}
+{% endblock %}

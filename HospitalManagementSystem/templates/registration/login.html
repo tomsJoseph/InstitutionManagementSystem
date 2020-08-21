@@ -1,0 +1,16 @@
+{% extends "registration/log_base.html" %}
+{% block content %}
+            <h1 class="card-title"> Login <br/></h1>
+            <hr>
+            <br/> <br/>
+        <form method="POST">
+		{% csrf_token %}
+        {{ form.as_p }}
+        <p style="background-color: aliceblue;">
+            <button type = "submit" class="btn btn-primary btn-block">Login</button>
+        </p>
+            </form>
+            <p class="card-subtitle">
+                <a href="{% url 'password_reset' %}">reset password</a>
+            </p>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}pharmacy{% endblock %}
+{%block content%}
+<h3 style="background: white;">medicines for {{bill.record}}</h3>
+{% if not prescriptions%}
+<h5 class="centered_head">nothing to show</h5>
+{%endif%}
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    {% for prescription in prescriptions %}
+        <div class="card">
+            <h5 class="card-title">
+            {{prescription}}
+        </h5>
+        <h6 class="card-subtitle">[{{prescription.available}} in stock]</h6>
+        <br/>
+        <p class="card-text">
+            Total amount : Rs. {{prescription.total_amnt}}
+           | Add to bill <input type="checkbox" name = '{{forloop.counter}}' value ='{{prescription.pk}}'/>
+        </p>
+        </div>
+        <br/>
+    {% endfor %}
+    </ul>
+    <p style="color: red;">
+        {{er}}
+    </p>
+{% if prescriptions%}
+    <input type="submit" value="Confirm" class="btn-primary"/>
+{%endif%}
+</form>
+<br/><br/>
+<a href="{% url 'Payment' bill.id %}">
+    <div style="color: black;background-color: rgba(255, 255, 255, .5);" class="bord">
+<h3 style="background: white;" title="see bill">Bill</h3> 
+<div>
+    <ul>
+        {% for item in bill_items %}
+        <li>{{item}}</li>
+        {%endfor%}
+    </ul>
+        Grand total(medicines) : {{bill.medicines}}
+        <br>
+    </div>
+    </div>
+</a>
+<br>
+{%if unpaid_bills%}
+<div style="background-color: rgba(255, 255, 255, .7);">
+    <h3>unpaid bills</h3>
+    {%for bill in unpaid_bills%}
+    <a href="{%url 'Payment' bill.id%}" style="text-decoration:none;">
+    <div class="card">
+        <h5 class="card-title">
+            {{bill.record.patient}}
+            <br>
+            {{bill.record.patient.phone}}
+        </h5>
+        <hr>
+            date of visit : {{bill.record.op_time_stamp}} 
+        </div>
+    </a>
+    {%endfor%}
+</div>
+{%endif%}
+
+{%endblock%}

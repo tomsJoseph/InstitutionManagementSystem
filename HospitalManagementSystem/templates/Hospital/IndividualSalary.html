@@ -1,0 +1,28 @@
+{% extends "Hospital/EBase.html" %}
+{% block title %}individual salary management{% endblock %}
+{%block content%}
+<h4> salary information of {{object.staff}}
+  </h4>
+  <div>
+    <hr>
+        <dl>
+          <div style="background-color: rgba(255, 255, 255, .5);">
+          <dt>total salary this month</dt><dd> {{object.total_salary}}</dd>
+          </div>
+          <br>
+          <div class="row" style="background-color: rgba(255, 255, 255, .8);">
+          <div class="col-lg-10">
+            <dt>basic salary </dt><dd> {{object.staff.pro_level.base_salary}}</dd>
+            <dt> bonus </dt><dd> {{object.bonus}}</dd>
+            <dt>experience increment </dt><dd> {{object.exp_increment}}</dd>
+            <dt>other increments </dt><dd> {{object.other_increment}}</dd>
+            <dt>fine this month</dt><dd> {{object.staff.fine}}</dd>
+          </div>
+          <div class="col-lg-2 tom_list_item" style="border-left: solid silver 1px;">
+            <br><br><br><br>
+            <a href="{%url 'M_ChangeIndividualSalary' object.id %}">edit salary</a>                
+          </div>
+          </div>
+        </dl>
+  </div>
+{%endblock%}

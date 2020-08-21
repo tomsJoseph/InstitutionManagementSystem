@@ -1,0 +1,141 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}bill payment{% endblock %}
+{%block content%}
+<h2> Bill Payment Of {{object.record}} </h2>
+{%if er_msg%}
+<div class="alert-warning">
+{{er_msg}}
+<hr>
+<br>
+</div>
+{%endif%}
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <div>
+        <table class="table">
+            <tr>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Amount
+                </th>
+
+            </tr>
+            <tr>
+                <td>
+                    Medicines Fee
+                </td>
+                <td>
+                    ₹{{object.medicines}}
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Test Fee
+                </td>
+                <td>
+                    ₹{{object.tests}}
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Surgeries Fee
+                </td>
+                <td>
+                    ₹{{object.surgeries}}
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Room Fee
+                </td>
+                <td>
+                    ₹{{object.room}}
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Consult And Ticket Fee
+                </td>
+                <td>
+                    ₹{{object.consult_and_ticket_fee}}
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Deductions Fee
+                </td>
+                <td>
+                    ₹{{object.deductions}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Total Payed so far
+                </td>
+                <td>
+                    ₹{{object.total_payed}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Actual amount to pay
+                </td>
+                <td>
+                    ₹{{object.total_amt_so_far}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Remaining To Pay
+                </td>
+                <td>
+                    ₹{{due}} {%if due < 0%} *negative number might imply money to refund patient.{%endif%}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    {{ form.as_p }}
+
+    Paying amount : <input type="text" name="amount" value = 0 />
+    </br>    </br>
+
+    {{SPF}}
+    <input type = "submit" value = 'Cash Recieved' class="btn-primary btn-block"/>
+</form>
+</br>
+{% if surs%}
+<div class="card">
+    <h3>Surgery Pre-Payments</h3>
+    {% for sur in surs%}
+    {{sur}}<a href="{% url 'SurgeryPrepayment' sur.id %}" class="btn-warning btn-block centered_head"> pay</a>
+    {%endfor%}
+</div>
+{% endif %}
+<br>
+{%if unpaid_bills%}
+<div style="background-color: rgba(255, 255, 255, .7);">
+    <h3>unpaid bills</h3>
+    {%for bill in unpaid_bills%}
+    <a href="{%url 'Payment' bill.id%}" style="text-decoration:none;">
+    <div class="card">
+        <h5 class="card-title">
+            {{bill.record.patient}}
+            <br>
+            {{bill.record.patient.phone}}
+        </h5>
+        <hr>
+            date of visit : {{bill.record.op_time_stamp}} 
+        </div>
+    </a>
+    {%endfor%}
+</div>
+{%endif%}
+{%endblock%}

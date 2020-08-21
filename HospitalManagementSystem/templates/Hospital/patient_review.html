@@ -1,0 +1,224 @@
+{% extends 'Hospital/SBase.html' %}
+{% block title %}Consulting{% endblock %}
+{%block content%}
+
+{% if rec.status_code == 6%}
+<div class="alert-warning">
+    <h3 class="alert-head">this record is inactive</h3>
+    <hr>
+    <p class="alert-body">
+        this patient might be in a different department or he/she has either left the hospital or he/she is not registered with OP/casuality.
+        In the latter case, please make sure the patient is sent to op to register his ticket. you cannot add any medicines,tests or surgeries unless the patient is registered.
+        and in the first case consult with op.
+   </p>
+</div>
+{%endif%}
+<form enctype="multipart/form-data" method="POST">
+<h2 class="text-center">
+    {%if rec.patient%}{{rec.patient}}{% else %} {{rec}}{%endif%}
+    <small>
+          <input type = "submit" value = 'Confirm and view report' class="btn btn-primary btn-block"/>
+    </small>
+</h2>
+
+<div>
+    <div>
+
+{% csrf_token %}
+</br></br>
+{%if rec.status_code < 6%}
+<div class="row">
+    <div class="col-lg-6">
+        Admission : <br/>
+{%if admitted == 0 or admitted == 3%}
+<input type = "radio" name='admit' value = 0 > admit
+<input type = "radio" name='admit' value = 1 checked/> do not admit
+{% else%}
+<input type = "radio" name='admit' value = 2 checked> admitted
+<input type = "radio" name='admit' value = 3 /> undo admission [*Note : you can't undo admission if the patient has checked in to a room]
+{%endif%}
+</div>
+<div class="col-lg-6">
+    {% if rec.patient.deceased%}
+    <div class="alert-info" style="padding:1%;border-radius: 100%;">
+        <h3 class="alert-head">{{rec.patient.p_Fname}} {{rec.patient.p_Lname}} <br> had passed away</h3>
+        <hr>
+        <h6 class="alert-body centered_head">
+            R . I . P
+        </h6>
+    </div>
+{%elif rec.patient%}
+Next Visit : <br/><input type = "date" name='next_visit'/>{{visit_date.date}}
+{%endif%}
+
+</div>
+</div>
+{%endif%}
+</br></br>
+<div id="rems" name = '0' class="col-lg-12">
+    {{add_rmrk_form}}
+</div>
+</br></br>
+{%if rec.status_code < 6%}
+    <div class="col-lg-12">
+        (Hold down <kbd>Ctrl</kbd> to select multiple items)
+        (Hold down <kbd>Ctrl</kbd> to undo a selection)<br/>
+</br></br>
+                {{add_test_form}}
+    </div>
+<div onclick="f()" class="col-lg-12">
+<br/><br/>
+{{form.diseases.label}}
+<br/>
+{{form.diseases}}
+</div>
+</br>
+<p id="head_med_4_dis">
+    Medicines
+</p>
+<div id = "er" class="col-lg-12">
+    <select multiple disabled name="med_4_dis" id="med_4_dis" title="known medicines for selected disease will show here">
+    </select>
+</div>
+</br></br>
+<div id="medcs" name = '0' class="col-lg-12">
+    <input type="button" onclick="new_meds()"  class="btn-primary" value="add medicine">
+    {% load static %}
+    <img src="{% static 'images/plus_green.png' %}" onclick="new_meds()" width=25px>
+</br>
+</div>
+{%endif%}
+</form>
+</div>
+</div>
+<script>
+    function new_test()
+    {
+
+    var newln = document.createElement("BR");
+    let label = document.createTextNode('Select test');
+    var parent = document.getElementById('tests');
+    var drop = document.createElement("SELECT");
+    var tail = parseInt(parent.getAttribute("name")) + 1;
+    var drop_name = 'selected_tests' + tail.toString(); 
+    drop.setAttribute("name", drop_name);
+    let sorc = {{tests | safe}};
+    window.items = sorc;
+    for(item of sorc)
+    {
+    var opt = document.createElement("option");
+    opt.setAttribute("value", item["id"]);
+    console.log(item);
+    var t = document.createTextNode(item["test_name"]);
+    
+    opt.appendChild(t);
+    drop.appendChild(opt);
+    }
+    var opt = document.createElement("option");
+    opt.setAttribute("value", '');
+    opt.setAttribute("selected", true);
+    var t = document.createTextNode("--Select test--");
+    opt.appendChild(t);
+    drop.appendChild(opt);
+
+    parent.appendChild(drop);
+    parent.setAttribute('name', tail);
+    parent.appendChild(newln);
+    parent.appendChild(newln);
+
+    }
+    
+    function new_meds()
+    {
+    var newln = document.createElement("BR");
+    var parent = document.getElementById('medcs');
+    var drop = document.createElement("SELECT");
+    var tail = parseInt(parent.getAttribute("name")) + 1;
+    var drop_name = 'selected_meds' + tail.toString(); 
+    drop.setAttribute("name", drop_name);
+    let meds = {{meds | safe}};
+    for(item of meds)
+    {
+    var opt = document.createElement("option");
+    opt.setAttribute("value", item[0]);
+    console.log(item[1]);
+    var t = document.createTextNode(item[1]);
+    opt.appendChild(t);
+    drop.appendChild(opt);
+    }
+    var opt = document.createElement("option");
+    opt.setAttribute("value", '');
+    opt.setAttribute("selected", true);
+    var t = document.createTextNode("--Select medicine--");
+    opt.appendChild(t);
+    drop.appendChild(opt)
+
+    parent.appendChild(drop);
+    parent.appendChild(newln);
+
+
+    let med_no = document.createElement('INPUT');
+    med_no.setAttribute('type', 'number');
+    med_no.setAttribute('placeholder', 'number of days')
+    var txt_name = 'med_no' + tail.toString(); 
+    med_no.setAttribute("name", txt_name);
+    parent.appendChild(med_no);
+    parent.appendChild(newln);
+
+    let med_freq = document.createElement('INPUT');
+    med_freq.setAttribute('type', 'number');
+    var tail = parseInt(parent.getAttribute("name")) + 1;
+    var txt_name = 'med_freq' + tail.toString(); 
+    med_freq.setAttribute("name", txt_name);    
+    med_freq.setAttribute('placeholder', 'number per day')
+    parent.appendChild(newln);
+
+    parent.appendChild(med_freq);
+
+    parent.setAttribute('name', tail);
+    parent.appendChild(newln);
+    parent.appendChild(newln);
+    parent.appendChild(newln);
+
+    }
+    
+    function new_remarks()
+    {
+
+    var newln = document.createElement("BR");
+    let label = document.createTextNode('Add remark');
+    var parent = document.getElementById('rems');
+    var txt = document.createElement("textarea");
+    var tail = parseInt(parent.getAttribute("name")) + 1;
+    var txt_name = 'remarks' + tail.toString(); 
+    txt.setAttribute("name", txt_name);
+    txt.setAttribute('placeholder', 'health remark....')
+    parent.appendChild(txt);
+    parent.setAttribute('name', tail);
+    parent.appendChild(newln);
+    }
+    function f()
+    {
+        let drop = document.getElementById('id_diseases')
+        let selec = parseInt(drop.value);
+        let dis_meds = {{med_dict | safe}};
+        meds = JSON.parse(dis_meds[selec]);
+        var drop2 = document.getElementById('med_4_dis');
+        drop2.innerHTML = "No data";
+        let dive = document.getElementById('er');
+        document.getElementById('head_med_4_dis').innerHTML = 'Medicines For no.' + drop.value
+
+        for(med of meds)
+        {
+            let opt = document.createElement("option");
+            opt.setAttribute("value", med);
+            var t = document.createTextNode(med);
+            opt.appendChild(t);
+            drop2.appendChild(opt);
+        }
+        dive.appendChild(drop2);
+        drop2.focus();
+    }
+    </script>
+    
+{%endblock%}

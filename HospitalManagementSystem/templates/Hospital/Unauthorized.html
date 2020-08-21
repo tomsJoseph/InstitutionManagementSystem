@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>
+            you shall not pass
+        </title>
+    </head>
+    {%load static%}
+    <body style="background: url({% static 'images/7972.jpg' %});background-size:cover;">
+    <div style="margin-left: 20%;margin-top: 10%;background-color: salmon;max-width: 50%;font-size: larger;">
+        {{er_msg}}
+        <hr>
+        <br/><br/>
+        <a href="{% url link.0 %}" style="margin-left: 40%;">{{link.1}}</a>
+    </div>
+    </body>
+</html>

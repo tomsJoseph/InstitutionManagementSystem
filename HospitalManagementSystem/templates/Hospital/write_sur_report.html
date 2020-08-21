@@ -1,0 +1,32 @@
+{% extends base_temp %}
+{% block title %}prepare surgery report{% endblock %}
+{%block content%}
+        <h5>patient - {{object.record.patient}}</h5>
+		<h2> surgery report of {{object.surgery_name}} </h2>
+		<form enctype="multipart/form-data" method="POST" onclick="adddatepicker()">
+		{{extra_info}}
+		{% csrf_token %}
+		{% for field in form%}
+		<p>
+		  {{ field.label_tag }}<br>
+		  {{ field }}
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+	  {% endfor %}
+		<p id = 'er' style='font-weight:bold;'></p>
+		</br>
+            <input type = "submit" value = 'save' class="btn-primary"/>
+        </form>
+        <script>
+            function adddatepicker()
+            {
+                document.getElementById('id_end_date').type = 'date';
+                document.getElementById('id_end_time').type = 'time';
+            }
+        </script>
+{%endblock%}

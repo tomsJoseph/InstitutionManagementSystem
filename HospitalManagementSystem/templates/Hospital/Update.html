@@ -1,0 +1,36 @@
+{% extends base_temp %}
+{% block title %}{{head}}{% endblock %}
+{%block content%}
+{%if head %}
+		<h2> {{head}} </h2>
+{% else %}
+		<h2> Update : {{object}} </h2>
+{% endif %}
+        <form enctype="multipart/form-data" method="POST">
+		{% csrf_token %}
+		{% for field in form%}
+		<p>
+		  {{ field.label_tag }}<br>
+		  {{ field }}
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+	  {% endfor %}
+		<input type = 'checkbox' value = 'delete' name='deletable' onclick="togg()"/>delete
+<script>
+function togg(){
+var par = document.getElementById('er');
+if(par.innerHTML == '') par.innerHTML = '*You are about to delete this record';
+else par.innerHTML = '';
+par.style.padding = "1%";
+}
+</script>
+		<p id = 'er' style='font-weight: bold;padding: 1%;' class="alert-warning">{{err_msg}}</p>
+		</br>
+            <input type = "submit" value = 'apply' class="btn-primary"/>
+        </form>
+{%endblock%}

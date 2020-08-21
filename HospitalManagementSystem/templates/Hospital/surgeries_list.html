@@ -1,0 +1,24 @@
+{% extends base_temp %}
+{% block title %}all surgeries{% endblock %}
+{%block content%}
+<h2> surgeries </h2>
+{%if not object_list and not old_object_list%}<div class="card" style="height: 50px;text-align: center;"> <h5>nothing to show!</h5></div>{%endif%}
+<br/>
+  {% for object in object_list %}
+   {% if edit_url %}
+   <a href="{% url edit_url object.id %}" style="text-decoration: unset;color: black;" title="click for more options">
+    {%else%}
+    <a style="text-decoration: unset;color: black;">
+    {%endif%}
+    <div class="card tom_list_item">
+        <h5 class="card-title">{{object}}</h5>
+        <p class="card-body">
+          on {{object.date_of_surgery}} at {{object.start_time}}
+          <br/>
+          {{object.theatre}} operation theatre
+        </p>
+    </div>    
+  </a>
+  <br/>
+  {% endfor %}
+{%endblock%}

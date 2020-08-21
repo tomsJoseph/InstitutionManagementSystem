@@ -1,0 +1,31 @@
+{% extends "Hospital/DBase.html" %}
+{% block title %}add items to purchase{% endblock %}
+{%block content%}
+<h2 class="centered_head"> add purchases </h2>
+{%if error_msg%} 
+<div class="alert alert-warning">
+	<h5 class="alert-heading">
+		{{error_msg}}
+	</h5>
+</div>
+{%endif%}
+		{%load static%}
+        <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div>
+		{% for field in form%}
+		<p>
+		  {{ field.label_tag }} {%if forloop.counter == 1%}<a href="{% url 'NewInventory' 'Purchase' %}"><img src="{%static 'images/plus_green.png'%}" alt="new" title="add new item" width="20px"></a> {%endif%} <br>
+		  {{ field }}
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+	  {% endfor %}
+			  <input type = "submit" value="submit" class="btn btn-primary" />
+            </div>
+		</form>
+{%endblock%}

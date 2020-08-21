@@ -1,0 +1,133 @@
+{% extends base_temp %}
+{% block title %}surgery report{% endblock %}
+{%block content%}
+<h1>Surgery Report  : {{object.surgery_name}}</h1> 
+<br/><br/>
+<div style="border-style: solid;border-width: 1px;border-radius: 5px;">
+<h3>Personal information </h3>
+<hr/>
+{%if patient_unknown%}
+<ul style="list-style-type: none;">
+	<li>
+		health record no -{{patient_unknown.id}}
+		<br><br>
+	</li>
+	<li>
+		{{patient_unknown}}
+		<br><br>
+	</li>
+
+	<li>
+		companion name - {{object.record.companion_name}}
+		<br><br>
+	</li>
+	<li>
+		companion phone - {{object.record.companion_phone}}
+		<br><br>
+	</li>
+</ul>
+{%else%}
+<ul style="list-style-type: none;">
+    <li>
+	Full Name : {{patient.p_Fname}} {{patient.p_Lname}}
+    <br/><br/>
+    </li>
+    <li>
+	<Address>{{patient.p_address}}</Address>
+    </li>
+    <li>
+	Phone : {{patient.phone}}
+    <br/><br/>
+    </li>
+    <li>
+	Gender : {{patient.p_gender}}
+    <br/><br/>
+    </li>
+    <li>
+    Age : {{patient.p_age}}
+    </li>
+</ul>
+{%endif%}
+</div>
+</br>
+<div style="background-color: rgba(255, 255, 255, .6);">
+<h3>Surgery Information{%if control == 1%}<a href="{% url 'SurgeryForm' object.id%}"><small> edit details</small></a>{%endif%}</h3> 
+<hr/>
+<dl>
+	<dt>
+		Organ under surgery</dt><dd>{{object.organ_under_surgery}}
+	</dd>
+	<dt>
+        Reason for surgery</dt><dd>{{object.reason}}
+	</dd>
+	<dt>
+		team_leader</dt><dd>{{object.team_leader}}
+		</dd>
+	<dt>
+		Team</dt>
+		<dd>
+			{% for person in object.team.all%}
+			{{person}}
+			{%endfor%}
+	</dd>
+	<dt>
+		Start</dt><dd>{{object.date_of_surgery}} - {{object.start_time}}
+	</dd>
+	<dt>
+		End</dt><dd>{{object.end_date}} - {{object.end_time}}
+	</dd>
+	<dt>
+		Patient report time</dt><dd>{{object.patient_report_time}}
+	</dd>
+	<dt>
+		Team report time</dt><dd>{{object.team_report_time}}
+		</dd>
+	<dt>
+		Theatre</dt><dd>{{object.theatre}}
+		</dd>
+	<dt>
+		Total amount</dt><dd>{{object.total_amnt}}
+		</dd>
+	<dt>
+		Amount to prepay</dt><dd>{{object.prepay_amnt}}
+		</dd>
+	<dt>
+		Prepaid?</dt><dd>{{object.is_prepaid}}
+		</dd>
+		<dt>
+			surgery initiated by </dt><dd>{{object.initiated_by}}
+			</dd>
+	</dl>
+</div>
+<br/>
+<div style="background-color: rgba(255, 255, 255, .6);">
+	<h3>Report{%if control == 1%}<a href="{% url 'WriteSurgeryReport' object.id%}"> <small>edit report</small></a>{%endif%}</h3> 
+		<p style="word-wrap:break-word;">{{object.surgery_report}}</p>
+
+</div>
+
+</br>
+<hr/>
+<h3>Documents {%if control < 3%}<a href="{%url 'UploadSurgeryDocs' object.id%}"><small>edit files</small></a>{%endif%}</h3> 
+<hr/>
+{% load static %}
+<div  style="margin-left:5px;float:left">
+</br>
+<br/>
+{%for f in uploaded_files%}
+{% if f.photo%}
+<div  style="margin-left:5px;float:left">
+<b>{{f.title}}</b>
+</br>
+<a href="{{ f.photo.url }}" target="new">
+<img src="{{ f.photo.url }}" style="width:250px;height:250px;"/>
+</a>
+<br/>
+</div>
+{% endif %}
+{%endfor%}
+<br/>
+<br/>
+<br/>
+</div>
+{%endblock%}

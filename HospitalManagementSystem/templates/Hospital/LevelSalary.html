@@ -1,0 +1,23 @@
+{% extends "Hospital/EBase.html" %}
+{% block title %}salary management{% endblock %}
+{%block content%}
+  <h2> professional levels and basic salary </h2>
+{%if not object_list and not old_object_list%}<div class="card" style="height: 50px;text-align: center;"> <h5>nothing to show!</h5></div>{%endif%}
+  {% for object in object_list %}
+  <div class="card tom_list_item">
+    <h5 class="card-title"> {{object}}
+        <a href="{% url 'M_StaffOfLevel' object.id %}"><small> (total staffs : {{object.appuser_set.all.count}})</small></a>
+    </h5>
+    <hr>
+    <div class="card-body row">
+        <div class="col-lg-8">
+            basic salary : {{object.base_salary}}
+        </div>
+        <div class="col-lg-4">
+            <a href="{%url 'M_ChangeBasicSalary' object.id %}">edit basic salary</a>
+        </div>
+    </div>
+    </div>
+<br>
+  {% endfor %}
+{%endblock%}

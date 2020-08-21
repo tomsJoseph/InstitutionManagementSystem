@@ -1,0 +1,146 @@
+{% extends base_temp %}
+{%block content %}
+{%if object%}
+<h2>report of {{staff.app_user}}{% if object.remark_by == user.appuser and not object.stop_editing%}<small><a href="{% url 'EditStaffReport' object.id %}">edit</a></small>{%endif%}</h2> 
+{%else%}
+<h2> performance statistics of {{staff.app_user}}</h2>
+{%endif%}
+<br/>
+<div class="row">
+<div class="col-lg-12">
+    {%if executive%}
+    <div class="row">
+        <div class="col-lg-11 side" style="background-color: rgb(93, 93, 97);padding: 1%;border-left: solid white 1px; margin-left: 4%;">
+            <a href="{%url 'M_DepartmentReport' staff.department.id%}" style="color: white;"><div>department of {{staff.department}}</div></a>
+        </div>
+    </div>
+    {%endif%}
+<div class="container">
+    <div style="border: solid 1px white;background-color: rgba(255, 255, 255, .6);border-radius: 5px;text-indent: 1%;">
+    <h5 title="full name">{{staff.app_user.first_name}} {{staff.app_user.last_name}}</h5>
+    <h5>{{staff.shift}}</h5>
+    <br/>
+    <address>
+        {{staff.address}}, ph : {{staff.phone}}
+    </address>
+    <hr>
+    <table class="table table-hover">
+        <tr>
+            <td>
+                absent days this month
+            </d>
+            <td>
+            {{absent_monthly}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                leaves this month
+            </td>
+            <td>
+                {{leaves_month}}
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                absent days this year
+            </td>
+            <td>
+                {{absent_yearly}}
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                leaves this year
+            </td>
+            <td>
+                {{leaves_year}}
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                absent days last year
+            </td>
+        <td>
+            {{absent_last_year}}
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                leaves last year
+            </td>
+        <td>
+            {{leaves_last_year}}
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                complaints/feedback this month
+            </td>
+            <td>
+            {{complaints_against_month}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                complaints/feedback this year
+            </td>
+            <td>
+            {{complaints_against_year}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                complaints/feedback last year
+            </td>
+            <td>{{complaints_against_last_year}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <a href="{% url 'M_PersonalComplaints' staff.id %}">
+                see all complaints/feedback
+            </a>
+        </td>
+        </tr>
+    </table>
+    <hr>
+    {%if object%}
+    <h4 style="text-align: center;">report</h3>
+        <p style="word-wrap: break-word;">{{object.remark}}</p>
+        <h7 style="margin-left: 50%;">report by {{object.remark_by}}</h7>
+        <h7 style="margin-left: 50%;">filed on {{object.filed_date}}</h7>
+        <hr>
+    <br/><br/>
+    {%if executive%}
+    <div style="background-color: rgba(255, 255, 255, .8);">
+    <form enctype="multipart/form-data" method="POST">
+		{% csrf_token %}
+        {% for field in form%}
+        <p>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+      {% endfor %}
+      <input type="submit" value="save" class="btn-primary btn-block">
+      </form>
+      <br/>
+    </div>
+    {%endif%}
+    {%endif%}
+</div>
+</div>
+</div>
+</div>
+{%endblock%}

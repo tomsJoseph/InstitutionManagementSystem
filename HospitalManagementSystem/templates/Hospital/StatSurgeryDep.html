@@ -1,0 +1,104 @@
+{% extends 'Hospital/EBase.html' %}
+{%block title%}
+statistics
+{%endblock%}
+{%block content%}
+<h3 class="centered_head">statistics - surgeries</h3>
+<br/>
+<form method="GET">
+    {%csrf_token%}
+    <select name="years" class="custom-select" onchange="this.form.submit()">
+        {%if key%}
+        <option value={{key.0}}>
+            showing past {{key.1}} years
+        </option>
+        {%else%}
+        <option value="0">
+            select the number of years
+        </option>
+        {%endif%}
+        <option value="9">
+            current year
+        </option>
+        <option value="1">
+            past 5 years
+        </option>
+        <option value="2">
+            past 10 years
+        </option>
+        <option value="3">
+            past 15 years
+        </option>
+        <option value="4">
+            past 20 years
+        </option>
+        <option value="0">
+            all years
+        </option>
+    </select>
+
+<br/><br/>
+<div class="row">
+    <div class="col-lg-6">
+        br
+    </div>
+    <div class="col-lg-6">
+        <table class="table table-hover">
+            <tr>
+                <th colspan="2">
+                    <select name="org" class="custom-select" onchange="this.form.submit()">
+                        {%if cur_org%}
+                        <option value={{cur_org.id}}>
+                            {{cur_org}}
+                        </option>
+                        {%endif%}
+                        <option value=''>
+                            human organs - all
+                        </option>
+                        {%for org in human_organs%}
+                        <option value={{med.id}}>
+                            total surgeries - {{org}}
+                        </option>
+                        {%endfor%}
+                    </select>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    {%if monthly%}
+                    <script>document.write(new Date().getFullYear())</script>
+                    {%else%}
+                    year
+                    {%endif%}
+                </th>
+                <th>
+                    surgeries
+                </th>
+            </tr>
+            {%for surg in surgeries%}
+            <tr>
+                <td>
+                    {{surg.0}}
+                </td>
+                <td>
+                    {{surg.1}}
+                </td>
+            </tr>
+            {%endfor%}
+            <tr>
+                <td>
+                    total
+                </td>
+                <td>
+                    {{total_surgeries}}
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+</form>
+<br/>
+<hr>
+<br/>
+{%endblock%}

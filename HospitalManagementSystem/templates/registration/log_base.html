@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {%block title%}
+        {%endblock%}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body style="background: url({% static 'images/b.jpg' %});background-size:cover;">
+    <div class="text-center">
+        <div class="card" style="width: 20%;;margin-left: auto;margin-right: auto;margin-top: 2%;background: url({% static 'images/19366.jpg' %});background-size:cover;">
+            {{head}}
+            {% block content %}
+            {% endblock %}
+    </div>
+</div>
+</body>
+</html>

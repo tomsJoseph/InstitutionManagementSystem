@@ -1,0 +1,32 @@
+{% extends "Hospital/DBase.html" %}
+{% block title %}document disease{% endblock %}
+{%block content%}
+{%if object%}
+<h2> edit {{object}} </h2>
+{%else%}
+<h2> document disease </h2>
+{%endif%}
+        <form enctype="multipart/form-data" method="POST">
+		{% csrf_token %}
+		{% for field in form%}
+		<p>
+		  {{ field.label_tag }}<br>
+		  {{ field }}
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+      {% endfor %}
+      {%load static%}
+		{%if object%}
+		<a href="{% url 'CreateCauseForDisease' object.pk %}" style="margin-left: 95%;"><img src="{%static 'images/plus_green.png'%}" alt="new" title="add new cause" width="30px"></a>
+		{%else%}
+		<a href="{% url 'CreateCauseForDisease' 0 %}" style="margin-left: 95%;"><img src="{%static 'images/plus_green.png'%}" alt="new" title="add new cause" width="30px"></a>
+		{%endif%}
+      <br><br>
+			  <input type = "submit" value="submit" class="btn btn-primary" />
+ </form>
+{%endblock%}

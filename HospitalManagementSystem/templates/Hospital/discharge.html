@@ -1,0 +1,40 @@
+{% extends 'Hospital/SBase.html' %}
+{% block title %}Discharge {{patient}}{% endblock %}{%block content%}
+<h2> Discharge {%if patient.patient%}{{patient.patient}}{%else%}{{patient.patient_unknown}}{%endif%} </h2>
+<br/><br/>
+<div style="background-color: rgba(255, 255, 255, .7);">
+    <dl>
+    <dt>room : </dt>
+    <dd>room {{room.room.room_no}}</dd>
+    {%if tests_due%}
+    <dt>tests due</dt>
+    <dd>{{tests_due}}</dd>
+    {%endif%}
+    {%if surgery_due%}
+    <dt>surgery due</dt>
+    <dd>{{surgery_due}}</dd>
+    {%endif%}
+    </dl>
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {%if dis%}
+    <h3>
+        This Patient Is Now Discharged
+    </h3>
+    {%else%}
+    <input type = 'checkbox' value = 'Discharge' name='admission' onclick="togg()"/>Discharge
+    {%endif%}
+<script>
+function togg(){
+var par = document.getElementById('er');
+if(par.innerHTML == '') par.innerHTML = '*You are about Discharge the patient';
+else par.innerHTML = '';
+}
+</script>
+		<p id = 'er' style='font-weight:bold;'></p>
+		</br>
+            <input type = "submit" value = 'Proceed' class="btn-danger"/>
+        </form>
+        </div>
+{%endblock%}

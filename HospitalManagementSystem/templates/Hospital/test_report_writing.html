@@ -1,0 +1,52 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}compose surgery report{% endblock %}
+{%block content%}
+<div>
+	<h2>{{tr.test.test_name}} report for {%if tr.record.patient_unknown%}U{{tr.record.patient_unknown.id}}{%else%}{{tr.record.patient}}{%endif%} </h2> <a href="{% url 'TestReport' tr.id %}">Go to report</a>
+	<br /><br />
+	<div style="background-color: rgba(255, 255, 255, .5);">
+		<h4>patient : {{tr.record.patient}}</h4>
+		<br /><br />
+		<form enctype="multipart/form-data" method="POST">
+			Report :<br /> <textarea rows="5" cols="50" name="rmrk">
+			{{remark}}
+		</textarea>
+			<br /><br />
+			{% if not tr.time_taken%}
+			<input type="checkbox" name="timestamp" value="True" /> Test is taken
+			{%endif%}
+			<br /><br />
+			<input type="submit" value='Update' class="btn-primary" />
+	</div>
+</div>
+<br /><br />
+<div style="background-color: rgba(255, 255, 255, .5);">
+	<h2>{{heading}}</h2>
+	<div style="background-color:cornsilk;">
+		<br/>
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value='Upload' class="btn btn-primary" />
+	</div>
+	</br></br>
+	{% load static %}
+	<div style="margin-left:5px;float:left">
+		</br>
+		<br />
+		{%for c in records%}
+		<div style="margin-left:5px;float:left">
+			{{c.title}}
+			</br>
+			<a href="{{ c.photo.url }}" target="new">
+				<img src="{{c.photo.url}}" style="width:250px;height:250px;" />
+				</a>
+			<br />
+			<input type="radio" name="delete_image" value={{c.id}} /> remove <input type="submit" value="proceed"
+				class="btn-danger" />
+		</div>
+		{%endfor%}
+		</form>
+		<br />
+	</div>
+</div>
+{%endblock%}

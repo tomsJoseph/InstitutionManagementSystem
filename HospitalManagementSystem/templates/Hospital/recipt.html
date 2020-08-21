@@ -1,0 +1,27 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}payment recipt{% endblock %}
+{%block content%}
+<div style="background-color:rgba(255, 255, 255, .7)">
+    <h5 class="centered_head">payment made</h5>
+    <hr>
+    <dl>
+    <dt>
+        patient :
+    </dt>
+    <dd>
+        {{patient}}
+    </dd>
+    {%if neg %}
+    <dt>
+        refund of ₹{{payed_amnt}} is given.
+    </dt>
+    {%else%}
+    <dt>
+        payment of ₹{{payed_amnt}} is made successfully.
+    </dt>
+    {%endif%}
+    </dl>
+</div>
+
+    <a href="{% url 'Payment' patient.get_bill.id%}" class="btn-success btn-block centered_head">see bill</a>
+{%endblock%}

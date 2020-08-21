@@ -1,0 +1,24 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}All Admissions {% endblock %}
+{%block content%}
+<h1> {{head}} </h1>
+<a href = "{% url 'AllAdmission' 0 %}"><button> Active Admisions </button></a>
+<a href = "{% url 'AllAdmission' 1 %}"><button> Checked out rooms </button></a>
+<a href = "{% url 'AllAdmission' 2 %}"><button> Patients Waiting </button></a>
+<br/><br/>
+<form method="GET" enctype="multipart/form-data">
+  <input type="number" name="term" placeholder="enter ticket number"/><input type="submit" value="search"/>
+</form>
+<br/>
+<ul>
+  {% for adm in object_list %}
+  <a href = "{% if adm.ad_time%} {%url 'AdmissionDetails' adm.id %} {% else%} {%url 'PatientAdmission' adm.id %} {% endif %}" style="color: black;">
+  <li class="card tom_list_item" style="padding: 2%;margin-bottom: 1%;">
+      {{ adm }}
+      {%if not adm.dis_time%}
+      {%endif%}
+    </li>
+  </a>
+  {% endfor %}
+</ul>
+{%endblock%}

@@ -1,0 +1,56 @@
+{% extends base_temp %}
+{% block title %}{{head}}{% endblock %}
+{%block content%}
+<div>
+{%if head %}
+		<h2> {{head}} </h2>
+{% else %}
+		<h2> Update : {{object}} </h2>
+{% endif %}
+        <form enctype="multipart/form-data" method="POST">
+		{% csrf_token %}
+		{% for field in form%}
+		<p>
+		  {{ field.label_tag }}<br>
+		  {{ field }}
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+	  {% endfor %}
+	  {%if not no_delete%}
+	  <input type = 'checkbox' value = 'delete' name='deletable' onclick="togg()"/>delete
+	  {%endif%}
+	  <script>
+	  function togg(){
+	  var par = document.getElementById('er');
+	  if(par.innerHTML == '') par.innerHTML = '*You are about to delete this record';
+	  else par.innerHTML = '';
+	  }
+	  </script>
+	  <br/>
+					<input type = "submit" value = 'submit' class="btn-primary"/>
+		</div>
+
+	</br></br>
+	<h2><u>{{heading}}</u></h2>
+	{%for c in records%}
+	<div  style="margin-left:5px;float:left">
+	<b>{{c.certificate_title}}</b>
+	</br>
+	{%if c.photo%}
+	<h8>{{c.title}}</h8>
+	<br>
+	<a href="{{c.photo.url}}" target="new">
+	<img src="{{ c.photo.url }}" style="width:250px;height:250px;"/>
+	</a>
+	<br/>
+	<input type="radio" name="delete_image" value={{c.id}} /> remove <input type="submit" value="proceed" class="btn-danger"/>
+	{%endif%}
+	</div>
+	{%endfor%}
+</form>
+{%endblock%}

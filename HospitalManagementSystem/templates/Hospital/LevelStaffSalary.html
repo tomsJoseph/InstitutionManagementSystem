@@ -1,0 +1,41 @@
+{% extends "Hospital/EBase.html" %}
+{% block title %}salary management{% endblock %}
+{%block content%}
+  <h2> staff of level {{object_list.0.staff.pro_level}} </h2>
+  <form method="GET">
+    {% csrf_token %}
+  <select name="department" class="custom-select" onchange="this.form.submit()">
+      {%if selected_dep%}
+      <option value={{selected_dep.0}}>
+        department of {{selected_dep.1}}
+  </option>
+  {%endif%}
+
+      <option value="0">
+            all departments
+      </option>
+      {%for dep in departments%}
+      <option value={{dep.id}}>
+        {{dep}}
+      </option>
+      {%endfor%}
+  </select>
+  </form>
+  <br>
+  {%if not object_list%}<div class="card" style="height: 50px;text-align: center;"> <h5>nothing to show!</h5></div>{%endif%}
+  {% for object in object_list %}
+  <a href="{%url 'M_IndividualSalary' object.id %}" style="text-decoration: none;color: black;">
+    <div class="card tom_list_item">
+    <h5 class="card-title"> {{object.staff}} </h5>
+    <h7 class="card-subtitle"> </h7>
+    <hr>
+    <div class="card-body">
+            basic salary : {{object.staff.pro_level.base_salary}}
+            <br><br>
+            total salary : {{object.total_salary}}
+    </div>
+    </div>
+</a>                
+<br>
+  {% endfor %}
+{%endblock%}

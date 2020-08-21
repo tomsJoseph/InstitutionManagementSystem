@@ -1,0 +1,51 @@
+{% extends base_temp %}
+{% block title %}{{head}}{% endblock %}
+{%block content%}
+<h3>{{head}}</h3>
+<div class="card">
+    <form enctype="multipart/form-data" method="POST">
+        <dl>
+          <dt>
+            applicant
+          </dt>
+          <dd>
+            {{object.applicant}}
+          </dd>
+          <dt>
+            shift
+          </dt>
+          <dd>
+            {{object.applicant.shift}}            
+          </dd>
+        <dt>
+            date of leave
+        </dt>
+        <dd>
+            {{object.date.date}}
+        </dd>
+        <dt>
+            reason
+        </dt>
+        <dd>
+            {{object.reason}}
+        </dd>
+    </dl>
+		{% csrf_token %}
+		{% for field in form%}
+		<p>
+		  {{ field.label_tag }}<br>
+		  {{ field }}
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+	  {% endfor %}
+		<p id = 'er' style='font-weight:bold;'></p>
+		</br>
+            <input type = "submit" value = 'apply' class="btn-primary btn-block"/>
+        </form>
+    </div>
+{%endblock%}

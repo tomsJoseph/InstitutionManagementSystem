@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {%load static%}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/script.js' %}" type="text/javascript"></script>
+    <title>
+        manual
+    </title>
+    <style>
+        .tom_link:hover {
+            background-color: rgba(5, 112, 161, 0.5);
+        }
+        h4{
+            text-align: center;
+            color: rgb(92, 19, 29);
+            background-color: rgba(156, 205, 228, 0.5);
+            padding: 1%;
+            font-style: normal;
+        }
+        h5{
+            color:rgb(231, 90, 90);
+            font-style: normal;
+        }
+        span{
+            background-color: rgba(96, 248, 202, 0.5);
+            font-style: normal;
+            border-radius: 5%;
+        }
+        p{
+            padding: 1%;
+            font-style: normal;
+        }
+        li{
+            font-style: normal;
+        }
+        div{
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="background-color: rgba(25, 129, 177, 0.5);color: black;padding: 1%;word-spacing: 2px;">
+        <div style="background-color: rgba(93, 93, 97, 1);min-height: 50px;color:rgb(136, 203, 241);">
+            <h2 style="padding: 1%;font-style: normal;">manual for hospital management system</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="nav flex-column navbar-light nav-pills" id="v-pills-tab" role="tablist"
+                    aria-orientation="vertical">
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link"
+                            href="#registration" id="h1" style="color:white;">registration</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#profiles"
+                            style="color:white;">Personal and deparmtent profiles</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#login"
+                            style="color:white;">login</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#change_personal_details"
+                            style="color:white;">change personal details</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#personal_messaging"
+                            style="color:white;">personal messaging</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#official_messaging"
+                        style="color:white;">Official messaging</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#announcement"
+                        style="color:white;">announcement</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#cmplnts_fdbks"
+                        style="color:white;">complaints and feedbacks</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#notifications"
+                        style="color:white;">notifications</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#leave_of_absence"
+                        style="color:white;">leave of absence</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#register_attendance"
+                        style="color:white;">register attendance</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#review_attendance"
+                        style="color:white;">review attendance</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#review_staff"
+                        style="color:white;">review staffs</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#change_shift_dep"
+                        style="color:white;">change shift and department</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#staff_reports"
+                        style="color:white;">staff reports</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#invenotry"
+                        style="color:white;">inventory management</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#purchase"
+                        style="color:white;">purchases management</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#document_disease"
+                        style="color:white;">document disease</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#fatality"
+                        style="color:white;">fatality</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#hHuman_organs"
+                        style="color:white;">human organs</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#patient_reception"
+                        style="color:white;">patient reception</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#patient_reception_unknown"
+                        style="color:white;">patient reception for anonymous patient</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#consulting"
+                        style="color:white;">patient consulting</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#surgery"
+                        style="color:white;">surgery</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#medicine_distribution"
+                        style="color:white;">medical distribution</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#bill"
+                        style="color:white;">billing</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#medical_test"
+                        style="color:white;">medical test</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#morgue"
+                        style="color:white;">morgue</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#rooms"
+                        style="color:white;">rooms</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#disciplinary_actions"
+                        style="color:white;">disciplinary actions</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#salary"
+                        style="color:white;">salary</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#executive_actions"
+                        style="color:white;">executive actions</a></div>
+                    <div class="tom_link" style="border-bottom: solid white 1px;"><a class="nav-link" href="#shift"
+                        style="color:white;">Shift</a></div>
+                </div>
+            </div>
+            <div class="col-lg-8" style="background-color: rgb(168, 221, 208);word-wrap:break-word;">
+                <script>
+
+                </script>
+                <div id="registration">
+                    <h4>Staff registration</h4>
+                    <h5>
+                        creating users as administrator
+                    </h5>
+                        when the site is launched there will be only administrative accounts.
+                        <br>
+                        <span>
+                            go to admin home > view site
+                        </span>
+                        <video width="800" height="500" controls>
+                            <source src="{%static 'images/b.mp4'%}">
+                        </video>    
+
+                    <h5>ordinary staff</h5>
+
+                    this form will ask for personal information, new username and password along with type of profession
+                    ex: doctor, qualifications, department (optional) and shift (optional).
+
+                    <ul>
+                        <li>
+                            a manager, executives or site administrator can register a new staff
+                        </li>
+                        <li>
+                            when the site launched for the first time site admin will register the first staff who
+                            should be manager of a department.
+                        </li>
+                        <li>
+                            every user will have access to the department'profile and his own personal profile. manager
+                            has to go to his personal profile for managerial tasks such as registering new staff (more
+                            about personal and department profile will be discussed later)
+                        </li>
+                        <li>
+                            If super user goes to login page while in administrative account he can have a link to
+                            registration of staffs both ordinary and executive
+                        </li>
+                    </ul>
+                    <span>
+                        login > staff profiles of manager > register new staff
+                    </span>
+
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/01.mp4'%}">
+                    </video>
+
+                    <h5>
+                        Executive staff
+                    </h5>
+                    <ul>
+                        This form just like the ordinary one except there is no department, and shift
+                        <li>
+                            Only an executive or administrator can register new executive staff
+                        </li>
+                        <li>
+                            Executive staff does not have a department profile. The link to registration can be found on
+                            the personal profile
+                        </li>
+                        <li>
+                            If super user visits website, he can have a link to registration of staffs both ordinary and
+                            executive
+                        </li>
+                    </ul>
+                    <span>
+                        login > register new executive staff
+                    </span>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/02.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="profiles">
+                    <h4>Personal and department profiles</h4>
+
+                    <h5>
+                        Personal profile
+                    </h5>
+                    <span>
+                        Login > go to person's profile
+                    </span>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/03.mp4'%}">
+                    </video>
+                    <br>
+                    <p>
+                    For all users, personal profile allows changing personal details, sending message, filing complaints
+                    and apply leave of absence.
+                    <br>
+                    For doctors, personal profile allows :
+                    <ul>
+                        <li>
+                            patient consulting
+                        </li>
+                        <li>
+                            surgery reports
+                        </li>
+                        <li>
+                            death report
+                        </li>
+                        <li>
+                            autopsies in detail
+                        </li>
+                        <li>
+                            Surgeries in detail
+                        </li>
+                    </ul>
+
+                    For department managers, personal profile allows managerial tasks namely,
+                    <ul>
+                        <li>
+                            Review attendance
+                        </li>
+                        <li>
+                            Manage leave application
+                        </li>
+                        <li>
+                            Change staff department and shift
+                        </li>
+                        <li>
+                            Make announcement
+                        </li>
+                        <li>
+                            Register new staff
+                        </li>
+                        <li>
+                            Staff reports
+                        </li>
+                        <li>
+                            Manage complaints
+                        </li>
+                    </ul>
+                    For executives, personal profile allows executive tasks such as,
+                    <ul>
+                        <li>
+                            View statistics
+                        </li>
+                        <li>
+                            View department reports
+                        </li>
+                        <li>
+                            View staff reports and statistics
+                        </li>
+                        <li>
+                            Manage salary
+                        </li>
+                        <li>
+                            Manage complaints
+                        </li>
+                        <li>
+                            Manage disciplinary actions
+                        </li>
+                    </ul>
+                    </p>
+                    <h5>
+                        Department profile
+                    </h5>
+                    <span>
+                        Login > go to department's profile
+                    </span>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/04.mp4'%}">
+                    </video>
+                    <p>
+                    Executive staff does not have department or department profile.
+                    <br>
+                    For all departments, department profile :
+                    <ul>
+                        <li>
+                            Manage inventories
+                        </li>
+                        <li>
+                            Manage purchases
+                        </li>
+                        <li>
+                            Register attendance
+                        </li>
+                        <li>
+                            Official messages
+                        </li>
+                        <li>
+                            Patient complaints and feedbacks
+                        </li>
+                        <li>
+                            View surgeries in list
+                        </li>
+                        <li>
+                            View death reports in list
+                        </li>
+                    </ul>
+                    For medical departments:
+                    <ul>
+                        <li>
+                            All that of ordinary department
+                        </li>
+                        <li>
+                            diseases
+                        </li>
+                        <li>
+                            Human organs
+                        </li>
+                        <li>
+                            Upload documents of concerned surgeries
+                        </li>
+                        <li>
+                            See surgeries in detail
+                        </li>
+                    </ul>
+                    for lab:
+                    <ul>
+                        <li>
+                            Search for patient
+                        </li>
+                        <li>
+                            Tests
+                        </li>
+                        <li>
+                            Test reports
+                        </li>
+                    </ul>
+                    for morgue:
+                    <ul>
+                        <li>
+                            Admitting the dead
+                        </li>
+                        <li>
+                            Clearing the admission
+                        </li>
+                    </ul>
+                    for rooms:
+                    <ul>
+                        <li>
+                            Manage room types
+                        </li>
+                        <li>
+                            Manage rooms
+                        </li>
+                        <li>
+                            Manage admissions
+                        </li>
+                    </ul>
+                    for op department:
+                    <ul>
+                        <li>
+                            Register patients
+                        </li>
+                        <li>
+                            Search patients
+                        </li>
+                        <li>
+                            Edit patient details
+                        </li>
+                        <li>
+                            Create unknown patient record
+                        </li>
+                        <li>
+                            Manage unknown patient
+                        </li>
+                    </ul>
+                    For casualty:
+                    <ul>
+                        <li>
+                            All of op and medical departments
+                        </li>
+                    </ul>
+                    </p>
+                </div>
+                <hr>
+                <div id="login">
+                    <h4>
+                        Login
+                    </h4>
+                    <h5>
+                        login
+                    </h5>
+                    Login requires a username and password. On Successful login, the user will be redirected to another
+                    page. If the credentials are wrong login will be terminated.
+                    <h5>
+                        Select profile
+                    </h5>
+                    This is the page that a successful login will redirect to. A non executive staff can choose between
+                    personal and department profile here.
+                    An executive staff will not have this page.
+                    <h5>
+                        Reset password
+                    </h5>
+                    For this to work there should be:
+                    <ul>
+                        <li>
+                            Internet connection
+                        </li>
+                        <li>
+                            A valid email attached to the user account
+                        </li>
+                    </ul>
+                    <p>
+                        There is link in login page to reset password which will redirect to a page requiring user to enter
+                        his email that is attached to his account.
+                        Once it's done successfully the user will be redirected to a page to enter the otp which would be
+                        sent to his email. If the otp sent by software in email matches with the one user enters, user will
+                        be asked to create a new password. He can then login.    
+                    </p>
+                </div>
+                <hr>
+                <div id="change_personal_details">
+                    <h4>
+                        Changing personal details
+                    </h4>
+                    User has to be in his personal profile to change personal details.
+                    <h5>
+                        Change photo
+                    </h5>
+                    <span>
+                        Login > personal profile > click on the photo of user or an empty circle on the left-top of screen.
+                    </span>
+                    <br>
+                    <p>
+                        this will ask the user to select an image from the device. Once chosen click submit.
+                    </p>
+                    <h5>
+                        Change password
+                    </h5>
+                    <span>
+                        Login > personal profile >change password
+                    </span>
+                    <p>
+                        Enter current password. Enter and confirm new password.
+                    </p>
+                    <h5>
+                        Change personal details
+                    </h5>
+                    <span>
+                        Login > personal profile >change personal details
+                    </span>
+                    <p>
+                    Edit details and submit
+                    </p>
+                    <h5>
+                        Upload certificate
+                    </h5>
+                    <span>
+                        Login > personal profile > upload certificate
+                    </span>
+                    <ul>
+                        <li>
+                            the certificate to upload must be in the computer.
+                        </li>
+                        <li>
+                            Select the file to upload and give it a title.
+                        </li>
+                    </ul>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/05.mp4'%}">
+                    </video>
+                    
+                </div>
+                <hr>
+                <div id="personal_messaging">
+                    <h4>
+                        Personal messaging
+                    </h4>
+                    User can sent messages to other users confidentialy. This message will be available only for the
+                    sender and the recipients and no one else can access these.
+                    <h5>
+                        Inbox
+                    </h5>
+                    <span>
+                        Login > personal profile > messaging
+                    </span>
+                    <p>
+                    Here all messages sent to the user will be shown. Unread messages will be marked new and read
+                    ones will be marked read. Clicking on a message will show it in details.
+                    </p>
+                    <h5>
+                        new message
+                    </h5>
+                    <span>
+                        Login > personal profile > messaging > click on the new message button
+                    </span>
+                    <p>
+                    Select recipient, preferably mention a subject not necessarily though. Enter message content and
+                    click send button.
+                    </p>
+                    <h5>
+                        sent box
+                    </h5>
+                    <span>
+                        Login > personal profile > messaging > click on the sentbox button
+                    </span>
+                    <p>
+                    Here all messages sent by the user will be shown. messages unread by receiver will be marked new
+                    and read ones will be marked read. Clicking on a message will show it in details
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/06.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="official_messaging">
+                    <h4>
+                        Official messaging
+                    </h4>
+                    Staff in one department can sent messages to other departments confidentialy. This message will be
+                    available only for the sending and the receiving departments no other department can access these.
+                    <h5>
+                        Inbox
+                    </h5>
+                    <span>
+                        Login > department profile > messaging
+                    </span>
+                    <p>
+                    Here all messages sent to the department will be shown. Clicking on a message will show it in
+                    details.
+                    </p>
+                    <h5>
+                        new message
+                    </h5>
+                    <span>
+                        Login > department profile > messaging > click on the new message button
+                    </span>
+                    <p>
+                    Select recipient, preferably mention a subject not necessarily though. Enter message content and
+                    click send button.
+                    </p>
+                    <h5>
+                        sent box
+                    </h5>
+                    <span>
+                        Login > department profile > messaging > click on the sentbox button
+                    </span>
+                    <p>
+                    Here all messages sent by the department will be shown. Clicking on a message will show it in
+                    details
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/07.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="announcement">
+                    <h4>
+                        announcement
+                    </h4>
+                    Manager makes announcement for department or departments. Staffs in the concerned departments can
+                    view these.announcement page will show all announcement concerning the department. For managers,
+                    there will be two parts for this page namely, announcements concerning the department and announcement made
+                    by the manager.
+                    <h5>
+                        Make announcement
+                    </h5>
+                    Only managers can make announcements.
+                    <br>
+                    <span>
+                    Login > staff profile> announcements>new announcement
+                    </span>
+                    <p>
+                        Enter announcement title and subject.
+                    </p>
+                    <h5>
+                        Edit announcement
+                    </h5>
+                    <span>
+                    Login > staff profile> announcements> click on an announcement in your announcement section
+                    </span>
+                    <h5>
+                        View announcements
+                    </h5>
+                    Only managers can edit announcements.
+                    <br>
+                    <span>
+                        Login > department profile> announcements
+                    </span>
+                    <p>
+                    Clicking on an announcement will show the announcement in detail.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/08.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="cmplnts_fdbks">
+                    <h4>
+                        Complaints and feedbacks
+                    </h4>
+                    Satffs and patients can file complaints or give feedbacks.
+                    <h5>
+                        User Complaints and feedbacks
+                    </h5>
+                    <span>
+                        Login > department profile > complaints and feedbacks
+                    </span>
+                    <p>
+                        To file a complaint or feedback, the user/patient must be registered. On the complaint or
+                        feedback form, the concerned department and concerned staff are to be selected. If the complaint
+                        is personally against a staff and not any department, the department of the concerned staff has
+                        to be selected as the concerned department. If the patient is filing a complaint, the
+                        is_complaint checkbox has to be ticked.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/09.mp4'%}">
+                    </video>
+                    <h5>
+                        Staff Complaints and feedbacks
+                    </h5>
+                    <span>
+                        Login > personal profile > complaints and feedbacks
+                    </span>
+                    <p>
+                        This will lead to a page that showing the staff's old complaints or feedback, if any. To file a
+                        complaint or feedback, the staff should select new complaint/feedback option. On the complaint
+                        or feedback form, the concerned department and concerned staff are to be selected. If the
+                        complaint is personally against a staff and not any department, the department of the concerned
+                        staff has to be selected as the concerned department. If the staff is filing a complaint, the
+                        is_complaint checkbox has to be ticked.
+                    </p>
+                    <h5>
+                        Editing Complaints and feedbacks
+                    </h5>
+                    Only staff complaints can be edited. Editing user complaints is not allowed to ensure that the
+                    staffs don't tamper them without the knowledge of patient. User complaint once filed can only be
+                    viewed by the concerned department manager.
+                    <br>
+                    To Edit staff complaint:
+                    <br>
+                    <span>
+                        Login > staff profile > complaints and feedbacks
+                    </span>
+                    <p>
+                        This will lead to a page that showing the staff's old complaints or feedback, if any. To edit a
+                        complaint or feedback, the staff should click on a complaint/feedback this will lead to an
+                        edit page.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/10.mp4'%}">
+                    </video>
+                    <h5>
+                        Managing Complaints and feedbacks
+                    </h5>
+                    Complaints or feedback can only be managed by the concerned department manager and Executive staff.
+                    <br>
+                    Management of complaints or feedback for department manager:
+                    <br>
+                    <span>
+                        Login > staff profile > complaints and feedbacks
+                    </span>
+                    <p>
+                        This will lead to a page that showing the complaints and feedbacks filed my the manager along
+                        with the complaints and feedbacks concerning his/her department.
+                        Clicking on a complaint or feedback concerning his department will lead to a detailed page. On
+                        this page the manager can add his comments and mark the complaint as concluded or not concluded.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/11.mp4'%}">
+                    </video>
+                    <h5>
+                        Management of complaints or feedbacks for executive staff
+                    </h5>
+                    <span>
+                        Login > departments > select 'see department report' of any department > in the report page
+                        click see complaints at the bottom of the report.
+                    </span>
+                    <p>
+                        This will lead to a page where all complaints against the particular department. clicking on a
+                        complaint will lead to a manage complaints form. Clicking on a complaint or feedback concerning
+                        his department will lead to a detailed page. On this page the executive staff can mark the
+                        complaint as concluded or not concluded.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/12.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="notifications">
+                    <h4>
+                        Notifications
+                    </h4>
+                    Notifications appear on both notification bar and home page. Notifications regarding new messages
+                    appear on notification bar. Important notifications such as surgeries and announcements appear on
+                    home screen of concerned staff and concerned deparmtent.
+                    <h5>
+                        message notifications
+                    </h5>
+                    <p>
+                        clicking on a new message will show detailed message. once read, new personal message will
+                        disappear from notification bar of staff home page. However, department message will stay on the
+                        notification bar of department page for a day even if it's read.
+                    </p>
+                    <h5>
+                        surgery notifications
+                    </h5>
+                    <p>
+                        Once completed or canceled, surgery notification will disappear from home page.
+                    </p>
+                    <h5>
+                        Announcement notifications
+                    </h5>
+                    <p>
+                        Announcement notification will disappear from home page after a day.
+                    </p>
+                </div>
+                <hr>
+                <div id="leave_of_absence">
+                    <h4>
+                        Leave of absence
+                    </h4>
+                    <h5>
+                        Apply Leave
+                    </h5>
+                    <span>
+                        login > personal profie > leave of absence
+                    </span>
+                    <h5>
+                        Edit Leave
+                    </h5>
+                    <span>
+                        login > personal profie > leave of absence > select application to edit from created earlied
+                        list.
+                    </span>
+                    <p>
+                        staff can cancel her/his leave.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/13.mp4'%}">
+                    </video>
+                    <h5>
+                        Manage Leaves
+                    </h5>
+                    only managers can manage leave application.
+                    <br>
+                    <span>
+                        login > personal profie > leave applications
+                    </span>
+                    <p>
+                        all leaves of the staff in the department are shown here. clicking on any would lead to a page
+                        where manager can approve or deny leave.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/14.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="register_attendance">
+                    <h4>
+                        Register attendance
+                    </h4>
+                    To register attendance the staff must not be under suspension or dismissal and it should be his
+                    shift.
+                    <br>
+                    <span>
+                        Login > department profile > register attendance
+                    </span>
+                    <p>
+                        Type in user name and password
+                    </p>
+                </div>
+                <hr>
+                <div id="review_attendance">
+                    <h4>
+                        Review attendance
+                    </h4>
+                    Only the manager can see attendance reviews. There is an attendance report of the current shift and
+                    an absentee report that shows the number of days a staff member was absent.
+                    <h5>
+                        Attendance report
+                    </h5>
+                    <span>
+                        Login > staff profile > staff attendance
+                    </span>
+                    <h5>
+                        Absentee report
+                    </h5>
+                    <span>
+                        Login > staff profile > absentee report
+                    </span>
+                </div>
+                <hr>
+                <div id="review_staff">
+                    <h4>
+                        Review Staff
+                    </h4>
+                    only managers can review staffs.
+                    <br>
+                    <span>
+                        login > staff profile > Staffs
+                    </span>
+                    <p>
+                        this page will show all staffs in the department. It will also show the staffs under suspension.
+                        clicking on a staff under suspension will lead to a page where the manager can end the
+                        suspension (only if the time period is done).
+                        clicking on other staff will lead to a page where the shift and department can be changed.
+                    </p>
+                </div>
+                <hr>
+                <div id="change_shift_dep">
+                    <h4>
+                        Changer Staff Shift & Department
+                    </h4>
+                    only managers can change shift and department.
+                    <br>
+                    <span>
+                        login > staff profile > Staffs
+                    </span>
+                    <p>
+                        click on any staff not under disciplinary action and it will lead to a page to change shift and
+                        department.
+                    </p>
+                </div>
+                <hr>
+                <div id="staff_reports">
+                    <h4>
+                        Staff Reports
+                    </h4>
+                    only managers can write staff reports. reports on managers are written by executive staffs [<a
+                        href="#staff_reports">explained here</a>].
+                    <h5>
+                        write reports
+                    </h5>
+                    <span>
+                        login > staff reports > write a report
+                    </span>
+                    <h5>
+                        see reports
+                    </h5>
+                    <span>
+                        login > staff reports
+                    </span>
+                    <p>
+                        this will lead to a page where all reports written so far are listed. click on any report and
+                        this will show report in detail.
+                    </p>
+                    <h5>
+                        edit reports
+                    </h5>
+                    <span>
+                        login > staff reports
+                    </span>
+                    <p>
+                        this will lead to a page where all reports written so far are listed. click on any report and
+                        this will show report in detail. click on edit button to edit the report.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/a.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="invenotry">
+                    <h4>
+                        Inventory Management
+                    </h4>
+                    <h5>
+                        create inventory list
+                    </h5>
+                    <span>
+                        login > department profile > inventory list > enter items to inventory list
+                    </span>
+                    <p>
+                        it will lead to a page where inventories can be added. In case an inventory is not found in the
+                        list, staff can add it to the list by clicking on the add inventory button.
+                    </p>
+                    <h5>
+                        edit inventory list
+                    </h5>
+                    <span>
+                        login > department profile > inventory list
+                    </span>
+                    <p>
+                        it will lead to a page where added inventories are listed. click on any item to edit them.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/15.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="purchase">
+                    <h4>
+                        Purchase Management
+                    </h4>
+                    <h5>
+                        create purchase list
+                    </h5>
+                    <span>
+                        login > department profile > purchases > enter items to purchase list
+                    </span>
+                    <p>
+                        it will lead to a page where purchase items can be added. In case an inventory to purchase is
+                        not found in the list, staff can add it to the list by clicking on the add inventory button.
+                    </p>
+                    <h5>
+                        edit purchase list
+                    </h5>
+                    <span>
+                        login > department profile > purchases
+                    </span>
+                    <p>
+                        it will lead to a page where purchases are listed. click on any item to edit them. However,
+                        purchase items can be edited only if they aren't bought yet.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/16.mp4'%}">
+                    </video>
+
+                    <h5>
+                        make purchase
+                    </h5>
+                    only transport department can make and document purchases.
+                    <br>
+                    <span>
+                        login > department profile > purchase List
+                    </span>
+                    <p>
+                        it will lead to a page where all purchases to be made are listed. click on any item to enter
+                        purchase details.
+                    </p>
+                    <h5>
+                        edit purchase details
+                    </h5>
+                    only transport department can make and document purchases.
+                    <br>
+                    <span>
+                        login > department profile > purchase List
+                    </span>
+                    <p>
+                        it will lead to a page where all purchases to be made are listed. click on any item to edit
+                        purchase details.
+                        Once the purchase is closed the purchase details will be moved to
+                        'old puchase orders page':
+                        <span>
+                            login > department profile > old purchase orders
+                        </span>
+                        There will be a day to make changes to the purchase details once the item is moved to the old
+                        purchase list and no further changes are possible.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/17.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="document_disease">
+                    <h4>
+                        Document Disease
+                    </h4>
+                    <h5>
+                        add new disease cause
+                    </h5>
+                    only medical departments can document a disease cause or edit one.
+                    <br>
+                    <span>
+                        login > department profile > list of diseases > cause of varius diseases > document new cause
+                    </span>
+                    <p>
+                        here new causes can be added. another way is in the document disease form as a green '+' sign
+                        next to the field to select causes of a disease. clicking on this sign will lead to the above
+                        mentioned create cause page.
+                    </p>
+                    <h5>
+                        edit disease cause
+                    </h5>
+                    only medical departments can document a disease cause or edit one.
+                    <br>
+                    <span>
+                        login > department profile > list of diseases > cause of varius diseases
+                    </span>
+                    <p>
+                        it will lead to a page where all causes are listed. Click on the item you want to edit.
+                        you cannot delete a cause if there is at least one disease affiliated to it.
+                    </p>
+                    <h5>
+                        add new disease
+                    </h5>
+                    only medical departments can document a disease or edit one.
+                    <br>
+                    <span>
+                        login > department profile > list of diseases > document new disease
+                    </span>
+                    <p>
+                        here new disease can be added. if the cause of the disease not found in the list one can add it
+                        to the list by clicking a green '+' sign next to the field to select causes of a disease.
+                        clicking on this sign will lead to the create cause page.
+                    </p>
+                    <h5>
+                        edit diseases
+                    </h5>
+                    only medical departments can document a disease or edit one.
+                    <br>
+                    <span>
+                        login > department profile > list of diseases
+                    </span>
+                    <p>
+                        it will lead to a page where all diseases are listed. Click on the item you want to edit.
+                        you cannot delete a disease if there is at least one patient record affiliated to it.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/18.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="fatality">
+                    <h4>
+                        Fatality
+                    </h4>
+                    these pages are accessible from medical department's and OP's department profile and doctor's
+                    personal profile.
+                    <h5>
+                        report death of a registered patient
+                    </h5>
+                    <p>
+                        only a doctor can preapre the death report. Once created there is a restriction for editing
+                        this:
+                    <ol>
+                        <li>
+                            if there is autopsy, only the reporting doctor and doctors in the autopsy team can edit.
+                        </li>
+                        <li>
+                            else if there is no autopsy only the reporting doctor and the doctors in his department can
+                            edit this report.
+                        </li>
+                    </ol>
+                    </p>
+                    <span>
+                        login > department/personal profile > departed > prepare deceased report of patient.
+                    </span>
+                    <p>
+                        there is an option to mark for autopsy if it's marked a surgery form will be shown. However,
+                        it's not necessarry since autopsy can be added later.
+                    </p>
+                    <h5>
+                        report death of a anonymous patient
+                    </h5>
+                    only a doctor can preapre the death report.
+                    <br>
+                    <span>
+                        login > department/personal profile > departed > prepare deceased report of unidentified
+                        patient.
+                    </span>
+                    <p>
+                        there is an option to mark for autopsy. However, it's not necessarry since autopsy can be added
+                        later.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/19.mp4'%}">
+                    </video>
+                    <h5>
+                        autopsy
+                    </h5>
+                    <p>
+                        there is an option to mark for autopsy in the death report writing and editing pages and if it's
+                        marked, a surgery form will be shown.
+                    </p>
+                    <h5>
+                        list of deceased
+                    </h5>
+                    <span>
+                        login > department/personal profile > departed > all deceased
+                    </span>
+                    <p>
+                        all diseased patients are shown here. clicking on an item will show the detailed death report.
+                    </p>
+                    <h5>
+                        list of autopsies
+                    </h5>
+                    <span>
+                        login > department/personal profile > departed > autopsies
+                    </span>
+                    <p>
+                        all autopsies are shown here. clicking on an item will show the detailed death report.
+                    </p>
+                    <h5>
+                        see death report
+                    </h5>
+                    <span>
+                        login > department/personal profile > departed > all deceased
+                    </span>
+                    <p>
+                        all diseased patients are shown here. clicking on an item will show the detailed death report.
+                        It will be read only for users without editing permissions.
+                    </p>
+                    <h5>
+                        edit death report
+                    </h5>
+                    <p>
+                        There is a restriction for editing this:
+                    <ol>
+                        <li>
+                            if there is autopsy, only the reporting doctor and doctors in the autopsy team can edit.
+                        </li>
+                        <li>
+                            else if there is no autopsy only the reporting doctor and the doctors in his department can
+                            edit this report.
+                        </li>
+                    </ol>
+                    </p>
+                    <span>
+                        login > department/personal profile > departed > all deceased
+                    </span>
+                    <p>
+                        clicking on any item will show the detailed death report. If the user has the permissions to
+                        edit the report there will be an edit button next to heading. clicking on this will lead to the
+                        edit page.
+                    </p>
+                    <h5>
+                        edit autopsy info
+                    </h5>
+                    There is a restriction for editing this that is,
+                    since there is autopsy, only the reporting doctor and doctors in the autopsy team can edit.
+                    <br>
+                    <span>
+                        login > department/personal profile > departed > all deceased
+                    </span>
+                    <p>
+                        clicking on any item will show the detailed death report. If the user has the permissions to
+                        edit the report there will an edit button next to the heading of autopsy section. clicking on
+                        this will lead to the surgery form.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/20.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="hHuman_organs">
+                    <h4>
+                        Human organs
+                    </h4>
+                    <h5>
+                        add new organ
+                    </h5>
+                    only medical departments can document an organ or edit one.
+                    <br>
+                    <span>
+                        login > department profile > human organs> new
+                    </span>
+                    <h5>
+                        view organ
+                    </h5>
+                    <span>
+                        login > department profile > human organs
+                    </span>
+                    <p>
+                        it will lead to a page where all organs are listed. Click on the item you want and a detailed
+                        page will be shown. there will be an edit button to edit.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/21.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="patient_reception">
+                    <h4>
+                        Patient Reception
+                    </h4>
+                    only op and casuality department can do this function.
+                    <h5>
+                        Searh for patient
+                    </h5>
+                    <span>
+                        login > department profile > patient registry
+                    </span>
+                    <p>
+                        enter patient number or name. if you want to see all patients enter 'all'. click on any of the
+                        resuts and a page of health records will appear.
+                    </p>
+                    <h5>
+                        create new patient
+                    </h5>
+                    <span>
+                        login > department profile > patient registry > new patient
+                    </span>
+                    <h5>
+                        create new medical record
+                    </h5>
+                    <span>
+                        login > department profile > patient registry > new patient/search patient
+                    </span>
+                    <p>
+                        select departments the patient want to visit. all other fields are optional.
+                    </p>
+                    <h5>
+                        edit patient details
+                    </h5>
+                    <span>
+                        login > department profile > patient registry > search patient > edit patient details
+                    </span>
+                    <h5>
+                        upload/remove patient documents
+                    </h5>
+                    <span>
+                        login > department profile > patient registry > search patient > select patient > in the health
+                        records page, click on the health profile in detail link > in the health profile page select the
+                        'Upload/Remove Related Files' link in the related files section
+                    </span>
+                    <h5>
+                        edit health reccord
+                    </h5>
+                    <span>
+                        login > department profile > patient registry > search patient > select patient > in the health
+                        records page, click on the health profile in detail link > in the health profile page click on
+                        the edit reccord link.
+                    </span>
+                    <p>
+                        though there is a delete option in the edit page, the record will not be actually deleted insted
+                        will be moved to inactive health record section.
+                    </p>
+                    <h5>
+                        patient transfer document
+                    </h5>
+                    <span>
+                        login > department profile > patient registry > search patient > select patient > in the health
+                        records page, click on the health profile in detail link > in the health profile page click on
+                        the prepare transfer document link.
+                    </span>
+                    <h5>
+                        edit transfer document
+                    </h5>
+                    <span>
+                        login > department profile > patient registry > search patient > select patient > in the health
+                        records page, click on the health profile in detail link > in the health profile page click on
+                        the edit link next to the trnsfer document section.
+                    </span>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/22.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="patient_reception_unknown">
+                    <h4>
+                        Patient Reception For Anonymous Patient
+                    </h4>
+                    <h5>
+                        create new anonymous patient
+                    </h5>
+                    <span>
+                        login > department profile > unidentified patients > create new unknown patient
+                    </span>
+                    <h5>
+                        view anonymous patient
+                    </h5>
+                    <span>
+                        login > department profile > unidentified patients
+                    </span>
+                    <p>
+                        all unidentified patients will be listed here. clicking on any will lead to the health profile
+                        page.
+                    </p>
+                    <h5>
+                        edit identity details
+                    </h5>
+                    <span>
+                        login > department profile > unidentified patients > select patient > edit identity details
+                    </span>
+                    <h5>
+                        upload/remove documents of anonymous patient
+                    </h5>
+                    <span>
+                        login > department profile > unidentified patients > select patient > in the health profile page
+                        select the 'Upload/Remove Related Files' link in the related files section
+                    </span>
+                    <h5>
+                        edit health reccord of anonymous patient
+                    </h5>
+                    <span>
+                        login > department profile > unidentified patients > select patient > in the health profile page
+                        click on the edit reccord link.
+                    </span>
+                    <h5>
+                        transfer document of anonymous patient
+                    </h5>
+                    <span>
+                        login > department profile > patient registry > search patient > select patient > in the health
+                        profile page click on the prepare transfer document link.
+                    </span>
+                    <h5>
+                        resolve identity of the anonymous patient
+                    </h5>
+                    <p>
+                    <ol>
+                        <li>
+                            create new patient
+                            <br>
+                            <span>
+                                login > department profile > unidentified patients > select patient > in the health
+                                profile page click on the create new patient link.
+                            </span>
+                            <br>
+                            if the identity of the patient is found and she/he is not registered in the hospital, this
+                            option is to be taken.
+                        </li>
+                        <li>
+                            affiliate the record to an existing patient
+                            <br>
+                            <span>
+                                login > department profile > unidentified patients > select patient > in the health
+                                profile page click on the add existing patient link.
+                            </span>
+                            <br>
+                            if the identity of the patient is found and she/he is registered in the hospital, this
+                            option is to be taken.
+                        </li>
+                    </ol>
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/23.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="consulting">
+                    <h4>
+                        Patient Consulting
+                    </h4>
+                    <h5>
+                        patient que
+                    </h5>
+                    doctor's profile and medical department's profile can access this page.
+                    <ul>
+                        <li>
+                            department profile :
+                            <br>
+                            <span>
+                                login > department profile > Que
+                            </span>
+                        </li>
+                        <li>
+                            doctor profile :
+                            <br>
+                            <span>
+                                login > staff profile > Patient consulting > Que
+                            </span>
+                        </li>
+                    </ul>
+                    <p>
+                        this page shows list of patients to see the particular department ordered by op ticket time.
+                        Once the patient is consulted by doctor they will disappear from Que and move to visited
+                        patients section.
+                    </p>
+                    <h5>
+                        Searh for patient
+                    </h5>
+                    only doctors can do this function.
+                    <br>
+                    <span>
+                        login > staff profile > Patient consulting
+                    </span>
+                    <br>
+                    enter patient number or name. all records of the patient shall appear and the active record will be
+                    shown in green.
+                    clicking on a record will lead to the patient review page.
+                    <h5>
+                        patient review page
+                    </h5>
+                    only doctors can do this function.
+                    <br>
+                    <span>
+                        login > staff profile > Patient consulting > search patient > access record
+                    </span>
+                    <p>
+                        on the patient review page, if record is active that is if the patient is still at the
+                        hospital, the doctor can add health rmarks, tests, diseases and prescriptions. as many
+                        prescriptions and diseases can be added. also next meeting date can be specified and patient can
+                        be admitted here. <br>
+                        to add multiple diseases, holt down <kbd>Ctrl</kbd> key. <br>
+                        to add a prescription click on the 'add medicine' button. <br>
+                        in case the record is inactive that is if the patient has left the hospital no new tests,
+                        diseases or prescription can be added. however new remarks can be made.
+                    </p>
+                    <h5>
+                        patient report
+                    </h5>
+                    <span>
+                        login > staff profile > Patient consulting > search patient > access record > confirm and view
+                        report
+                    </span>
+                    <p>
+                        on this page all remarks, prescriptions, diseases and tests will be shown. these items can be
+                        edited based on some rules:
+                    <ol>
+                        <li>
+                            diseases can be edited in the review page by unselecting previously seleccted disease. this
+                            has to be done holding down <kbd> Ctrl</kbd>.
+                        </li>
+                        <li>
+                            remarks can be edited without any rule.
+                        </li>
+                        <li>
+                            prescription cannot be edited if the medicine is given.
+                        </li>
+                        <li>
+                            tests cannot be edited once it's taken.
+                        </li>
+                    </ol>
+                    surgery can be added for the patient in this page.
+                    </p>
+                    <h5>
+                        view anonymous patients
+                    </h5>
+                    only doctors can do this function.
+                    <br>
+                    <span>
+                        login > staff profile > Patient consulting > unknown patients
+                    </span>
+                    <p>
+                        here we have a list of all anonymous patient. clicking on any item will lead to the patient
+                        review page if the patient is in the doctor's department.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/24.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="surgery">
+                    <h4>
+                        Surgery
+                    </h4>
+                    Only doctors can access these function. once surgery is initiated, untill it's finished there will
+                    be a alert message in the concerned department and personal home pages.
+                    <h5>
+                        Initiate a surgery
+                    </h5>
+                    To do this the patient must be in doctor's department
+                    <br>
+                    <span>
+                        Login > staff profile > patient consulting> search using patient number > select appropriate
+                        record > go to patient report > mark the patient for surgery at the bottom of page
+                    </span>
+                    <h5>
+                        edit surgery information
+                    </h5>
+                    To do this the patient must be in doctor's department or the doctor must be in the surgery team or
+                    the doctor must the surgery inititator.
+                    <br>there are two ways:
+                    <ul>
+                        <li>
+                            For surgery initiator <br>
+                            Login > staff profile > patient consulting> search using patient number > select appropriate
+                            record > go to patient report > in the surgeries section click on the edit link of concerned
+                            surgery
+                        </li>
+                        <li>
+                            For team members <br>
+                            Login > staff profile > surgeries> select the surgery > edit surgery information
+                        </li>
+                    </ul>
+                    <p>
+                        This will lead to the surgery form.
+                        Here new information can be added and existing ones edited. There is an option to delete surgery
+                        however on completion of surgery, deletion will be impossible.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/25.mp4'%}">
+                    </video>
+                    <h5>
+                        Write/edit surgery report
+                    </h5>
+                    To do this the doctor must be in the surgery team or must be the one that initiated the surgery.
+                    <ul>
+                        <li>
+                            for team members <br>
+                            <span>
+                                Login > staff profile > surgeries> select the surgery > edit report
+                            </span>
+                        </li>
+                        <li>
+                            only for the doctor who initiated surgery <br>
+                            <span>
+                                Login > staff profile > patient consulting> search using patient number > select
+                                appropriate record > go to patient report > in the surgeries section click on the write
+                                report link of concerned surgery
+                            </span>
+                        </li>
+                    </ul>
+                    <h5>
+                        add/remove surgery docs
+                    </h5>
+                    To do this the doctor must be in the surgery team or must be the one that initiated the surgery.
+                    <br>
+                    <span>
+                        go to surgery report > click on edit files link in the documents section.
+                    </span>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/26.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="medicine_distribution">
+                    <h4>
+                        medicine distribution
+                    </h4>
+                    Only pharmacy department can access this page.
+                    <h5>
+                        giving medicine
+                    </h5>
+                    <span>
+                        Login > department profile > search using patient number
+                    </span>
+                    <p>
+                        if there is a patient with the number at the hospital, the medicine distribution page will
+                        appear.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/28.mp4'%}">
+                    </video>
+                    <h5>
+                        add medicine
+                    </h5>
+                    <span>
+                        Login > department profile > Medicines > document new medicine
+                    </span>
+                    <p>
+                        if there is a patient with the number at the hospital, the medicine distribution page will
+                        appear.
+                    </p>
+                    <h5>
+                        view medicine
+                    </h5>
+                    <span>
+                        Login > department profile > Medicines
+                    </span>
+                    <p>
+                        a page with all medicines will appear.
+                    </p>
+                    <h5>
+                        edit medicine
+                    </h5>
+                    <span>
+                        Login > department profile > Medicines
+                    </span>
+                    <p>
+                        a page with all medicines will appear clicking on any will lead to the edit page. medicine has a
+                        delete option but it'll not work if there is at least one prescription for it.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/27.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="bill">
+                    <h4>
+                        bill
+                    </h4>
+                    Only pharmacy department can access this page.
+                    <h5>
+                        pay bill
+                    </h5>
+                    <span>
+                        Login > department profile > search using patient number
+                    </span>
+                    <p>
+                        if there is a patient with the number at the hospital, the medicine distribution page will
+                        appear. click on the bill and it'll take you to the bill. there is an option for deductions
+                        which will be handy when it comes to refunding medicines.
+                    </p>
+                    <h5>
+                        surgery prepayment
+                    </h5>
+                    <span>
+                        Login > department profile > search using patient number > go to bill </span>
+                            <p>
+                                suregry prepayments will appear below the bill click on the pay button and it will lead
+                                to surgery prepayment form.
+                            </p>
+                            <video width="800" height="500" controls>
+                                <source src="{%static 'images/29.mp4'%}">
+                            </video>
+                        </div>
+                <hr>
+                <div id="medical_test">
+                    <h4>
+                        Medical test
+                    </h4>
+                    Only Lab department can access these functions.
+                    <h5>
+                        see tests
+                    </h5>
+                    <span>
+                        Login > department profile > search patient> search using patient number
+                    </span>
+                    <p>
+                        you will be redirected to a page were all tests of the patient is listed including the ones that
+                        are taken.
+                        click on a completed test and you can edit it. click on a test to take you will be led to test
+                        report page.
+                    </p>
+                    <h5>
+                        upload docs
+                    </h5>
+                    <span>
+                        Login > department profile > search patient> search using patient number > go to the particular
+                        test
+                    </span>
+                    <p>
+                        On the edit/report page there will be a section to upload files.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/30.mp4'%}">
+                    </video>
+                    <h5>
+                        add new test
+                    </h5>
+                    <span>
+                        Login > department profile > tests> add new test
+                    </span>
+                    <p>
+                        On the edit/report page there will be a section to upload files.
+                    </p>
+                    <h5>
+                        edit test
+                    </h5>
+                    <span>
+                        Login > department profile > tests
+                    </span>
+                    <p>
+                        This will show the tests available, clicking on any will lead to the edit page.
+                        the test cannot be deleted if there is one record related to it.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/31.mp4'%}">
+                    </video>
+                    <h5>
+                        see test report
+                    </h5>
+                    <ol>
+                        <li>
+                            lab department can view the test report by: <br>
+                            <span>
+                                Login > department profile > search patient> search using patient number > go to the
+                                particular test
+                            </span>
+                        </li>
+                        <li>
+                            doctors can view the test report by: <br>
+                            <span>
+                                Login > staff profile > search patient> search using patient number > go to the
+                                particular record > go to patient report > in tests section select view report of the
+                                particular test.
+                            </span>
+                        </li>
+                    </ol>
+                </div>
+                <hr>
+                <div id="morgue">
+                    <h4>
+                        Morgue
+                    </h4>
+                    Only Morgue department can access these functions.
+                    <h5>
+                        admission
+                    </h5>
+                    <span>
+                        Login > department profile > morgue > create new entry
+                    </span>
+                    <h5>
+                        view admissions
+                    </h5>
+                    <span>
+                        Login > department profile > morgue
+                    </span>
+                    <p>
+                        all morgue admissions will be listed here.
+                    </p>
+                    <h5>
+                        edit admission details / dismiss
+                    </h5>
+                    <span>
+                        Login > department profile > morgue
+                    </span>
+                    <p>
+                        all morgue admissions will be listed here select any to edit.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/32.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="rooms">
+                    <h4>
+                        Rooms
+                    </h4>
+                    Only Rooms department can access these functions.
+                    <h5>
+                        new room type
+                    </h5>
+                    <span>
+                        Login > department profile > Room types > new room type
+                    </span>
+                    <h5>
+                        view room types
+                    </h5>
+                    <span>
+                        Login > department profile > Room types
+                    </span>
+                    <p>
+                        all room types will be listed here.
+                    </p>
+                    <h5>
+                        edit room type
+                    </h5>
+                    <span>
+                        Login > department profile > Room types
+                    </span>
+                    <p>
+                        all room types will be listed here. select any to edit. room type cannot be deleted if there is
+                        atleast one room of this type.
+                    </p>
+                    <h5>
+                        new room
+                    </h5>
+                    <span>
+                        Login > department profile > Room management > new room
+                    </span>
+                    <h5>
+                        view rooms
+                    </h5>
+                    <span>
+                        Login > department profile > Room management
+                    </span>
+                    <p>
+                        all rooms will be listed here.
+                    </p>
+                    <h5>
+                        edit room
+                    </h5>
+                    <span>
+                        Login > department profile > Room management
+                    </span>
+                    <p>
+                        all rooms will be listed here. select any to edit. room cannot be deleted if there is atleast
+                        one patient in this room.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/33.mp4'%}">
+                    </video>
+                    <h5>
+                        new admission
+                    </h5>
+                    <span>
+                        Login > Patient Admissions> patient waiting
+                    </span>
+                    <p>
+                        all patients waiting admission will be listed here click on any to assign room.
+                    </p>
+                    <h5>
+                        view admissions
+                    </h5>
+                    <span>
+                        Login > Patient Admissions
+                    </span>
+                    <p>
+                    <ul>
+                        <li>
+                            select patient wailting tab to see all patients waiting admissions.
+                        </li>
+                        <li>
+                            select active admissions tab to see all patients now in rooms.
+                        </li>
+                        <li>
+                            select checked out rooms tab to see all patients checked out.
+                        </li>
+                    </ul>
+                    click on any item to see it in detail.
+                    </p>
+                    <h5>
+                        change room
+                    </h5>
+                    <span>
+                        Login > Patient Admissions> active admissions
+                    </span>
+                    <p>
+                        all active admissions will be here clicking on any will take you to a detailed page.
+                        click on change room button in the appearing page. this will redirect to change room page.
+                        select the new room and mark transfer checkbox.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/34.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="disciplinary_actions">
+                    <h4>
+                        Disciplinary actions
+                    </h4>
+                    Only executive staff can do these.
+                    <h5>
+                        new disciplinary actions
+                    </h5>
+                    <span>
+                        Login > disciplinary actions > take action
+                    </span>
+                    <p>
+                        if the action is not dismissal it's considered suspension. dismissal will remove the staff from
+                        department and prevent them from getting into work.
+                    </p>
+                    <h5>
+                        complete disciplinary action
+                    </h5>
+                    <span>
+                        Login > disciplinary actions
+                    </span>
+                    <p>
+                        all actions are listed here. click on any item to see it in detail. mark it as completed or not.
+                        if a dismissal action is canceled/completed the staff will have to be assigned to a department
+                        to be able to work.
+                    </p>
+                    <h5>
+                        edit disciplinary action
+                    </h5>
+                    <span>
+                        Login > disciplinary actions
+                    </span>
+                    <p>
+                        all actions are listed here. click on any item to see it in detail. click on the edit button to
+                        edit an action.
+                    </p>
+                    <h5>
+                        assign department to a staff
+                    </h5>
+                    <span>
+                        Login > unassigned staff
+                    </span>
+                    <p>
+                        all staffs who are without a department will be listed here. click on any and you will be led to
+                        a page where you can add a new department to them.
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/35.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="salary">
+                    <h4>
+                        Salary
+                    </h4>
+                    Only executive staff can do these.
+                    <h5>
+                        salary levels
+                    </h5>
+                    <span>
+                        Login > manage salary
+                    </span>
+                    <p>
+                        this will lead to a page where all levels and their basic salary will be shown. <br>
+                    <ul>
+                        <li>
+                            to edit level base salary : click on 'edit basic salary'.
+                        </li>
+                    </ul>
+                    </p>
+                    <h5>
+                        staff salary
+                    </h5>
+                    <span>
+                        Login > manage salary > click on total staffs link to see staffs in that level.
+                    </span>
+                    <p>
+                        this will lead to a page where all staffs of that level are shown. click on any staff an it will
+                        show salary in detail. <br>
+                    <ul>
+                        <li>
+                            to edit staff salary : click on edit salary link in detailed salary page.
+                        </li>
+                    </ul>
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/36.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="executive_actions">
+                    <h4>
+                        Executive actions : reports, stats, disciplinary actions and promotions
+                    </h4>
+                    Only executive staff can do these.
+                    <h5>
+                        department report
+                    </h5>
+                    <span>
+                        Login > departments > see department report
+                    </span>
+                    <p>
+                        this will lead to department report.
+                    <ul>
+                        <li>
+                            to see statistics : click on 'see detailed stats'.
+                        </li>
+                        <li>
+                            to see complaints : click on 'see complaints'.
+                        </li>
+                        <li>
+                            to see inventory report : click on 'see inventory report'.
+                        </li>
+                    </ul>
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/37.mp4'%}">
+                    </video>
+                    <h5>
+                        staff report
+                    </h5>
+                    <span>
+                        Login > departments > staffs
+                    </span>
+                    <p>
+                        this will lead to a page where all staffs of the department are listed.
+                    <ul>
+                        <li>
+                            to see reports : click on 'staff reports' and you will be led to a page where all reports of
+                            a staff are listed ordered by date. click on any report to see it. editing of the report by
+                            managers can be stopped in this page.
+                        </li>
+                        <li>
+                            make promotion : click on 'promotion/depromotion'.
+                        </li>
+                        <li>
+                            to see statistics : click on "staff's stats" in the staff reports page.
+                        </li>
+                    </ul>
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/38.mp4'%}">
+                    </video>
+                    <h5>
+                        Department managers
+                    </h5>
+                    <span>
+                        Login > departments > managers
+                    </span>
+                    <p>
+                        this will lead to a page where all managers of the department are listed.
+                    <ul>
+                        <li>
+                            to add new manager : click on add more managers.
+                        </li>
+                        <li>
+                            to change/delete manager : click on change manager.
+                        </li>
+                        <li>
+                            to write report on a manager : click on write report.
+                        </li>
+                        <li>
+                            to read report on a manager : click on see report.
+                        </li>
+                    </ul>
+                    </p>
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/39.mp4'%}">
+                    </video>
+                    <h5>
+                        Detailed stats
+                    </h5>
+                    to see detailed stat of medical departments:
+                    <br>
+                    <span>
+                        Login > department wise stats
+                    </span>
+                    <p>
+                        this will lead to a page where all departments are listed. click on any to see their stats.
+                    </p>
+                    links to other statistics such as medicine and diseases are given in the executive's home page.
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/40.mp4'%}">
+                    </video>
+                </div>
+                <hr>
+                <div id="shift">
+                    <h4>
+                        Shift
+                    </h4>
+                    Only OP managers can do it.
+                    <br>
+                    <span>
+                        login > personal profile > change shift
+                    </span>
+                    <br>
+                    once the shift is changed it cannot be changed again untill after 7 days.
+                    <video width="800" height="500" controls>
+                        <source src="{%static 'images/41.mp4'%}">
+                    </video>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+        <div>
+            <br>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{% extends 'Hospital/SBase.html' %}
+{% block title %}staff attendance{% endblock %}
+{%block content%}
+<h2> {{head}}</h2>
+<br/>
+  {% for object in present_list %}
+    <dd class="card" style="height: 70px;">
+        {{object}}
+    </dd>
+  {% endfor %}
+<br/><br/>
+<h2> Absent Staffs</h2>
+  {% for object in absent_list %}
+    <dd class="card" style="height: 70px;">
+        {{object}}
+    </dd>
+  {% endfor %}
+<br/><br/>
+<h2> Staffs on Leave</h2>
+<br/>
+  {% for object in leaves %}
+    <dd class="card" style="height: 70px;">
+        {{object}}
+    </dd>
+  {% endfor %}
+
+{%endblock%}

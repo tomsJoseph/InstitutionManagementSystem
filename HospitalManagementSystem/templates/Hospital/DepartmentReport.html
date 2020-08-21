@@ -1,0 +1,139 @@
+{% extends 'Hospital/EBase.html' %}
+{%block content %}
+<h2>report of {{department}}</h2> 
+<br/>
+<div class="container row">
+    <div class="col-lg-12" style="border: solid 1px white;background-color: rgba(255, 255, 255, .6);border-radius: 5px;text-indent: 1%;">
+        <div class="row" style="background-color: rgb(93, 93, 97);">
+            <div class="col-lg-6 side" style="border-left: solid white 1px;padding: 1%;">
+                <a href="{%url 'M_DepartmentalComplaints' department.id%}" style="color: white;">
+                    <div>
+                        see complaints/feedback
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-6 side" style="border-left: solid white 1px;padding: 1%;">
+                <a href="{%url 'M_InventoryReport' department.id%}" style="color: white;">
+                    <div>
+                        see inventory report
+                    </div>
+                </a>
+            </div>
+          </div>
+          <br>
+
+          <h5 title="title">department : {{department}}</h5>
+    <h5 title="managers in detail"> managers :
+         {% for man in managers%}
+         {{man.manager}}
+         {%endfor%}
+        </h5>
+    <br/>
+
+     <hr>
+    <table class="table table-hover">
+            <tr>
+            <th colspan="2" style="text-align: center;">
+                    department statistics
+                    {%if stat_url%}
+                    <a href="{%url stat_url %}" title="click to see detailed stats">
+                        <small>    see detailed stats </small>
+                        </a>
+                        {%elif department.is_medical%}
+                    <a href="{%url 'M_DepartmentStatistics' department.id%}" title="click to see detailed stats">
+                    <small>    see detailed stats </small>
+                    </a>
+                    {%endif%}
+            </th>
+        </tr>
+    <tr>
+            <td>
+                total staffs
+            </d>
+            <td>
+            {{staffs_no}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                total doctors
+            </td>
+            <td>
+                {{doc_no}}
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                total nurses
+            </td>
+            <td>
+                {{nur_no}}
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                other staffs
+            </td>
+            <td>
+                {{oth_no}}
+            </td>            
+        </tr>
+        {%if department.is_medical%}
+        <tr>
+            <td>
+                total patient visits this month
+            </td>
+        <td>
+            {{pat_no_month}}
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                total patient visits this year
+            </td>
+        <td>
+            {{pat_no_year}}
+            </td>
+            
+        </tr>
+        <tr>
+            <td>
+                total patient visits last year
+            </td>
+        <td>
+            {{pat_no_last_year}}
+            </td>
+            
+        </tr>
+        {%endif%}
+        <tr>
+            <td>
+                complaints/feedback this month
+            </td>
+            <td>
+            {{complaints_against_month}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                complaints/feedback tihs year
+            </td>
+            <td>
+            {{complaints_against_year}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                complaints/feedback last year
+            </td>
+            <td>{{complaints_against_last_year}}
+            </td>
+        </tr>
+    </table>
+    <hr>
+    </div>
+</div>
+{%endblock%}

@@ -1,0 +1,23 @@
+{% extends 'Hospital/base.html' %}
+{% block title %}all rooms{% endblock %}
+{%block content%}
+<h2> Rooms </h2>
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p id = 'er' style='font-weight:bold;'></p>
+    </br>
+    <input type = "submit" value = 'apply'/>
+</form>
+
+<ul>
+    {% for r in rooms%}
+    <li>
+        {{r}} <a href='{%url "EditRoom" r.id%}'>
+            Edit
+        </a>
+    </li>
+    {%endfor%}
+
+</ul>
+{%endblock%}

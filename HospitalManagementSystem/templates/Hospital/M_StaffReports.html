@@ -1,0 +1,41 @@
+{%extends "Hospital/EBase.html"%}
+{%block content%}
+{% if object_list%}
+<div class="container">
+    <h2>staff reports</h2>
+    <br/>
+    <form method="GET">
+        {%csrf_token%}
+        <select name= "sort_field" onchange="this.form.submit()">
+            <option>
+                sort the list
+            </option>
+            <option value=0>
+                name
+            </option>
+            <option value=1>
+                date
+            </option>
+            <option value=2>
+                department
+            </option>
+        </select>
+    </form>
+    <br/>
+    {% for rep in object_list%}
+    <div class="card" style="background-color: rgba(255, 255, 255, .5);">
+            <a href="{% url 'DetailStaffReport' rep.id %}" title = "see in detail"><h5 class="card-title">
+            report on {{rep.Staff}}
+        </h5>
+    </a>
+        <hr>
+        <p>
+            filed on {{rep.filed_date}} by {{rep.remark_by}}
+        </p>
+    </div>
+    <br/>
+    {%endfor%}
+</div>
+{%endif%}
+
+{% endblock %}

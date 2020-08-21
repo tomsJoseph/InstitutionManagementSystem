@@ -1,0 +1,22 @@
+{% extends 'Hospital/base.html' %}
+{% block title %}purchases{% endblock %}
+{%block content%}
+
+<div style = "float:left;">
+<h2> {{object}} </h2>
+</br></br>
+<label>
+{{ object.requird_num }} {{object.item}}s are required
+</label>
+</br></br>
+<label>
+{{ object.item_remaining }} {{object.item}}s are available in stock
+</label>
+</br></br>
+        <form enctype="multipart/form-data" method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+            <input type = "submit" value = 'Update'/>
+        </form>
+</div>
+{%endblock%}

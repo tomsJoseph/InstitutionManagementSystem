@@ -1,0 +1,32 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}register attendance{% endblock %}
+{%block content%}
+<div class="container">
+<h2 class="text-center"> Register Attendance </h2>
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-lg-6">
+    <label for="username">username</label> <input type="text" name="username"/>
+    </div>
+    <div class="col-lg-6">
+        <label for="password">password</label> <input type="password" name="password1"/>
+    </div>
+    <div class="col-lg-12">
+        <br/>
+    </div>
+    <div class="col-lg-12">
+    <input type = "submit" value = ' Please Click To Sign In' class="btn btn-primary btn-block"/>
+    </div>
+</div>
+</form>
+</br>
+{%if info %} 
+<div class="alert alert-warning">
+	<h5 class="alert-heading">
+		{{info}}
+	</h5>
+</div>
+{%endif%}
+</div>
+{%endblock%}

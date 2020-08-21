@@ -1,0 +1,75 @@
+{% extends "Hospital/DBase.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<div style="background-color: rgba(255, 255, 255, .5);margin-left: 5%;">
+    <h1>Welcome To {{ dep }} Department</h1>
+    <hr>
+    managers of department : 
+        {%for man in dep.departmentmanager_set.all%}
+{{man}} [shift : {{man.manager.shift.shift_name}}], 
+{%endfor%}
+<br>
+executive managers of hospital : {%for man in e_men%}
+{{man.app_user}}, 
+{%endfor%}
+</div>
+<br>
+{%if msg%}
+<div class="alert-success centered_head" style="padding: 1%;font-size: large;margin-left: 5%;">
+    <hr>
+    {{msg}}
+</div>
+{%endif%}
+</br></br>
+<ul>
+    {% for item in notifications.announcements.0%}
+    <div class="card" style="background-color: rgba(255, 255, 255, .7);">
+        <h7 class="card-subtitle">announcement</h7>
+        <div class="card-body">
+            <h4 class="card-title">
+                subject : {{item.title}}
+            </h4>
+            <hr>
+            <p class="card-text">
+                {{item.text}}
+                <br/>
+                <br/>
+                <small>
+                    announcement from {%if item.from_u %} {{item.from_u}} {%else%} Adminstration {%endif%}
+                    <br/>
+                    announced @ {{item.time_of_announcement}}
+                </small>
+                <br />
+            </p>
+        </div>
+    </div>
+    {%endfor%}
+
+</ul>
+<ul style="list-style-type: none;">
+    {%for item in notifications.surgery_due.0%}
+    <div class="card" style="opacity: .9;">
+        <div class="card-body">
+            <h7 class="card-subtitle">surgery</h7>
+            <br/> <br/>
+            <h4 class="card-title">
+                {{item.surgery_name}} for {{item.record}}
+            </h4>
+            <h6 class="card-subtitle">
+                report about {{item.team_report_time}} on {{item.date_of_surgery}}
+                @ operation theatre - {{item.theatre}}
+            </h6>
+            <br />
+            <p class="card-text">
+                <dt>Team:</dt>
+                {%for member in item.team.all%}
+                <dd>
+                    {{member}}
+                </dd>
+                {%endfor%}
+            </p>
+        </div>
+    </div>
+    {%endfor%}
+</ul>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends base_temp %}
+{% block title %}{{head}}{% endblock %}
+{%block content%}
+  <h2> {{head}} </h2>
+{%if not object_list and not old_object_list%}<div class="card" style="height: 50px;text-align: center;"> <h5>nothing to show!</h5></div>{%endif%}
+<br/>
+  {% for object in object_list %}
+  <div class="row">
+      <div class="col-lg-12" style="background-color: rgba(255, 255, 255, .8);">
+  <div class="row" style="background-color: rgb(93, 93, 97);">
+    <div class="col-lg-6 side" style="padding: 1%;">
+      <a href="{%url 'M_StaffReports' object.id%}" style="color: white;"><div>staff report</div></a>
+    </div>
+    <div class="col-lg-6 side" style="border-left: solid white 1px;padding: 1%;">
+      <a href="{%url 'M_PromoOrDepromo' object.id%}" style="color: white;"><div>promotion/depromotion</div></a>
+    </div>
+  </div>
+    <br>
+    {{object}}
+    <br>
+    {{object.shift}}
+    <br> <br>
+  </div>
+  </div>
+  <br>
+  {% endfor %}
+
+{%endblock%}

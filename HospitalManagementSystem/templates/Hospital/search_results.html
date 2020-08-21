@@ -1,0 +1,33 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}serach results{% endblock %}
+{%block content%}
+<h1>Search Results</h1>
+
+<div>
+  {% for pat in object_list %}
+  <a href="find_records/{{pat.pk}}">
+      <div class="bord" style="background-color: rgba(255, 255, 255, .5);height: 100px;color: black;">
+    <div class="row">
+      <div class="col-lg-10">
+        <h5 class="card-title">{{ pat }} <sub><small>{% for dep in pat.get_active_health_reccord_or_last.departments.all %}{{dep}},{%endfor%}</small></sub></h5>
+        <div class="card-subtitle">
+          {%if pat.active%} @ hospital {%else%}not at hospital{%endif%}, {%if pat.deceased%} passed away{%endif%}
+        </div>
+        <div class="card-body">
+        phone : {{pat.phone}}
+        </div>
+
+      </div>
+      {%if pat.photo%}
+      <img src="{{pat.photo.url}}" width="100px", height="100px" style="border: solid white 2px;">
+      {%endif%}
+      <div class="col-lg-2" style="text-align: right;padding-right: 5%;">
+      </div>
+    </div>
+  </div>
+</a>
+
+  <br />
+  {% endfor %}
+</div>
+{%endblock%}

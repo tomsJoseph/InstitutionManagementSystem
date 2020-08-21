@@ -1,0 +1,92 @@
+{% extends "Hospital/SBase.html" %}
+{% block title %}prepare autopsy report{% endblock %}
+{%block content%}
+		<h2> death report of {%if patient_unknown%}U{{patient_unknown.id}}{%else%}{{patient}}{%endif%} </h2>
+		<form enctype="multipart/form-data" method="POST" onclick="adddatepicker()">
+        {% csrf_token %}
+        <div style="background-color: rgba(255, 255, 255, .8);padding: 1%;">
+            was this an accident?<br/>
+            <select name="accident" title=" if accident, please select the type of it">
+                {%if selected_acc%}
+                <option value="{{selected_acc.id}}">
+                    {{selected_acc}}
+                </option>
+                {%endif%}
+                <option value=''>
+                  no accident involved
+              </option>
+              {%for acc in accidents%}
+                <option value="{{acc.id}}">
+                    {{acc}}
+                </option>
+                {%endfor%}
+            </select>
+		{% for field in form%}
+		<p>
+		  {{ field.label_tag }}<br>
+		  {{ field }}
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+	  {% endfor %}
+		<p id = 'er' style='font-weight:bold;'></p>
+        </br>
+        </div>
+        <br/>
+        <div>
+          {%if sub_form%}
+          <div style="background-color: rgba(255, 255, 255, .8);padding: 1%;">
+          <h5 class="centered_head">autopsy information</h5>
+            {% for field in sub_form%}
+            <p>
+              {{ field.label_tag }}<br>
+              {{ field }}
+              {% if field.help_text %}
+                <small style="color: grey">{{ field.help_text }}</small>
+              {% endif %}
+              {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+              {% endfor %}
+            </p>
+          {% endfor %}
+          </div>
+          {%else%}
+          <h5 class="alert-warning" id = "er"></h5>
+          <input type="checkbox" name="autopsy" id="aut1" value="mark" onclick="autopsy_warning()"> mark for autopsy
+          <script>
+          function autopsy_warning()
+          {
+              var par = document.getElementById("er");
+              if(par.innerHTML == '') par.innerHTML = 'this patient is now marked for autopsy';
+              else par.innerHTML = '';
+          }  
+        </script>
+          {%endif%}
+    
+      </div>
+      </br>
+      <h5 class="alert-danger" id = "d_er"></h5>
+      <input type="checkbox" name="deletebale" value="delete_now" onchange="delete_warning()"> delete this report
+      <br/>
+      <input type = "submit" value = 'save' class="btn-primary"/>
+        </form>
+        <script>
+          function delete_warning()
+          {
+              var par = document.getElementById("d_er");
+              if(par.innerHTML == '') par.innerHTML = 'you are about to delete this report';
+              else par.innerHTML = '';
+          }  
+            function adddatepicker()
+            {
+                document.getElementById('id_date_of').type = 'date';
+                document.getElementById('id_time_of').type = 'time';
+                document.getElementById('id_end_date').type = 'date';
+                document.getElementById('id_end_time').type = 'time';
+            }
+        </script>
+{%endblock%}

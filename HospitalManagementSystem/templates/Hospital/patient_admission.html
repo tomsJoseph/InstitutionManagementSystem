@@ -1,0 +1,17 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}admission{% endblock %}
+{%block content%}
+<h2>  {{object}} </h2>
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    {{ form.as_p}}
+    {% if not object.ad_time%}
+        <input type = 'checkbox' value = 'Admit' name='Admission' required/>Admit
+    {%else%}
+    {%endif%}
+    <br/>
+    <br/>
+    <input type = "submit" value = 'apply' class="btn-primary"/>
+    <br/>
+</form>
+{%endblock%}

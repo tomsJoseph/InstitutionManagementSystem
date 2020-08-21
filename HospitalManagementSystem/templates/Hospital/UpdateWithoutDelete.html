@@ -1,0 +1,35 @@
+{% extends base_temp %}
+{% block title %}{{head}}{% endblock %}
+{%block content%}
+{%if head %}
+		<h2> {{head}} </h2>
+{% else %}
+		<h2> Update : {{object}} </h2>
+{% endif %}
+		<form enctype="multipart/form-data" method="POST">
+			{%if extra_info%}
+			<div class="alert-warning centered_head">
+				<br>
+				<hr>
+		{{extra_info}}
+		</div>
+		{%endif%}
+		<br/><br/>
+		{% csrf_token %}
+		{% for field in form%}
+		<p>
+		  {{ field.label_tag }}<br>
+		  {{ field }}
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+	  {% endfor %}
+		<p id = 'er' style='font-weight:bold;'></p>
+		</br>
+            <input type = "submit" value = 'apply' class="btn-primary"/>
+        </form>
+{%endblock%}

@@ -1,0 +1,34 @@
+{% extends base_temp %}
+{% block title %}{{head}}{% endblock %}
+{%block content%}
+<h1> {{head}} </h1>
+<a href = "{% url 'Sentbox' %}"><button  class="btn btn-light">Sentbox</button></a>
+<a href = "{% url 'Inbox' %}"><button  class="btn btn-light">Inbox</button></a>
+{%if user.appuser.lockdown%}
+<a href = "{% url 'NewMessageDepartment' %}"><button  class="btn btn-light">New Messge</button></a>
+{%else%}
+<a href = "{% url 'NewMessage' %}"><button  class="btn btn-light">New Messge</button></a>
+{%endif%}
+<br/><br/>
+<div class="bg-light">
+<ul style="list-style-type: none;">
+  {% for msg in unread %}
+    <li>
+      <a href = "{% url 'Message' msg.pk %}">{{ msg }}</a> |new|
+      <br/><br/>
+    </li>
+  {% endfor %}
+</ul>
+</div>
+<br/><br/>
+<div class="bg-light">
+  <ul style="list-style-type: none;">
+  {% for msg in read %}
+    <li>
+      <a href = "{% url 'Message' msg.pk %}">{{ msg }}</a> |read|
+      <br/><br/>
+    </li>
+  {% endfor %}
+</ul>
+</div>
+{%endblock%}

@@ -1,0 +1,68 @@
+{% extends 'Hospital/EBase.html' %}
+{%block content %}
+<h2> inventories - department of {{department}}</h2>
+<br/>
+<div class="container">
+    <div style="border: solid 1px white;background-color: rgba(255, 255, 255, .6);border-radius: 5px;text-indent: 1%;">
+        <table class="table">
+            <tr>
+                <td>
+                    total purchase this year 
+                </td>
+                <td>
+                    ₹{{purchase_year}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    total discount this year 
+                </td>
+                <td>
+                    ₹{{disc_year}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    total purchase last year 
+                </td>
+                <td>
+                    ₹{{purchase_last_year}} 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    total discount last year 
+                </td>
+                <td>
+                    ₹{{disc_last_year}} 
+                </td>
+            </tr>
+        </table>
+    <hr>
+    </div>
+    <br/>
+    <div style="border: solid 1px white;background-color: rgba(255, 255, 255, .6);border-radius: 5px;text-indent: 1%;">
+    <table class="table table-hover">
+        <tr>
+            <th>
+                equipment
+            </th>
+            <th>
+                number
+            </th>
+        </tr>
+        {% for obj in object_list%}
+        <tr>
+            <td>
+                {{obj.0}}
+            </d>
+            <td>
+            {{obj.1}}
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+    <hr>
+</div>
+</div>
+{%endblock%}

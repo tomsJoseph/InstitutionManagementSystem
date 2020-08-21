@@ -1,0 +1,53 @@
+{% extends base_temp %}
+{% block title %}test report{% endblock %}
+{%block content%}
+<h1>Test Report  : {{object.test.test_name}} for number {%if object.record.patient_unknown%}U{{object.record.patient_unknown.id}}{%else%}{{object.record.patient.id}}{%endif%}</h1> 
+<br/>
+<br/><br/>
+{%if islab%}
+<a href="{% url 'TakeTest' object.id %}">edit report</a>
+{%endif%}
+<br/><br/>
+Time taken at : {{object.time_taken}}
+<br/><br/>
+related departments : {% for dep in object.record.departments.all%}{{dep}}, {%endfor%}
+<br/><br/>
+<div style="border-style: solid;border-width: 1px;border-radius: 5px;background-color: rgba(255, 255, 255, .6);">
+<h3 style="background:rgba(255, 255, 255, 1);">Personal information </h3>
+<p>
+	Full Name : {{patient.p_Fname}} {{patient.p_Lname}}
+	<br/>
+	<Address>{{patient.p_address}}</Address>
+	<br/>
+	Phone : {{patient.phone}}
+	<br/><br/>
+	Gender : {{patient.p_gender}}
+	<br/><br/>
+	Age : {{patient.p_age}}
+</p>
+</br>
+<h3 style="background:rgba(255, 255, 255, 1);">{{tr.test}} Remarks</h3>
+<ul>
+	<li style="word-wrap: break-word;">
+		{{object.remarks}}
+	</li>
+</ul>
+</div>
+</br>
+<h3 style="background:rgba(255, 255, 255, 1);">Documents </h3>
+{% load static %}
+<div  style="margin-left:5px;float:left">
+</br>
+<br/>
+{%for c in records%}
+<div  style="margin-left:5px;float:left">
+<b>{{c.title}}</b>
+</br>
+<a href="{{ c.photo.url }}" target="new">
+	<img src="{{c.photo.url}}" style="width:250px;height:250px;"/>
+	</a>
+<br/>
+</div>
+{%endfor%}
+</div>
+{%endblock%}

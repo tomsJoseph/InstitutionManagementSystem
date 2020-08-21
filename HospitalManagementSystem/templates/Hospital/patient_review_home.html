@@ -1,0 +1,21 @@
+{% extends base_temp %}
+{% block title %}search patients{% endblock %}
+{% block content %}
+<h2>Search for patients</h2>
+<a href="{%url 'ListUnknowns' %}">unknown patients</a> {%if user.appuser.pro_level.level_number == 4 %} | <a href="{%url 'PatientsQue' %}">Que</a>{%endif%}
+
+</br></br>
+<form method="POST">
+  {% csrf_token %}
+<input type="hidden" name='field' value='0'/>
+<input name="term" type="text" placeholder="Patient's Number">
+<input type="submit" value='search' class="btn-primary">
+</form>
+<br/>
+  {%for record in records%}
+  <div>
+    <a href="{% url link record.pk %}" style="color: black;"><div class="  {%if record.status_code < 6 %} alert-success {%else%}card{%endif%} bord" style="padding: 1%;">[reccord no.{{record.pk}}] - {{record}} <hr> [time stamp - {{record.op_time_stamp}} {{record.record.op_time_stamp}}]</div></a>
+    <br>
+  </div>
+  {%endfor%}
+{% endblock %}

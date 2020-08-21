@@ -1,0 +1,46 @@
+{% extends "Hospital/DBase.html"%}
+{% block title %}{{object}}{% endblock %}
+{%block content%}
+<h3>{%if object.record.patient%}{{object.record.patient}}{%else%}U{{object.record.patient_unknown.id}}{%endif%} at {{object.room.room_no}}</h3>
+
+  <div style="background-color: rgba(255, 255, 255, .8);">
+    <dl>
+        <dt>
+     patient :
+     </dt>
+     <dd>
+          {% if object.record.patient_unknown%}{{ object.record.patient_unknown }} {%else%} {{object.record.patient}}{%endif%}
+     </dd>
+   <dt>
+     room :
+     </dt>
+     <dd>
+         room {{object.room.room_no}}
+     </dd>
+     <dt>
+        room type :
+        </dt>
+        <dd>
+            {{object.room.roomtype}}
+        </dd>
+        <dt>
+            total amount so far :
+            </dt>
+            <dd>
+                {{object.total_rent}}
+            </dd>
+               <dt>
+                   <hr>
+    admitted on {{object.ad_time.date}} around {{object.ad_time.hour}} hours and
+    {%if object.dis_time%}
+     discharged on {{object.dis_time.date}} around {{object.dis_time.hour}} hours
+    {%else%}
+     not discharged
+    {%endif%}
+    </dl>
+    {%if not object.dis_time and object.ad_time%}
+       <a href = "{%url 'ChangeRoom' object.id %}"> <button type="button" class="btn-warning"> change room</button></a>
+    {%endif%}
+    <br><br>
+</div>
+{%endblock%}

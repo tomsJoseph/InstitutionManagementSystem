@@ -1,0 +1,16 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}unknown patients{% endblock %}
+{%block content%}
+<h1> Unknown patients </h1>
+<a href="{% url 'NewUnknownPatient'%}">Create New Unknown Identity</a>
+<ul>
+  {% for unknown in object_list %}
+    <li>
+        {{unknown}} <a href="{% url 'UpdateUnknownPatient' unknown.id %}">Edit</a> | 
+        {% if unknown.patienthealthreccord.id%}
+        <a href="{% url 'HealthProfile' unknown.patienthealthreccord.id %}">Go to HealthProfile</a>
+        {%endif%}
+    </li>
+  {% endfor %}
+</ul>
+{%endblock%}

@@ -1,0 +1,96 @@
+{% extends 'Hospital/base.html' %}
+{% block sidebar %}
+<div style="position: fixed;">
+{% if user.is_authenticated%}
+<br/>
+{% load static %}
+{% if user.appuser.photo%}
+<div style="background-color: rgba(0, 0, 0, .5);height: 100%;">
+<div class="card" style="background-color: rgba(255,255,255,.5);">
+    <a href="{% url 'ChangeProfilePicture' user.appuser.pk %}" title="change photo of {{user}}">
+    <img src="{{user.appuser.photo.url}}" style="width:150px;height:150px;margin-left: 15%;border-radius: 50%;"/>
+</a>
+<div class="card-bdoy" style="text-align: center;">
+    {{user.first_name}} {{user.last_name}}
+</div>
+</div>
+{%endif%}
+<br><br>
+<div class="nav flex-column navbar-light nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+    <div class="side"><a class="nav-link" href="{% url 'ApplyLeave'%}" style="color:white;">apply leave</a><hr></div>
+    <div class="side"><a class="nav-link" href="{% url 'ListComplaints' %}" style="color:white;">complaints/feedbacks</a><hr></div>
+    <div class="side"><a class="nav-link" href="{% url 'UpdatePersonalDetails' user.appuser.id %}" id="h1" style="color:white;">change personal details</a><hr></div>
+    <div class="side"><a class="nav-link" href="{% url 'UploadCertificates' %}" style="color:white;">upload certificates</a><hr></div>
+    <div class="side"><a class="nav-link" href="{% url 'ChangePassword' %}" style="color:white;">change password</a><hr></div>
+        <br/><br/><br/>
+</div>
+{% endif %}
+</div>
+</div>
+{% endblock %}
+{% block topbar%}
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:rgb(40, 40, 40);">
+    <a class="navbar-brand" href="{% url 'SHome'%}" title="home"><img src="{% static 'default/staff_profile.png'%}" alt ='home' style="width: 50px;background-color: white;padding: 5px;"/></a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active top">
+            <a class="nav-link" href="{% url 'DHome' %}" style="border-right: 1px solid gray;color:white;">{{user.appuser.department}} department profile</a>
+        </li>
+        <li class="nav-item active top">
+            <a class="nav-link" href="{% url 'Inbox' %}" style="border-right: 1px solid gray;color:white;">messaging</a>
+        </li>
+        {% for link in links %}
+        <li class="nav-item active top">
+          <a class="nav-link" href="{% url link.0 %}" style="border-right: 1px solid gray;color:white;">{{link.1}}</a>
+        </li>
+        {%endfor%}
+      </ul>
+    </div>
+  </nav>
+  
+{% endblock %}
+{%block notificationbar%}
+<ul style="list-style-type: none;">
+{%for item in notifications.unread_messages.0%}
+<a href="{% url notifications.unread_messages.1 item.pk%}">
+    <li class="card tom_list_item" style="color: black;padding: 1%;">
+    sub : {{item.subject}} <br>
+    from {{item.sender.app_user}} 
+    <hr>
+    sent at {{item.sent_time}}
+    </li>
+  </a>
+{%endfor%}
+{%if notifications.next_shift%}
+<li class="alert-success">
+    Shift change is due<br/>
+    Next Week :
+    {{notifications.next_shift.shift_name}} - 
+    {{notifications.next_shift.start_time}} to
+    {{notifications.next_shift.end_time}}
+</li>
+{%endif%}
+</ul>
+{%endblock%}
+{%block bottombar%}
+<div class="col-lg-2">
+</div>
+<div class="col-lg-7">
+    <br/>
+    <a href="{% url 'logout' %}" class="btn btn-primary btn-block">
+            logout
+    </a>
+        <p>
+    Our Father, Who art in Heaven, hallowed be Thy name; Thy Kingdom come, Thy will be done on earth as it is in Heaven.
+</p>
+<a href="http://www.freepik.com">Designed by mrsiraphol / Freepik</a>.
+</div>
+<div class="col-lg-3">
+  <br>
+  <p style="padding: 1%;border-left: 1px solid white;">
+    <a href="{%url 'Manual'%}" style="color: white;">get help</a>
+  </p>
+</div>
+{%endblock%}

@@ -1,0 +1,162 @@
+{% extends 'Hospital/EBase.html' %}
+{%block title%}
+statistics
+{%endblock%}
+{%block content%}
+<h3 class="centered_head">statistics - department of Laboratary</h3>
+<br/>
+<form method="GET">
+    {%csrf_token%}
+    <select name="years" class="custom-select" onchange="this.form.submit()">
+        {%if key%}
+        <option value={{key.0}}>
+            showing past {{key.1}} years
+        </option>
+        {%else%}
+        <option value="0">
+            select the number of years
+        </option>
+        {%endif%}
+        <option value="9">
+            current year
+        </option>
+        <option value="1">
+            past 5 years
+        </option>
+        <option value="2">
+            past 10 years
+        </option>
+        <option value="3">
+            past 15 years
+        </option>
+        <option value="4">
+            past 20 years
+        </option>
+        <option value="0">
+            all years
+        </option>
+    </select>
+
+<br/><br/>
+<div class="row">
+    <div class="col-lg-6">
+        br
+    </div>
+    <div class="col-lg-6">
+        <table class="table table-hover">
+            <tr>
+                <th colspan="2">
+                    <select name="test" class="custom-select" onchange="this.form.submit()">
+                        {%if cur_test%}
+                        <option value={{cur_test.id}}>
+                            {{cur_test.test_name}}
+                        </option>
+                        {%endif%}
+                        <option value=''>
+                            total tests - all
+                        </option>
+                        {%for test in select_tests%}
+                        <option value={{test.id}}>
+                            total tests - {{test.test_name}}
+                        </option>
+                        {%endfor%}
+                    </select>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    {%if monthly%}
+                    <script>document.write(new Date().getFullYear())</script>
+                    {%else%}
+                    year
+                    {%endif%}
+                </th>
+                <th>
+                    total tests
+                </th>
+            </tr>
+            {%for test in tests%}
+            <tr>
+                <td>
+                    {{test.0}}
+                </td>
+                <td>
+                    {{test.1}}
+                </td>
+            </tr>
+            {%endfor%}
+            <tr>
+                <td>
+                    total
+                </td>
+                <td>
+                    {{total_tests}}
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+</form>
+<br/>
+<hr>
+<br/>
+<div class="row">
+    <div class="col-lg-6">
+        br
+    </div>
+    <div class="col-lg-6">
+        <table class="table table-hover">
+            <tr>
+                <th colspan="2">
+                    complaints
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    {%if monthly%}
+                    <script>document.write(new Date().getFullYear())</script>
+                    {%else%}
+                    year
+                    {%endif%}
+                </th>
+                <th>
+                    complaints
+                </th>
+                <th>
+                    feedbacks
+                </th>
+            </tr>
+            {%for complaint in complaints%}
+            <tr>
+                <td>
+                    {{complaint.0}}
+                </td>
+                <td>
+                    {{complaint.1}}
+                </td>
+                <td>
+                    {{complaint.2}}
+                </td>
+            </tr>
+            {%endfor%}
+            <tr>
+                <td>
+                    total
+                </td>
+                <td>
+                    {{total_complaints.0}}
+                </td>
+                <td>
+                    {{total_complaints.1}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="background-color: rgba(255, 255, 255, .5);">
+                    <a href="{% url 'M_DepartmentalComplaints' department.id%}">see complaints</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+{%endblock%}

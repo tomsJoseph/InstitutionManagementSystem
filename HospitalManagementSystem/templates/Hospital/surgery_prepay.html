@@ -1,0 +1,31 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}surgery prepayment{% endblock %}
+{%block content%}
+<h2> {{object.surgery_name}} for {{object.test.test_name}} number {%if object.record.patient_unknown%}U{{object.record.patient_unknown.id}}{%else%}{{object.record.patient.id}}{%endif%} </h2>
+<h6>total amount to prepay : ₹{{object.prepay_amnt}} </h6>
+{%if object.is_prepaid%}
+<div class="card">
+    <h4 class="centered_head"> prepayment success</h4>
+    <hr>
+    patient : {%if object.record.patient_unknown%}U{{object.record.patient_unknown.id}}{%else%}{{object.record.patient}}{%endif%}
+    <p id="amount"> ₹{{object.prepay_amnt}} has been paid on </p>
+
+    <script>
+    var d = new Date();
+    document.getElementById("amount").innerHTML += d;
+    </script>
+</div>
+{%else%}
+<form enctype="multipart/form-data" method="POST">
+		{% csrf_token %}
+        <br/><br/>
+        {{ form.as_p }}
+        prepaying amount  <input type="number" name="prepay_amount"/>
+		<p id = 'er' style='font-weight:bold;'></p>
+        </br>
+            <input type = "submit" value = 'recieved' class="btn-primary"/>
+        </form>
+    {%endif%}
+    <br>
+    <a href="{% url 'Payment' object.record.get_bill.id%}"  class="btn-success btn-block centered_head">see bill</a>
+{%endblock%}

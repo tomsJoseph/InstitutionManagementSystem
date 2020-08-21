@@ -1,0 +1,49 @@
+{% extends "Hospital/EBase.html" %}
+{% block title %}disciplinary action{% endblock %}
+{%block content%}
+  <h2> departments </h2>
+  <br>
+  {%if not object_list%}<div class="card" style="height: 50px;text-align: center;"> <h5>nothing to show!</h5></div>{%endif%}
+  {% for object in object_list %}
+  <div class="row bord" style="background-color: rgba(255, 255, 255, .4);">
+    <div class="col-lg-12">
+    <div class="row" style="background-color: rgb(93, 93, 97);">
+      <div class="col-lg-4 side" style="padding: 1%;">
+        <a href="{%url 'M_DepartmentReport' object.id%}" style="color: white;">
+          <div>
+              see department report
+          </div>
+      </a>
+</div>
+      <div class="col-lg-4 side" style="padding: 1%;">
+        <a href="{%url 'M_DepartmentManagers' object.id%}" style="color: white;">
+          <div>
+            managers
+          </div>
+      </a>
+</div>
+<div class="col-lg-4 side" style="padding: 1%;">
+  <a href="{%url 'M_Staffs' object.id%}" style="color: white;">
+    <div>
+      staffs
+    </div>
+</a>
+</div>
+</div>
+    <br>
+    <h5 class="card-title centered_head"> {{object}} </h5>
+    <hr>
+    <div class="card-body">
+        <dl>
+            <dt> managers </dt><dd> {%for man in object.departmentmanager_set.all%} {{man.manager.app_user}}, {%endfor%}</dd>
+                
+            </a>                
+            <dt>total personnel </dt><dd> {{object.appuser_set.count}}</dd>
+        </dl>
+    </div>
+<hr>
+</div>
+</div>
+<br>
+  {% endfor %}
+{%endblock%}

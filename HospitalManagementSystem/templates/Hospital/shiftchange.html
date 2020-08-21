@@ -1,0 +1,25 @@
+{% extends "Hospital/SBase.html" %}
+{% block title %}shift change{% endblock %}
+{% block content %}
+{%if s_msg %}
+<div class="alert alert-success" style="width: auto;">
+	<h5 class="alert-heading">
+		shift change
+  </h5>
+  <hr>
+  <h7 class="alert-body">
+    {{s_msg}}
+</h7>
+</div>
+{%elif r_msg %}
+<div class="alert alert-warning" style="width: auto;">
+	<h5 class="alert-heading">
+		shift change
+  </h5>
+  <hr>
+  <h7 class="alert-body">
+    {{r_msg}}
+</h7>
+</div>
+{%endif%}
+{% endblock %}

@@ -1,0 +1,176 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}health profile{% endblock %}
+{%block content%}
+{% if patient%}
+<h1>{{object.patient}} - Health Profile</h1>
+<div class="row">
+<div class="col-lg-12" style="border-style: solid;border-width: 1px;border-radius: 5px;">
+	<div class="row">
+	<div class="col-lg-4" style="background-color: rgb(93, 93, 97);">
+	<a href = "{% url 'FindHealthRecords' patient.id %}" style="color: white;">
+		<div style="padding: 1%;">all records</div></a>
+	</div>
+	<div class="col-lg-4" style="background-color: rgb(93, 93, 97);">
+	<a href = "{% url 'UpdateHealthRecord' object.id %}" style="color:white;">
+		<div style="border-left: solid white 1px;padding: 1%;">edit this record
+		</div>
+		</a>
+	</div>
+	<div class="col-lg-4" style="background-color: rgb(93, 93, 97);">
+	<a href="{% url 'TransferPatient' object.id %}" style="color: white;"> 
+		<div style="border-left: solid white 1px;padding: 1%;">Prepare Transfer Document</div>
+	</a>
+	</div>
+	</div>
+		<br/><br/>
+		patient status : {{object.status}}
+		<br/><br/>
+		departments: {%for dep in object.departments.all%}{{dep}}, {%endfor%}
+		<br/><br/>
+	Full Name : {{patient.p_Fname}} {{patient.p_Lname}}
+	<br/><br/>
+	<Address>{{patient.p_address}}</Address>
+	<br/>
+	Phone : {{patient.phone}}
+	<br/><br/>
+	Gender : {{patient.p_gender}}
+	<br/><br/>
+	Age : {{patient.p_age}}
+	<br/><br/>
+	Next visit : {{patient.next_meeting_date}}
+	<br/><br/>
+	companion name : {{object.companion_name}}
+	<br/><br/>
+	companion phone : {{object.companion_phone}}
+	<br/><br/>
+	accident : {{object.accident}}
+</div>
+</div>
+{% elif unknown%}
+<h1>U{{unknown.id}} - health profile</h1>
+<div class="row">
+<div class="col-lg-12" style="border-style: solid;border-width: 1px;border-radius: 5px;">
+
+	<div class="row">
+		<div class="col-lg-3" style="background-color: rgb(93, 93, 97);">
+		<a href = "{% url 'UpdateHealthRecord' object.id %}" style="color: white;">
+			<div style="padding: 1%;">edit this record</div></a>
+		</div>
+		<div class="col-lg-2" style="background-color: rgb(93, 93, 97);">
+		<a href = "{% url 'IdentifyUnknown' object.id %}" style="color:white;">
+			<div style="border-left: solid white 1px;padding: 1%;">Add Existing Patient
+			</div>
+			</a>
+		</div>
+		<div class="col-lg-2" style="background-color: rgb(93, 93, 97);">
+		<a href="{% url 'NewPatient' object.id %}" style="color: white;"> 
+			<div style="border-left: solid white 1px;padding: 1%;">Create New Patient</div>
+		</a>
+		</div>
+		<div class="col-lg-2" style="background-color: rgb(93, 93, 97);">
+			<a href="{% url 'UpdateUnknownPatient' unknown.id %}" style="color: white;"> 
+				<div style="border-left: solid white 1px;padding: 1%;">	edit identity details</div>
+			</a>
+			</div>
+			<div class="col-lg-3" style="background-color: rgb(93, 93, 97);">
+				<a href="{% url 'TransferPatient' object.id %}" style="color: white;"> 
+					<div style="border-left: solid white 1px;padding: 1%;">Prepare Transfer Document</div>
+				</a>
+				</div>			
+			</div>	
+	<br/><br/>
+	op time stamp : {{object.op_time_stamp}}
+	<br/><br/>
+	patient status : {{object.status}}
+	<br/><br/>
+	departments : {%for dep in object.departments.all%}{{dep}}, {%endfor%}
+	<br/><br/>
+	Patient identity marks : {{unknown.patient_identity_marks}}
+	<br/><br/>
+	Gender : {{unknown.patient_gentder}}
+	<br/>
+	Estimated age : {{unknown.estimated_age}}
+	<br/><br/>
+	Other known informations : {{unknown.other_known_informations}}
+	<br/><br/>
+	companion name : {{object.companion_name}}
+	<br/><br/>
+	companion phone : {{object.companion_phone}}
+	<br/><br/>
+	accident : {{object.accident}}
+	<br/><br/>
+</div>
+</div>
+{%endif%}
+<br/><br/>
+<div class="row">
+<div class="card col-lg-12">
+	<dl>
+		<dt>
+		Tests : 
+	</dt>
+	<dd>
+		<ul>
+		{%for test in object.testresults_set.all%}
+		{{test.test}}
+		{%endfor%}	
+	</ul>
+</dd>
+	<br/><br/>
+	<dt>
+	Surgeries : 
+</dt>
+<dd>
+	<ul>
+		{%for surgery in object.surgery_set.all%}
+		{{surgery.surgery_name}} @ {{surgery.start_time}} on {{surgery.date_of_surgery}} - 
+		theatre : {{surgery.theatre}}
+		<br/>
+		{%endfor%}
+	</ul>
+</dd>
+	<br/><br/>
+	<dt>Admission status:</dt>
+	<dd>{{object}} {{object.get_room}}</dd>
+</dl>
+<br/><br/>
+<hr>
+	{%if trans_docs%}
+	<h4 class="centered_head">transfer documents</h4>
+	<dl>
+		{%for doc in trans_docs%} 
+	<dt>
+		{{doc}} <a href="{%url 'EditTransferPatient' doc.id%}"> edit</a>
+	</dt>
+	<dd>
+		{{doc.remarks}}
+	</dd>
+	{%endfor%}
+	</dl>
+	{%endif%}
+</div>
+</div>
+<br>
+<div class="row" style="background-color: rgba(255, 255, 255, .4);">
+	<div class="col-lg-12 centered_head">
+		<h2>Related Files</h2>
+	</div>
+	<div class="col-lg-12">	
+		<a href = "{% url 'UploadPatientFiles' object.id %}"> 
+			
+			 Upload/Remove Related Files</a>
+	</div>
+{%for c in records%}
+{%if c.photo %}
+<div  style="margin-left:5px;float:left">
+<b>{{c.title}}</b>
+</br>
+<a href="{{c.photo.url}}" target="new">
+<img src="{{c.photo.url}}" style="width:250px;height:250px;"/>
+</a>
+</div>
+{%endif%}
+{%endfor%}
+</div>
+
+{%endblock%}

@@ -1,0 +1,12 @@
+{% extends 'Hospital/base.html' %}
+{% block title%} Select {% endblock %}
+{% block content %}
+{% load static %}
+<div>
+	<br/>
+	<a href='/Hospital/Department'><button class="btn-primary btn-block">Go to {{info.0}} Department Page</button></a>
+		<br/>
+		<a href='/Hospital/Staff'><button class="btn-success btn-block">Go to {{info.1}}'s personal profile</button></a>
+		<br/>
+</div>
+{% endblock%}

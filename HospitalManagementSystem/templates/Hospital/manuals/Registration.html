@@ -1,0 +1,22 @@
+{%extends 'Hospital/manuals/manual.html' %}
+{%block content%}
+<div>
+Staff registration
+
+ordinary staff
+this form will ask for personal information, new username and password along with type of profession ex: doctor, qualifications, department (optional) and shift (optional).
+
+a manager, executives or site administrator can register a new staff
+when the site launched for the first time site admin will register the first staff who should be manager of a department.
+every user will have access to the department'profile and his own personal profle. manager has to go to his personal profle for managerial tasks such as registering new staff (more about personal and department profile will be discussed later)
+If super user goes to login page while in administrative account he can have a link to registration of staffs both ordinary and executive
+
+Executive staff
+This form just like the ordinary one except there is no department, and shift
+Only an executive or administrator can register new executive staff
+Executive staff does not have a department profile. The link to registration can be found on the personal profle
+If super user goes to login page while in administrative account he can have a link to registration of staffs both ordinary and executive
+
+
+</div>
+{%endblock%}

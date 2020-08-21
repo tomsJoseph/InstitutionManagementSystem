@@ -1,0 +1,72 @@
+{% extends 'Hospital/SBase.html' %}
+{% block title %}surgery form{% endblock %}
+{%block content%}
+<h2><label> Surgery form for {%if object.record.patient %}{{object.record.patient}}{%else%}{{object.record.patient_unknown}} {%endif%}</label></h2>
+<p>
+{%if fatality%}
+<a href="{% url 'FatalityReport' fatality.id %}">  Read Report</a> 
+{%else%}
+<a href="{% url 'SurgeryReport' object.id %}">  Read Report</a> | 
+<a href="{% url 'UploadSurgeryDocs' object.id %}">  Upload files</a>
+{%endif%}
+<br/>
+{%if su_msg%}
+<div class="alert-success" style="font-size: larger; text-align: center;">
+  {{su_msg}}
+  <hr>
+</div>
+{%endif%}
+</p>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+<div style="background-color: rgba(255, 255, 255, .8);padding: 1%;"  onclick="adddatepicker()">
+  <h3>Surgery Information</h3>
+    {% for field in form%}
+    <p>
+      {{ field.label_tag }}<br>
+      {% if field.help_text %}
+      <small style="color: grey">{{ field.help_text }}</small>
+      <br>
+      {% endif %}
+      {{ field }}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </p>
+  {% endfor %}
+  <button type="submit" class="btn-primary"> submit </button>
+  <br/><br/>
+  <input type="checkbox" name="deleterecord" value=99 onclick="prompt()" /> Delete this Surgery reccord 
+  <button type="submit" hidden id="del"  class="btn-danger">Delete</button>
+       <label id='er' style="background-color: red;size: 14;font-weight: bold;color: white;"></label>
+  </div>
+
+
+  <script>
+    function prompt()
+    {
+    let er = document.getElementById('er');
+    if(er.innerHTML  == 'You are about to delete this record')
+    {
+    er.innerHTML = '';
+    document.getElementById('del').hidden = true;
+    }
+      else
+    { er.innerHTML = 'You are about to delete this record';
+      document.getElementById('del').hidden = false;
+    }
+    }
+
+    function adddatepicker()
+    {
+      document.getElementById('id_start_time').type = 'time';
+      document.getElementById('id_date_of_surgery').type = 'date';
+      document.getElementById('id_patient_report_time').type = 'time';
+      document.getElementById('id_team_report_time').type = 'time';
+    }
+  </script>
+  </div>
+</div>
+</form>
+
+{%endblock%}

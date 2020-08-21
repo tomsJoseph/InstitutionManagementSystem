@@ -1,0 +1,37 @@
+{% extends 'Immigrants/base.html' %}
+{% block title %}{{head}}{% endblock %}
+{%block content%}
+ <h2>{{head}}</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+     <div style='float:left;width:50%;'>
+    {% for field in form%}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+</div>
+<div style='float:left;width:50%;'>
+    {% for field in sub_form%}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+</div>
+    <button class="btn-primary">Submit</button>
+  </form>
+{%endblock%}

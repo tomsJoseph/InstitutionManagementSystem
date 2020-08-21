@@ -1,0 +1,14 @@
+{% extends "Hospital/DBase.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+{% load static %}
+<div>
+<h1>Patient Reception Page</h1>
+<form action="{% url 'FindPatient' %}" method="get">
+  <input name="term" type="text" placeholder="Search...">
+  <input type="submit" value='search' class="btn-primary">
+</form>
+</br></br></br>
+<a href = "{% url 'NewPatient' 0%}">New Patient</a>
+</div>
+{% endblock %}

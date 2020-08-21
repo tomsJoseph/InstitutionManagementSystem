@@ -1,0 +1,115 @@
+{% extends "Hospital/EBase.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+
+<div style="width: 100%;height: 100px;background-color: rgba(255, 255, 255, .7);">
+  <h2>Welcome {{ user }}</h2>
+  <br>
+    <div style="background-color: rgba(0, 0, 0, .8);height: 30%;color: white;">
+      executive managers of hospital : {%for man in e_men%}
+      {{man.app_user}}, 
+      {%endfor%}
+      </div>
+</div>
+  <br>
+{%if disc_actions %}
+{% for action in disc_actions %}
+<div class="alert alert-warning" style="width: auto;">
+	<h5 class="alert-heading">
+		disciplinary action
+  </h5>
+  <hr>
+  <h7>{%if action.is_dismissal%}dismissed from {{action.start_date}}{%else%}suspension from {{action.start_date}} to {{action.end_date}}{%endif%}</h7>
+</div>
+{%endfor%}
+{%else%}
+{%load static%}
+<div style="width: 100%;height: 200px;background-image: url({% static 'images/stats9.jpg'%});object-fit:cover;">
+  <br><br><br><br><br><br>
+  <a href="{% url 'M_DepartmentStatsList' %}" style="color: white;font-size: larger;">
+    <div style="background-color: rgba(0, 0, 0, .8);height: 30%;">
+    department wise stats
+    <sub><br> statistics of medical departments</sub>
+  </div>
+</a>
+</div>
+<br>
+<div style="width: 100%;height: 200px;background-image: url({% static 'images/stats11.jpg'%});background-size:cover;">
+  <br><br><br><br><br><br>
+  <a href="{% url 'M_RoomsStatistics' %}" style="color: white;font-size: larger;">
+    <div style="background-color: rgba(0, 0, 0, .8);height: 30%;">
+Admission stats
+<sub>
+  <br>
+  statistics of patient admission
+</sub>
+    </div>
+</a>
+</div>
+<br>
+<div style="width: 100%;height: 200px;background-image: url({% static 'images/stats13a.jpg'%});background-size:cover;">
+  <br><br><br><br><br><br>
+  <a href="{% url 'M_LabStatistics' %}" style="color: white;font-size: larger;">
+    <div style="background-color: rgba(0, 0, 0, .8);height: 30%;">
+      Medical tests stats
+      <sub>
+        <br>
+        statistics of medical tests performed
+      </sub>
+          </div>
+</a>
+</div>
+<br>
+<div style="width: 100%;height: 200px;background-image: url({% static 'images/stats15.jpg'%});object-fit:cover;">
+  <br><br><br><br><br><br>
+  <a href="{% url 'M_DiseaseStatistics' %}" style="color: white;font-size: larger;">
+    <div style="background-color: rgba(0, 0, 0, .8);height: 30%;">
+      Diseases stats
+      <sub>
+        <br>
+        statistics of diseases
+      </sub>
+          </div>
+</a>
+</div>
+<br>
+<div style="width: 100%;height: 200px;background-image: url({% static 'images/stats17.jpg'%});background-size:cover;">
+  <br><br><br><br><br><br>
+  <a href="{% url 'M_PharmacyStatistics' %}" style="color: white;font-size: larger;">
+    <div style="background-color: rgba(0, 0, 0, .8);height: 30%;">
+      Medicine stats
+      <sub>
+        <br>
+        statistics of medicine distribution
+      </sub>
+          </div>
+</a>
+</div>
+<br>
+<div style="width: 100%;height: 200px;background-image: url({% static 'images/stats18.jpg'%});background-size:cover;">
+  <br><br><br><br><br><br>
+  <a href="{% url 'M_TransportStatistics' %}" style="color: white;font-size: larger;">
+    <div style="background-color: rgba(0, 0, 0, .8);height: 30%;">
+      Purchase stats
+      <sub>
+        <br>
+        statistics of purchases
+      </sub>
+          </div>
+</a>
+</div>
+<br>
+<div style="width: 100%;height: 200px;background-image: url({% static 'images/stats19.jpg'%});background-size:cover;">
+  <br><br><br><br><br><br>
+  <a href="{% url 'M_MorgueStatistics' %}" style="color: white;font-size: larger;">
+    <div style="background-color: rgba(0, 0, 0, .8);height: 30%;">
+      Morgue stats
+      <sub>
+        <br>
+        statistics of morgue
+      </sub>
+          </div>
+</a>
+</div>
+{%endif%}
+{% endblock %}

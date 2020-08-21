@@ -1,0 +1,103 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}health reccords{% endblock %}
+{%block content%}
+
+<h2>{{patient}}</h2>
+<br/>
+<form method="post" enctype="multipart/form-data">
+<div>
+
+	{%if msg%} 
+	<div class="alert alert-warning">
+		<h5 class="alert-heading">
+			{{msg}}
+		</h5>
+	</div>
+	{%endif%}
+	
+		<div class="row" style="background-color:transparent;border-style: solid;border-width: 1px;border-radius: 5px;">
+			<div class="col-lg-7">
+			<h4>Persoal Information</h4>
+			<a href="{% url 'ChangePatientDetails' patient.id %}">Edit Persoal Information</a>
+			<br/><br/>
+			Full Name : {{patient.p_Fname}} {{patient.p_Lname}}
+			<br/><br/>
+			<Address>{{patient.p_address}}</Address>
+			<br/>
+			Phone : {{patient.phone}}
+			<br/><br/>
+			Gender : {{patient.p_gender}}
+			<br/><br/>
+			Age : {{patient.p_age}}
+			</div>
+				{%if patient.deceased%}
+				<div class="col-lg-5 alert-warning centered_head">
+					{%if patient.photo%}
+					<a href="{{patient.photo.url}}" target="new">
+					<img src="{{patient.photo.url}}" width="200px", height="200px" style="border: solid white 2px;">
+					</a>
+					{%endif%}
+					<h5 class="alert-heading">{{patient.p_Fname}} {{patient.p_Lname}} had passed away</h5>
+					<hr>
+					<br>
+					<h7 style="color: black;" class="centered_head">R . I . P</h7>
+				</div>
+				{%else%}
+				<div class="col-lg-5 alert-success centered_head">
+					{%if patient.photo%}
+					<a href="{{patient.photo.url}}" target="new">
+						<img src="{{patient.photo.url}}" width="200px", height="200px" style="border: solid white 2px;">
+						</a>
+					{%endif%}
+					<h5 class="alert-heading">{{patient.p_Fname}} {{patient.p_Lname}}</h5>
+					<br>
+					<hr>
+					<br>
+				</div>
+				{%endif%}
+		</div>
+		
+	<br/>
+	<br/><br/>
+	{%if not active_health_records %}
+	<div style="background-color:rgba(25, 183, 231, 0.5);border-radius: 5px;">
+		<h4> Create New Health Record For {{patient}}</h4>
+		<br/>
+		{% csrf_token %}
+        (Hold down <kbd>Ctrl</kbd> to select/deselect multiple items)
+		{{form.as_p }} 
+		<input type='submit' value='Create' class="btn btn-primary btn-block"/>
+		</div>
+		<br/><br/>
+		{%endif%}
+		<div style="background-color:rgba(255, 255, 255, .5);border-radius: 5px;">
+			<h4>Active Health Reccords</h4>
+		{%for active_health_record in active_health_records %}
+		<p style="background-color:skyblue;">			
+			{{active_health_record}} 
+			<br/><br/>
+			TimeStamp : {{active_health_record.op_time_stamp}}
+			<br/><br/>
+			<a href="{% url 'HealthProfile' active_health_record.id %}">Health Profile in detail</a>		</p>
+		{%endfor%}
+	</div>
+	</div>
+
+	</br></br>
+<div style="background-color:rgba(255, 255,255, .5);border-radius: 8px;">
+	<h4>Inactive Health Reccords</h4>
+		{% for record in items %}
+		<div style="background-color: blanchedalmond;">
+			{{record}}
+			<br/><br/>
+			TimeStamp : {{record.op_time_stamp}}
+			<br/><br/>
+			<a href="{% url 'HealthProfile' record.id %}">Health Profile</a>
+		</div>
+		<br/>
+	{% endfor %}
+</div>
+<br/>
+</form>
+</div>
+{%endblock%}

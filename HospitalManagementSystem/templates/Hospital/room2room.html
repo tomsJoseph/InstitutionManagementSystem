@@ -1,0 +1,23 @@
+{% extends 'Hospital/DBase.html' %}
+{% block title %}transfer rooms{% endblock %}
+{%block content%}
+<h2>  Change Room </h2>
+<form enctype="multipart/form-data" method="POST" style="background-color: rgba(255, 255, 255, .7);">
+    <p>
+        {%if object.record.patient_unknown%}U{{object.record.patient_unknown.id}}{%else%}{{object.record.patient}}{%endif%}  is currently at {{object.room.room_no}}
+    </p>
+    <h6>Select New Room</h6>
+    {% csrf_token %}
+    {{ form.as_p}}
+    {% if not object.ad_time%}
+    {%endif%}    <br/>
+    <br/>
+    <input type = 'radio' value = 'Admit' name='Admission' required/>Transfer {%if object.record.patient_unknown%}U{{object.record.patient_unknown.id}}{%else%}{{object.record.patient}}{%endif%}
+    <hr>
+
+    <br/>
+    <br/>
+    <input type = "submit" value = 'apply'  class="btn-warning"/>
+    <br/>
+</form>
+{%endblock%}

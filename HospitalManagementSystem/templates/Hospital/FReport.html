@@ -1,0 +1,90 @@
+{% extends "Hospital/SBase.html" %}
+{% block title %}fatality report{% endblock %}
+{%block content%}
+{%if patients%}
+<h2> fatality report of registered patient </h2>
+{%elif unknown_patients%}
+<h2> fatality report of unidentified patient </h2>
+{%endif%}
+<br/>
+<div class="alert-danger">
+ <h5> caution</h5>
+  <hr>
+  if the patient is not in the dropdown list please, register with OP or Casuality
+</div><br>
+<form enctype="multipart/form-data" method="POST" onclick="adddatepicker()">
+    {% csrf_token %}
+            {%if deceased_comp_form%}
+            <div id="ft_report" style="background-color: rgba(135,206,235,.2);border-radius: 1%;padding: 1%;">
+              <h5 class="centered_head">details</h5>
+              <hr>
+            {% for field in deceased_comp_form%}
+            <p>
+              {{ field.label_tag }}<br>
+              {{ field }}
+              {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+              {% endif %}
+              {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+              {% endfor %}
+            </p>
+              {% endfor %}
+                    </div>
+                    <br/>
+                    {%endif%}
+                    {%if form%}
+            <div id="ft_report" style="background-color: rgba(135,206,235,.2);border-radius: 1%;padding: 1%;">
+              <h5 class="centered_head">details</h5>
+              <hr>
+              {%if patients%}
+              patient : <br>
+              <select name="patient">
+                {%for pat in patients%}
+                <option value="{{pat.id}}">{{pat}} - age:{{pat.p_age}}</option>
+                {%endfor%}
+              </select>
+              {%elif unknown_patients%}
+              unidentified patient : <br>
+              <select name="patient_unknown">
+                {%for pat in unknown_patients%}
+                <option value="{{pat.id}}">{{pat}}</option>
+                {%endfor%}
+              </select>
+              {%endif%}
+            {% for field in form%}
+            <p>
+              {{ field.label_tag }}<br>
+              {{ field }}
+              {% if field.help_text %}
+              <small style="color: grey">{{ field.help_text }}</small>
+              {% endif %}
+              {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+              {% endfor %}
+            </p>
+              {% endfor %}
+                  <h5 class="alert-warning" id = "er"></h5>
+              <br/>
+                    <input type="checkbox" name="autopsy" id="aut1" value="mark" onclick="autopsy_warning()"> mark for autopsy
+                    <br/>
+                    <input type = "submit" value="submit" class="btn btn-primary" />
+                    </div>
+                    <br/>
+                    {%endif%}
+          </form>
+        <script>
+        function adddatepicker()
+        {
+          document.getElementById('id_date_of').type = 'date';
+          document.getElementById('id_time_of').type = 'time';
+        }
+        function autopsy_warning()
+        {
+            var par = document.getElementById("er");
+            if(par.innerHTML == '') par.innerHTML = 'this patient is now marked for autopsy';
+            else par.innerHTML = '';
+        }
+
+        </script>
+{%endblock%}

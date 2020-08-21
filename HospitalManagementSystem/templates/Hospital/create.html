@@ -1,0 +1,49 @@
+{% extends base_temp %}
+{% block title %}{{head}}{% endblock %}
+{%block content%}
+{%if head %}
+		<h2> {{head}} </h2>
+{% else %}
+		<h2> Create : {{object}} </h2>
+{% endif %}
+{%if error_msg%} 
+<div class="alert alert-warning">
+	<h5 class="alert-heading">
+		{{error_msg}}
+	</h5>
+</div>
+{%endif%}
+        <form enctype="multipart/form-data" method="POST">
+		{% csrf_token %}
+		{% for field in form%}
+		<p>
+		  {{ field.label_tag }}<br>
+		  {{ field }}
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+	  {% endfor %}
+			  <input type = "submit" value="submit" class="btn btn-primary" />
+ </form>
+ {%if dupes_found%}
+ <div class="alert-info">
+	 <input type="hidden" name="double_checked" value="YeS">
+	 <h5 class="alert-body">are you trying to duplicate any of the following? if not proceed to save else please back away</h5>
+ </div>
+ {%endif%}
+
+{%if existing_objects%}
+<h3>Created Earlier</h3>
+<ul>
+	{% for object in existing_objects%}
+	<li>
+		{{object}}
+	</li>
+	{%endfor%}
+</ul>
+{%endif%}
+{%endblock%}

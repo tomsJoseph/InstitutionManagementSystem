@@ -1,0 +1,61 @@
+{% extends base_temp %}
+{% block title %}{{head}}{% endblock %}
+{%block content%}
+<div class="row" style="margin-left: .5%;margin-right: .5%;background-color: rgb(93, 93, 97)">
+  <div class="col-lg-12" style="background-color: rgba(255, 255, 255, .7);">
+  <h2> {{head}} </h2>
+  </div>
+    {% if special_link%}
+    <div class="col-lg-6">
+    <a href="{% url special_link.0 %}" style="color:white;"><div>{{special_link.1}}</div></a>
+    </div>
+    {%endif%}
+    {% if special_link2%}
+    <div class="col-lg-6"  style="background-color: rgb(93, 93, 97);border-left: solid rgba(255, 255, 255, .7) 1px;">
+    <a href="{{special_link2.0}}" style="color: white;"><div>{{special_link2.1}}</div></a>
+    </div>
+    {%endif%}
+    </div>
+    
+  {%if info%}
+  <h6 class="centered_head alert-warning" style="padding: 1%;">
+    {{info}}
+  </h6>
+  {%endif%}
+{%if not object_list and not old_object_list%}<div class="card" style="height: 50px;text-align: center;"> <h5>nothing to show!</h5></div>{%endif%}
+<br/>
+<dl>
+  {% for object in object_list %}
+   {% if edit_url %}
+   <a href="{% url edit_url object.id %}" style="text-decoration: unset;color: black;" title="click for more options">
+    <dd class="card tom_list_item" style="height: 70px;">
+        {{object}}
+    </dd>
+  </a>
+  {%else%}
+  <dd class="card tom_list_item" style="height: 70px;">
+    {{object}}
+</dd>
+{%endif%}
+  {% endfor %}
+  </dl>
+<br/>
+{% if old_object_list%}
+<h2>{{head2}}</h2>
+{%endif%}
+<dl>
+  {% for object in old_object_list %}
+  {% if edit_url2 %}
+  <a href="{% url edit_url2 object.id %}" style="text-decoration: unset;color: black;" title="click for more options">
+   <dd class="card tom_list_item" style="height: 70px;">
+       {{object}}
+   </dd>
+ </a>
+ {%else%}
+ <dd class="card tom_list_item" style="height: 70px;">
+   {{object}}
+</dd>
+{%endif%}
+ {% endfor %}
+  </dl>
+{%endblock%}

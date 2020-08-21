@@ -1,0 +1,69 @@
+{% extends base_temp %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<h3 class="centered_head">the deceased</h3>
+</br></br>
+{%load static%}
+{%if doc%}
+<div class="row">
+    <div  class="col-lg-6">
+        <a href="{%url 'ReportFatality' %}">
+    <div style="width: 100%;height: 200px;background-image: url({% static 'images/rip5.jpg'%});background-size:cover;"  class="bord">
+        <br/><br/><br/><br/><br/>
+        <p style="font-size: 25px;color:black; background-color: rgba(255, 255, 255, .7);padding: 1%;">
+            prepare deceased report of  registered patient
+            </p>
+    </div>
+    </a>
+    </div>
+    <div  class="col-lg-6">
+        <a href="{%url 'ReportUnidentifiedFatality' 'patient_unknown' %}">
+    <div style="width: 100%;height: 200px;background-image: url({% static 'images/rip6.jpg'%});background-size:cover;"  class="bord">
+        <br/><br/><br/><br/><br/>
+        <p style="font-size: 25px;color:black; background-color: rgba(255, 255, 255, .7);padding: 1%;">
+            prepare deceased report of unidentified patient
+            </p>
+    </div>
+    </a>
+    </div>
+</div>
+{%endif%}
+<br/>
+<div class="row">
+    <div class="col-lg-6">
+        <a href="{%url 'AutopsyList'%}">
+            <div style="width: 100%;height: 200px;background-image: url({% static 'images/rip4.jpg'%});background-size:cover;"  class="bord">
+                <br/><br/><br/><br/><br/><br/>
+                <p style="font-size: 25px;color:black; background-color: rgba(255, 255, 255, .7);padding: 1%;">
+                    autopsies
+                    </p>
+            </div>
+            </a>
+    </div>
+    <div class="col-lg-6">
+        <a href="{%url 'MorgueList'%}">
+            <div style="width: 100%;height: 200px;background-image: url({% static 'images/rip4.jpg'%});background-size:cover;"  class="bord">
+                <br/><br/><br/><br/><br/><br/>
+                <p style="font-size: 25px;color:black; background-color: rgba(255, 255, 255, .7);padding: 1%;">
+                    morgue
+                    </p>
+            </div>
+            </a>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-lg-12">
+        <a href="{%url 'FatalityReportsList' %}">
+            <div style="width: 100%;height: 200px;background-image: url({% static 'images/rip3.jpg'%});background-size:cover;"  class="bord">
+            <br/><br/><br/><br/><br/><br/>
+            <p style="font-size: 25px;color:black; background-color: rgba(255, 255, 255, .7);padding: 1%;">
+                all deceased
+                </p>
+        </div>
+        </a>
+        </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'Hospital/SBase.html' %}
+{% block title %}{{head}}{% endblock %}
+{%block content%}
+<h2> {{head}} </h2>
+<br/>
+<dl>
+  {% for object in object_list %}
+    <dd class="card" style="height: 70px;">
+        {{object}} {% if edit_url %}<a href="{% url edit_url object.id %}">More</a>{%endif%}
+    </dd>
+  {% endfor %}
+  </dl>
+<br/>
+{% if old_object_list%}
+<h2>{{head2}}</h2>
+{%endif%}
+<dl>
+  {% for object in old_object_list %}
+    <dd class="card" style="height: 70px;">
+        {{object}} {% if edit_url2 %}<a href="{% url edit_url2 object.id %}">More</a>{%endif%}
+    </dd>
+  {% endfor %}
+  </dl>
+{%endblock%}

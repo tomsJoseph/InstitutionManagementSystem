@@ -1,0 +1,55 @@
+{% extends base_temp %}
+{%block content %}
+<h2>desciplinary action against {{object.person.app_user}}</h2>
+<br/>
+<div class="container">
+    <div class="{% if object.is_dismissal and not object.is_complete %} alert-danger{%elif object.is_complete%} alert-success {%else%} alert-warning {%endif%}" style="border: solid 1px white;;border-radius: 5px;text-indent: 1%;">
+    <h5 style="text-align: center;" title="full name">{{object.person.app_user.first_name}} {{object.person.app_user.last_name}}</h5>
+    <h5 style="text-align: center;" title="phone">ph : {{object.person.phone}}</h5>
+    <br/>
+    <address style="text-align: center;">
+        {{object.person.address}}
+    </address>
+    <hr>
+    <div>
+        <h4>action</h4>
+            {%if object.is_dismissal%}
+            <p> dismissed 
+            from {{object.start_date.date}}
+        </p>
+        {%else%}
+            <p> suspended 
+            from {{object.start_date.date}} to {{object.end_date.date}}
+        </p>
+ {%endif%}
+    <h5>reason  </h5>
+    <p style="word-break: break-all;">
+        {{object.reason}}
+</p>
+{%if editable%}
+<a href="{%url 'M_ChangeDisciplinaryAction' object.id%}" title="click to edit">
+   <button type="button"class="btn-warning btn-block" > edit </button>
+</a>
+{%endif%}
+<br>
+</div>
+
+    </div>
+    {%if editable or mark_completion%}
+    <br>
+    <div style="background-color: rgba(255, 255, 255, .6);" id="frm">
+        <br>
+        <p id="er">
+        </p>
+        <form method="POST">
+            {%csrf_token%}
+            {{form.as_p}}
+            *caution : marking completed would enable the staff to re-enter work
+            <br><br>
+            <input type="submit" value="submit" class="btn-primary btn-block">
+        </form>
+        <br>
+    </div>
+    {%endif%}
+</div>
+{%endblock%}
