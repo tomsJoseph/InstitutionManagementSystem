@@ -21,7 +21,7 @@ from django.views import static
 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', include('HospitalManagementSystem.urls')),
+    path('Hospital/', include('HospitalManagementSystem.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path("media/<path:path>", static.serve, {"document_root": settings.MEDIA_ROOT}),
     path('admin/', admin.site.urls),
