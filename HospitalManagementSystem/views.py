@@ -257,6 +257,14 @@ def signup(request):
                         appuser.qualifications.set(qs)
                         appuser.save()
                         Salary.objects.get_or_create(staff=appuser)
+
+                    else:
+                        user.delete()
+                        raise PermissionDenied
+                else:
+                    user.delete()
+                    raise PermissionDenied
+
                 return redirect("SelectPage")
 
         else:
