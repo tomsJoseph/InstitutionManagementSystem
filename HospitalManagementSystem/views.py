@@ -240,13 +240,13 @@ def signup(request):
                 form.save()
                 username = form.cleaned_data.get("username")
                 raw_password = form.cleaned_data.get("password1")
-                user = authenticate(username=username, password=raw_password)
-                login(request, user)
+#                user = authenticate(username=username, password=raw_password)
+#                login(request, user)
 
                 if sub_form.is_valid():
                     qs = sub_form.cleaned_data.get("qualifications")
                     del sub_form.cleaned_data["qualifications"]
-
+                    sub_form_addr.is_valid()
                     a += 6
                     if sub_form_addr.is_valid():
                         ad = sub_form_addr.save(commit=False)
