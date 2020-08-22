@@ -246,6 +246,8 @@ def signup(request):
                 if sub_form.is_valid():
                     qs = sub_form.cleaned_data.get("qualifications")
                     del sub_form.cleaned_data["qualifications"]
+
+                    a += 6
                     if sub_form_addr.is_valid():
                         ad = sub_form_addr.save(commit=False)
                         ad.save()
