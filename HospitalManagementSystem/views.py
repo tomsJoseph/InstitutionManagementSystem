@@ -530,7 +530,7 @@ def new_patient(request, hr):
                 return redirect("FindHealthRecords", patient=personal.pk)
 
             else:
-                return redirect(self.request.path_info)
+                return redirect(request.path_info)
 
         else:
             form = PatientPersonalRecordForm()
